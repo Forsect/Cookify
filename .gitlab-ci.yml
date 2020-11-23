@@ -4,7 +4,28 @@ cache:
   paths:
     - node_modules/
 
-pages:
+# Order of tasks
+stages:
+  - dockerize
+  - deploy
+
+# Register in your gitlab registry. The environment variables are set automatically, don't change anything.
+before_script:
+  - docker login -u gitlab-ci-token -p "$CI_BUILD_TOKEN" "$CI_REGISTRY"
+
+dockerize:
+  stage: dockerize
+  script:
+    - cd Cookify.API
+    # Make an image from the current folder and tag it with the registry name and tag you defined
+    - docker build -t $CONTAINER_GITLAB:$CONTAINER_TAG .
+    # Push to Gitlab
+    - docker push $CONTAINER_GITLAB:$CONTAINER_TAG
+  only:
+    - deploy
+
+# At this point, you could go to your repo "Registry" page on Gitlab and see your image
+deploy_to_heroku:
   stage: deploy
   script:
     - cd cookify_front

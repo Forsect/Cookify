@@ -36,7 +36,6 @@ dockerize:
     - deploy
 
 # At this point, you could go to your repo "Registry" page on Gitlab and see your image
-
 deploy_to_heroku:
   stage: deploy
   # On Your CI/CD page on Gitlab, under "Environment", you can add new ones with informations like these and get informations about this deploy task

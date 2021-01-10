@@ -1,0 +1,25 @@
+@import "../../index.css";
+
+.mainContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.checkbox {
+  width: 15px;
+  height: 15px;
+}
+
+.checkboxContainer {
+  display: flex;
+}
+
+.regulationsOfServiceText {
+  margin-left: 10px;
+  font-size: 12px;
+}
+
+.reCaptcha {
+  // height: 100px;
+}

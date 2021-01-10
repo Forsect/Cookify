@@ -1,0 +1,23 @@
+@import "../../../styles/index.scss";
+
+.inputBorder {
+  border: 1px solid $input-border-color;
+  box-sizing: border-box;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  border: none;
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: $primary-font-family;
+
+  &:focus {
+    outline: none;
+  }
+}

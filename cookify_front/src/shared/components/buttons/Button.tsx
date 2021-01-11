@@ -28,8 +28,8 @@ const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
     <div
       className={classNames(
         { [styles.buttonDisabled]: props.disabled },
-        buttonActiveClass,
-        props.className
+        props.className,
+        buttonActiveClass
       )}
       onClick={() => {
         if (props.disabled) {

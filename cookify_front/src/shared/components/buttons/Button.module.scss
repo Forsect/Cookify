@@ -1,0 +1,56 @@
+@import "../../../index.css";
+
+.buttonBase {
+  border-radius: 4px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.buttonBlueActive {
+  @extend .buttonBase;
+  background-color: $primary-color;
+  &:hover {
+    background-color: darken($color: $primary-color, $amount: 10);
+  }
+}
+
+.buttonGreenActive {
+  @extend .buttonBase;
+  background-color: $room-status-available-color;
+  &:hover {
+    background-color: darken($color: $room-status-available-color, $amount: 10);
+  }
+}
+
+.buttonRedActive {
+  @extend .buttonBase;
+  background-color: $close-button-color;
+  &:hover {
+    background-color: darken($color: $close-button-color, $amount: 10);
+  }
+}
+
+.buttonOrangeActive {
+  @extend .buttonBase;
+  background-color: $room-status-reservation-color;
+  &:hover {
+    background-color: darken(
+      $color: $room-status-reservation-color,
+      $amount: 10
+    );
+  }
+}
+
+.buttonDisabled {
+  opacity: 0.5;
+}
+
+.buttonText {
+  padding: 10px 0;
+  text-align: center;
+  font-family: $primary-font-family;
+  color: $white-color;
+  font-size: 16px;
+  font-weight: $weightSemi;
+}

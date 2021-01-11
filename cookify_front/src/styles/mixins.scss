@@ -1,0 +1,12 @@
+$mediumDeviceWidth: 768px !default;
+
+@mixin mediumDevice() {
+  @media (min-width: $mediumDeviceWidth) {
+    @content;
+  }
+}
+
+@mixin input-error-message() {
+  font: 400 12px/1 $primary-font-family;
+  color: $error-color;
+}

@@ -11,18 +11,76 @@ import captchaKey from "../../shared/constants/CaptchaKey";
 import Paper from "../../shared/components/papers/Paper";
 import Button from "../../shared/components/buttons/Button";
 import { ButtonVariant } from "../../shared/enums/ButtonVariant";
+import useAxios from "axios-hooks";
+import {
+  emailRegex,
+  bigCharRegex,
+  passwordRegex,
+  smallCharRegex,
+  specialCharOrDigitRegex,
+} from "../../shared/constants/Regex";
+import { BASE_API_URL, endpoints } from "../../shared/constants/Endpoints";
+import axios from "axios";
 
 const Register: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatedPassword, setRepeatedPassword] = useState("");
   const [isChecked, setChecked] = useState(false);
-  const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
+  const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
+  const [errors, setErrors] = useState<string>("");
+
+  const [{ data, loading, error }, executeRegister] = useAxios(
+    {
+      url: `${BASE_API_URL}${endpoints.client.REGISTER}`,
+      method: "POST",
+    },
+    { manual: true }
+  );
+
+  const formValidator = () => {
+    setErrors("");
+    if (!isChecked) {
+      setErrors(pl.registration.errors.regulationsOfServiceAccepted);
+    }
+    if (!email) {
+      setErrors(pl.registration.errors.emailRequired);
+    } else if (!emailRegex.test(email)) {
+      setErrors(pl.registration.errors.wrongEmail);
+    }
+
+    if (!password) {
+      setErrors(pl.registration.errors.passwordRequired);
+    } else {
+      if (password !== repeatedPassword) {
+        setErrors(pl.registration.errors.passwordsAreNotTheSame);
+      }
+      if (password.length < 8) {
+        setErrors(pl.registration.errors.validator.passwordLength);
+      }
+      if (!bigCharRegex.test(password)) {
+        setErrors(pl.registration.errors.validator.passwordBigChar);
+      }
+      if (!smallCharRegex.test(password)) {
+        setErrors(pl.registration.errors.validator.passwordSmallChar);
+      }
+      if (!specialCharOrDigitRegex.test(password)) {
+        setErrors(pl.registration.errors.validator.passwordSpecialChar);
+      }
+    }
+
+    if (errors) return false;
+    else return true;
+  };
+
   return (
     <div className={styles.mainContainer}>
       <Paper className={styles.paper}>
-        <CookifyLogo />
-        <Text text={pl.registration.registrationText} />
+        <CookifyLogo width={"150"} height={"150"} />
+        <Text
+          className={styles.header}
+          text={pl.registration.registrationText}
+        />
         <div className={styles.inputsContainer}>
           <TextInput
             borderClassName={styles.inputs}
@@ -31,10 +89,12 @@ const Register: React.FC = () => {
           />
           <PasswordInput
             additionalClassName={styles.inputs}
+            placeholder={pl.registration.inputs.password}
             onChange={(text) => setPassword(text.currentTarget.value)}
           />
           <PasswordInput
             additionalClassName={styles.inputs}
+            placeholder={pl.registration.inputs.repeatPassword}
             onChange={(text) => setRepeatedPassword(text.currentTarget.value)}
           />
 
@@ -62,9 +122,17 @@ const Register: React.FC = () => {
           variant={ButtonVariant.Blue}
           text={pl.registration.registerButton}
           onClick={() => {
-            /* jakis axios */
+            console.dir(password);
+            if (!formValidator()) return;
+            executeRegister({
+              data: {
+                Email: email,
+                Password: password,
+              },
+            }).catch(() => setErrors("Błąd serwera"));
           }}
         />
+        {errors}
       </Paper>
     </div>
   );

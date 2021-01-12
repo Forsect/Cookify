@@ -6,6 +6,7 @@
   justify-content: center;
   align-items: center;
   min-height: 100%;
+  background-color: rgba(0, 0, 0, 0.04);
 }
 
 .paper {
@@ -17,8 +18,16 @@
   align-items: center;
 }
 
+.header {
+  margin-top: 20px;
+  font-weight: $weightSemi;
+  font-size: 32px;
+  text-align: center;
+}
+
 .inputsContainer {
   width: 85%;
+  margin-top: 30px;
 }
 
 .inputs {
@@ -47,7 +56,8 @@
 
 .button {
   margin-top: 20px;
-  width: 50%;
+  width: 55%;
+  border-radius: 20px;
 }
 
 @include mediumDevice() {
@@ -66,5 +76,9 @@
 
   .button {
     width: 25%;
+  }
+
+  .inputsContainer {
+    margin-top: 10px;
   }
 }

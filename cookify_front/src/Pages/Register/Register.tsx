@@ -21,6 +21,7 @@ import {
 } from "../../shared/constants/Regex";
 import { BASE_API_URL, endpoints } from "../../shared/constants/Endpoints";
 import axios from "axios";
+import Error from "../../shared/components/custom/Error";
 
 const Register: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -76,63 +77,73 @@ const Register: React.FC = () => {
   return (
     <div className={styles.mainContainer}>
       <Paper className={styles.paper}>
-        <CookifyLogo width={"150"} height={"150"} />
-        <Text
-          className={styles.header}
-          text={pl.registration.registrationText}
-        />
-        <div className={styles.inputsContainer}>
-          <TextInput
-            borderClassName={styles.inputs}
-            placeholder={pl.registration.inputs.email}
-            onChange={(text) => setEmail(text.currentTarget.value)}
+        {errors ? (
+          <Error borderClassName={styles.errorContainer} text={errors} />
+        ) : (
+          <Error borderClassName={styles.errorContainerHidden} text={""} />
+        )}
+        <div className={styles.bottomContainer}>
+          <CookifyLogo
+            className={styles.cookifyLogo}
+            width={"150"}
+            height={"150"}
           />
-          <PasswordInput
-            additionalClassName={styles.inputs}
-            placeholder={pl.registration.inputs.password}
-            onChange={(text) => setPassword(text.currentTarget.value)}
+          <Text
+            className={styles.header}
+            text={pl.registration.registrationText}
           />
-          <PasswordInput
-            additionalClassName={styles.inputs}
-            placeholder={pl.registration.inputs.repeatPassword}
-            onChange={(text) => setRepeatedPassword(text.currentTarget.value)}
-          />
-
-          <div className={styles.checkboxContainer}>
-            <Checkbox
-              checked={isChecked}
-              sizeClass={styles.checkbox}
-              onCheckedChanged={() => setChecked(!isChecked)}
+          <div className={styles.inputsContainer}>
+            <TextInput
+              borderClassName={styles.inputs}
+              placeholder={pl.registration.inputs.email}
+              onChange={(text) => setEmail(text.currentTarget.value)}
             />
-            <Text
-              className={styles.regulationsOfServiceText}
-              text={pl.registration.regulationsOfService}
+            <PasswordInput
+              additionalClassName={styles.inputs}
+              placeholder={pl.registration.inputs.password}
+              onChange={(text) => setPassword(text.currentTarget.value)}
+            />
+            <PasswordInput
+              additionalClassName={styles.inputs}
+              placeholder={pl.registration.inputs.repeatPassword}
+              onChange={(text) => setRepeatedPassword(text.currentTarget.value)}
+            />
+
+            <div className={styles.checkboxContainer}>
+              <Checkbox
+                checked={isChecked}
+                sizeClass={styles.checkbox}
+                onCheckedChanged={() => setChecked(!isChecked)}
+              />
+              <Text
+                className={styles.regulationsOfServiceText}
+                text={pl.registration.regulationsOfService}
+              />
+            </div>
+          </div>
+          <div className={styles.reCaptcha}>
+            <ReCAPTCHA
+              sitekey={captchaKey}
+              onChange={() => setButtonDisabled(false)}
             />
           </div>
-        </div>
-        <div className={styles.reCaptcha}>
-          <ReCAPTCHA
-            sitekey={captchaKey}
-            onChange={() => setButtonDisabled(false)}
+          <Button
+            disabled={buttonDisabled}
+            className={styles.button}
+            variant={ButtonVariant.Blue}
+            text={pl.registration.registerButton}
+            onClick={() => {
+              console.dir(password);
+              if (!formValidator()) return;
+              executeRegister({
+                data: {
+                  Email: email,
+                  Password: password,
+                },
+              }).catch(() => setErrors("Błąd serwera!"));
+            }}
           />
         </div>
-        <Button
-          disabled={buttonDisabled}
-          className={styles.button}
-          variant={ButtonVariant.Blue}
-          text={pl.registration.registerButton}
-          onClick={() => {
-            console.dir(password);
-            if (!formValidator()) return;
-            executeRegister({
-              data: {
-                Email: email,
-                Password: password,
-              },
-            }).catch(() => setErrors("Błąd serwera"));
-          }}
-        />
-        {errors}
       </Paper>
     </div>
   );

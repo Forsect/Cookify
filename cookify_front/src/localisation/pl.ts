@@ -23,6 +23,23 @@ const pl = {
       },
     },
   },
+  login: {
+    loginText: "Logowanie",
+    inputs: {
+      email: "Email",
+      password: "Hasło",
+    },
+    forgotPasswordText: "Zapomiałeś hasła?",
+    buttons: {
+      login: "Zaloguj się",
+      register: "Rejestracja",
+    },
+    errors: {
+      emailRequired: "Adres email jest wymagany!",
+      passwordRequired: "Hasło jest wymagane!",
+      wrongEmail: "Błędny adres email!",
+    },
+  },
 };
 
 export default pl;

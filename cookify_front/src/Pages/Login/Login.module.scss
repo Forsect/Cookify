@@ -37,10 +37,6 @@
   visibility: hidden;
 }
 
-.cookifyLogo {
-  // margin-top: 10px;
-}
-
 .header {
   margin-top: 20px;
   font-weight: $weightSemi;
@@ -66,21 +62,22 @@
 .checkboxContainer {
   display: flex;
   margin-top: 10px;
-}
-
-.regulationsOfServiceText {
-  margin-left: 10px;
-  font-size: 12px;
-}
-
-.reCaptcha {
-  margin-top: 20px;
+  justify-content: flex-end;
 }
 
 .button {
   margin-top: 20px;
   width: 55%;
   border-radius: 20px;
+}
+
+.loginButton {
+  @extend .button;
+}
+
+.registerButton {
+  @extend .button;
+  margin-top: 100px;
 }
 
 @include mediumDevice() {
@@ -107,5 +104,9 @@
 
   .errorContainer {
     position: relative;
+  }
+
+  .registerButton {
+    margin-top: 70px;
   }
 }

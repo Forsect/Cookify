@@ -3,6 +3,7 @@ import * as React from "react";
 interface CookifyLogoProps {
   width: string;
   height: string;
+  className?: string;
 }
 
 function CookifyLogo(props: CookifyLogoProps) {

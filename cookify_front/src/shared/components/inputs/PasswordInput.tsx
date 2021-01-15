@@ -7,6 +7,7 @@ import styles from "./PasswordInput.module.scss";
 interface PasswordInputProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   additionalClassName?: string;
+  placeholder?: string;
 }
 
 const PasswordInput: React.FC<PasswordInputProps> = (
@@ -20,6 +21,7 @@ const PasswordInput: React.FC<PasswordInputProps> = (
         className={styles.input}
         type={passwordVisible ? "text" : "password"}
         onChange={props.onChange}
+        placeholder={props.placeholder ? props.placeholder : undefined}
       />
       {passwordVisible ? (
         <EyeOffIcon

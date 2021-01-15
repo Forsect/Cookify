@@ -11,9 +11,9 @@ interface TextInputProps {
 
 const TextInput: React.FC<TextInputProps> = (props: TextInputProps) => {
   return (
-    <div className={classNames(styles.inputBorder, props.borderClassName)}>
+    <div className={classNames(props.borderClassName, styles.inputBorder)}>
       <input
-        className={classNames(styles.input, props.inputClassName)}
+        className={classNames(props.inputClassName, styles.input)}
         type="text"
         onChange={props.onChange}
         placeholder={props.placeholder ? props.placeholder : undefined}

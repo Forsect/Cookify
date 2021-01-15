@@ -1,7 +1,6 @@
-@import "../../../index.css";
+@import "../../../styles/index.scss";
 
 .buttonBase {
-  border-radius: 4px;
   &:hover {
     cursor: pointer;
   }
@@ -20,25 +19,6 @@
   background-color: $room-status-available-color;
   &:hover {
     background-color: darken($color: $room-status-available-color, $amount: 10);
-  }
-}
-
-.buttonRedActive {
-  @extend .buttonBase;
-  background-color: $close-button-color;
-  &:hover {
-    background-color: darken($color: $close-button-color, $amount: 10);
-  }
-}
-
-.buttonOrangeActive {
-  @extend .buttonBase;
-  background-color: $room-status-reservation-color;
-  &:hover {
-    background-color: darken(
-      $color: $room-status-reservation-color,
-      $amount: 10
-    );
   }
 }
 

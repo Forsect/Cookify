@@ -1,5 +1,8 @@
 ﻿using Cookify.API.Models.Common;
+using Cookify.API.Models.Enums;
+using Cookify.API.Models.Repository;
 using Cookify.API.Models.Requests;
+using Cookify.API.Models.Results;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +12,8 @@ namespace Cookify.API.Services.Users
 {
     public interface IUserService
     {
-        ServiceResponse AddUser(AddUserRequest request);
+        ServiceResponse<AddUserResultEnum> AddUser(AddUserRequest request);
+        ServiceResponse<GetUserAccountStatusResult> GetUserAccountStatus(string login, string password);
+        User GetUser(string id);
     }
 }

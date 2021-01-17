@@ -4,6 +4,7 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Cookify.API.Repositories.Users
@@ -22,7 +23,13 @@ namespace Cookify.API.Repositories.Users
 
         public void Create(User user) => _users.InsertOne(user);
 
+        public List<User> GetAllWhere(Expression<Func<User, bool>> predicate)
+            => _users.Find(predicate).ToList();
+
         public User GetById(string id) =>
             _users.Find(user => user.Id == id).FirstOrDefault();
+        public User GetWhere(Expression<Func<User, bool>> predicate)
+            => _users.Find(predicate)?.FirstOrDefault();
+
     }
 }

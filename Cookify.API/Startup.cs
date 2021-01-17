@@ -58,6 +58,12 @@ namespace Cookify.API
 
         private void RegisterSettings(ref IServiceCollection services)
         {
+            services.Configure<JwtTokenSettings>(
+                Configuration.GetSection(nameof(JwtTokenSettings)));
+
+            services.AddSingleton<IJwtTokenSettings>(sp =>
+                sp.GetRequiredService<IOptions<JwtTokenSettings>>().Value);
+
             services.Configure<CookifyDatabaseSettings>(
                 Configuration.GetSection(nameof(CookifyDatabaseSettings)));
 

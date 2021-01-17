@@ -34,9 +34,10 @@ namespace Cookify.API.Controllers
                 return BadRequest();
             }
 
+
             var result =  _usersService.AddUser(request);
 
-            return result.IsSuccess ? Ok() : StatusCode(StatusCodes.Status500InternalServerError);
+            return result.IsSuccess ? Ok(result.Data) : StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 }

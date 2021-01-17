@@ -1,0 +1,21 @@
+@import "../../../styles/index.scss";
+
+.navBar {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  background-color: blue;
+  display: flex;
+  justify-content: center;
+  height: 50px;
+  align-items: center;
+}
+
+.mainContainer {
+  font-size: 20px;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 90%;
+}

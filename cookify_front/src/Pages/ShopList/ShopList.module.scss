@@ -1,0 +1,42 @@
+@import "../../styles/index.scss";
+
+.mainContainer {
+  min-height: 100vh;
+}
+
+.listContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.shareButton {
+  margin-top: 5px;
+  margin-right: 5px;
+  align-self: flex-end;
+  width: 120px;
+  background-color: white;
+  border-radius: 20px;
+  border: 2px solid;
+}
+
+.addItemButton {
+  width: 60%;
+  border-radius: 20px;
+  align-self: center;
+}
+
+@include mediumDevice() {
+  .mainContainer {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+  }
+  .test {
+    width: 500px;
+    height: 800px;
+    max-height: 800px;
+  }
+}

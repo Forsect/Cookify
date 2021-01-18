@@ -11,7 +11,7 @@ import { CAPTCHA_KEY } from "../../shared/constants/Constants";
 import Paper from "../../shared/components/papers/Paper";
 import Button from "../../shared/components/buttons/Button";
 import { ButtonVariant } from "../../shared/enums/ButtonVariant";
-import { emailRegex, bigCharRegex, passwordRegex, smallCharRegex, specialCharOrDigitRegex } from "../../shared/constants/Regex";
+import { emailRegex, bigCharRegex, smallCharRegex, specialCharOrDigitRegex } from "../../shared/constants/Regex";
 import Error from "../../shared/components/custom/Error";
 
 const Register: React.FC = () => {

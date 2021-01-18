@@ -14,14 +14,6 @@
   }
 }
 
-.buttonGreenActive {
-  @extend .buttonBase;
-  background-color: $room-status-available-color;
-  &:hover {
-    background-color: darken($color: $room-status-available-color, $amount: 10);
-  }
-}
-
 .buttonDisabled {
   opacity: 0.5;
 }

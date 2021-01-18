@@ -17,6 +17,7 @@ using Cookify.API.Models.Settings;
 using Microsoft.Extensions.Options;
 using Cookify.API.Repositories.Users;
 using Cookify.API.Services.Users;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Cookify.API
 {
@@ -35,6 +36,11 @@ namespace Cookify.API
             RegisterSettings(ref services);
             RegisterServices(ref services);
             RegisterRepositories(ref services);
+
+            services.AddHttpContextAccessor();
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => options.Cookie.SameSite = SameSiteMode.None);
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -102,6 +108,7 @@ namespace Cookify.API
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -42,60 +42,58 @@ const Login: React.FC = observer(() => {
   };
 
   return (
-    <div className={styles.mainContainer}>
-      <Paper className={styles.paper}>
-        {errors ? (
-          <Error borderClassName={styles.errorContainer} text={errors} />
-        ) : (
-          <Error borderClassName={styles.errorContainerHidden} text={""} />
-        )}
-        <div className={styles.bottomContainer}>
-          <CookifyLogo className={styles.cookifyLogo} width={"150"} height={"150"} />
-          <Text className={styles.header} text={pl.login.loginText} />
-          <div className={styles.inputsContainer}>
-            <TextInput
-              borderClassName={styles.inputs}
-              placeholder={pl.registration.inputs.email}
-              onChange={(text) => setEmail(text.currentTarget.value)}
-            />
-            <PasswordInput
-              additionalClassName={styles.inputs}
-              placeholder={pl.registration.inputs.password}
-              onChange={(text) => setPassword(text.currentTarget.value)}
-            />
+    <>
+      {errors ? (
+        <Error borderClassName={styles.errorContainer} text={errors} />
+      ) : (
+        <Error borderClassName={styles.errorContainerHidden} text={""} />
+      )}
+      <div className={styles.bottomContainer}>
+        <CookifyLogo className={styles.cookifyLogo} width={"150"} height={"150"} />
+        <Text className={styles.header} text={pl.login.loginText} />
+        <div className={styles.inputsContainer}>
+          <TextInput
+            borderClassName={styles.inputs}
+            placeholder={pl.registration.inputs.email}
+            onChange={(text) => setEmail(text.currentTarget.value)}
+          />
+          <PasswordInput
+            additionalClassName={styles.inputs}
+            placeholder={pl.registration.inputs.password}
+            onChange={(text) => setPassword(text.currentTarget.value)}
+          />
 
-            <div className={styles.checkboxContainer}>
-              <Text className={styles.forgotPasswordText} text={pl.login.forgotPasswordText} />
-            </div>
+          <div className={styles.checkboxContainer}>
+            <Text className={styles.forgotPasswordText} text={pl.login.forgotPasswordText} />
           </div>
-          <Button
-            className={styles.loginButton}
-            variant={ButtonVariant.Blue}
-            text={pl.login.buttons.login}
-            onClick={async () => {
-              console.dir(password);
-              if (!formValidator()) return;
-              const result = await userStore.authorizeUser(email, password);
-
-              if (result.succeeded) {
-                alert("Zalogowano");
-              } else {
-                alert("Błąd logowania");
-              }
-            }}
-          />
-
-          <Button
-            className={styles.registerButton}
-            variant={ButtonVariant.Blue}
-            text={pl.login.buttons.register}
-            onClick={() => {
-              history.push(Navigation.Register);
-            }}
-          />
         </div>
-      </Paper>
-    </div>
+        <Button
+          className={styles.loginButton}
+          variant={ButtonVariant.Blue}
+          text={pl.login.buttons.login}
+          onClick={async () => {
+            console.dir(password);
+            if (!formValidator()) return;
+            const result = await userStore.authorizeUser(email, password);
+
+            if (result.succeeded) {
+              alert("Zalogowano");
+            } else {
+              alert("Błąd logowania");
+            }
+          }}
+        />
+
+        <Button
+          className={styles.registerButton}
+          variant={ButtonVariant.Blue}
+          text={pl.login.buttons.register}
+          onClick={() => {
+            history.push(Navigation.Register);
+          }}
+        />
+      </div>
+    </>
   );
 });
 

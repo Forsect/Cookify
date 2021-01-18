@@ -8,7 +8,6 @@ import TextInput from "../../shared/components/inputs/TextInput";
 import PasswordInput from "../../shared/components/inputs/PasswordInput";
 import Checkbox from "../../shared/components/checkboxes/Checkbox";
 import { CAPTCHA_KEY } from "../../shared/constants/Constants";
-import Paper from "../../shared/components/papers/Paper";
 import Button from "../../shared/components/buttons/Button";
 import { ButtonVariant } from "../../shared/enums/ButtonVariant";
 import { emailRegex, bigCharRegex, smallCharRegex, specialCharOrDigitRegex } from "../../shared/constants/Regex";

@@ -1,6 +1,6 @@
 @import "../../styles/index.scss";
 
-.bottomContainer {
+.container {
   width: 100%;
   height: 100%;
   display: flex;
@@ -10,14 +10,6 @@
 }
 
 .errorContainer {
-  height: 30px;
-  position: fixed;
-  top: 0;
-}
-
-.errorContainerHidden {
-  @extend .errorContainer;
-  visibility: hidden;
 }
 
 .header {
@@ -50,7 +42,7 @@
 
 .button {
   margin-top: 20px;
-  width: 55%;
+  width: 85%;
   border-radius: 20px;
 }
 
@@ -69,7 +61,7 @@
   }
 
   .button {
-    width: 25%;
+    width: 40%;
   }
 
   .inputsContainer {

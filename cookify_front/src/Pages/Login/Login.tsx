@@ -12,8 +12,11 @@ import { emailRegex } from "../../shared/constants/Regex";
 import Error from "../../shared/components/custom/Error";
 import { Navigation } from "../../shared/enums/Navigation";
 import { useHistory } from "react-router-dom";
+import { observer } from "mobx-react-lite";
+import { useStore } from "../../shared/stores/Store";
 
-const Login: React.FC = () => {
+const Login: React.FC = observer(() => {
+  const { userStore } = useStore();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<string>("");
@@ -21,16 +24,20 @@ const Login: React.FC = () => {
   const history = useHistory();
 
   const formValidator = () => {
+    let error: string = "";
+
     setErrors("");
     if (!email) {
-      setErrors(pl.login.errors.emailRequired);
+      error = pl.login.errors.emailRequired;
     } else if (!emailRegex.test(email)) {
-      setErrors(pl.login.errors.wrongEmail);
+      error = pl.login.errors.wrongEmail;
+    } else if (!password) {
+      error = pl.login.errors.passwordRequired;
     }
-    if (!password) {
-      setErrors(pl.login.errors.passwordRequired);
-    }
-    if (errors) return false;
+
+    setErrors(error);
+
+    if (error) return false;
     else return true;
   };
 
@@ -65,10 +72,16 @@ const Login: React.FC = () => {
             className={styles.loginButton}
             variant={ButtonVariant.Blue}
             text={pl.login.buttons.login}
-            onClick={() => {
+            onClick={async () => {
               console.dir(password);
               if (!formValidator()) return;
-              alert("Zalogowano"); // AXIOS POST
+              const result = await userStore.authorizeUser(email, password);
+
+              if (result.succeeded) {
+                alert("Zalogowano");
+              } else {
+                alert("Błąd logowania");
+              }
             }}
           />
 
@@ -84,6 +97,6 @@ const Login: React.FC = () => {
       </Paper>
     </div>
   );
-};
+});
 
 export default Login;

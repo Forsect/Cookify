@@ -39,6 +39,8 @@ class UserStore {
       this.currentUser = jwtDecode(token) as User;
 
       return { status: AccountStatusEnum.Valid, succeeded: true };
+    } catch {
+      return { status: null, succeeded: false };
     } finally {
       this.isLoading = false;
     }

@@ -1,10 +1,10 @@
-import { LoginRequest } from "./../models/LoginRequest";
+import { LoginRequest } from "../../models/LoginRequest";
 import { AxiosPromise } from "axios";
-import { AccountStatusEnum } from "../../shared/enums/AccountStatusEnum";
-import { post, get } from "./../BaseApi";
-import { BASE_API_URL } from "./../../shared/constants/Constants";
+import { AccountStatusEnum } from "../../enums/AccountStatusEnum";
+import { post, get } from "../BaseApi";
+import { BASE_API_URL } from "../../constants/Constants";
 
-export interface AuthService {
+interface AuthService {
   getAccountStatus(request: LoginRequest): AxiosPromise<AccountStatusEnum>;
   getJwtToken(): AxiosPromise<string>;
 }
@@ -20,3 +20,5 @@ export class DefaultAuthService implements AuthService {
     return get<string>(BASE_API_URL + this.getJwtTokenUrl);
   }
 }
+
+export default new DefaultAuthService();

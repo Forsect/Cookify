@@ -1,22 +1,5 @@
 @import "../../styles/index.scss";
 
-.mainContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100%;
-  background-color: rgba(0, 0, 0, 0.04);
-}
-
-.paper {
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .bottomContainer {
   width: 100%;
   height: 100%;
@@ -81,15 +64,6 @@
 }
 
 @include mediumDevice() {
-  .mainContainer {
-    min-height: 100vh;
-  }
-
-  .paper {
-    width: 800px;
-    height: 600px;
-  }
-
   .inputsContainer {
     width: 40%;
   }

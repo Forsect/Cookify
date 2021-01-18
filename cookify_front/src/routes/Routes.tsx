@@ -5,14 +5,21 @@ import PrivateRoute from "./PrivateRoute";
 import Register from "../Pages/Register/Register";
 import Login from "../Pages/Login/Login";
 import Home from "../Pages/Home/Home";
+import Paper from "../shared/components/papers/Paper";
+import styles from "./Routes.module.scss";
 
 const Routes = () => {
   return (
-    <Switch>
-      <PrivateRoute exact path={Navigation.Home} component={Home} />
-      <Route path={Navigation.Login} component={Login} />
-      <Route path={Navigation.Register} component={Register} />
-    </Switch>
+    <div className={styles.mainContainer}>
+      <Paper className={styles.paper}>
+        <Switch>
+          <PrivateRoute exact path={Navigation.Home} component={Home} />
+          <Route path={Navigation.Login} component={Login} />
+          <Route path={Navigation.Register} component={Register} />
+          {/* <Route path={Navigation.Home} component={} /> */}
+        </Switch>
+      </Paper>
+    </div>
   );
 };
 

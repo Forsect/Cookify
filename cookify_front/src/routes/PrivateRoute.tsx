@@ -6,10 +6,12 @@ import { refreshToken } from "./../shared/api/AuthProvider";
 
 interface PrivateRouteProps {
   path: string;
-  component: any;
+  component: React.FC<{}>;
+  //XD -> https://github.com/ReactTraining/react-router/blob/master/packages/react-router/modules/matchPath.js
+  exact?: boolean;
 }
 
-const PrivateRoute: React.FC<PrivateRouteProps> = ({ path, component }: PrivateRouteProps) => {
+const PrivateRoute: React.FC<PrivateRouteProps> = (props: PrivateRouteProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState<null | boolean>(null);
 
   const getIsAuthenticated = useCallback(async () => {
@@ -30,7 +32,7 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ path, component }: PrivateR
     return <></>;
   }
 
-  return isAuthenticated ? <Route path={path} render={() => React.createElement(component)} /> : <Redirect to={Navigation.Login} />;
+  return isAuthenticated ? <Route path={props.path} component={props.component} /> : <Redirect to={Navigation.Login} />;
 };
 
 export default PrivateRoute;

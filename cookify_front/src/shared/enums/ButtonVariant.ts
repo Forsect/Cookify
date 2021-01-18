@@ -1,4 +1,4 @@
 export enum ButtonVariant {
   Blue = 1,
-  Green = 2,
+  Orange = 2,
 }

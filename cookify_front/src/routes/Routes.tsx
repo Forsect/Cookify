@@ -7,6 +7,7 @@ import Login from "../Pages/Login/Login";
 import Home from "../Pages/Home/Home";
 import Paper from "../shared/components/papers/Paper";
 import styles from "./Routes.module.scss";
+import UnknownPage from "./../Pages/UnknownPage/UnknownPage";
 
 const Routes = () => {
   return (
@@ -16,7 +17,7 @@ const Routes = () => {
           <PrivateRoute exact path={Navigation.Home} component={Home} />
           <Route path={Navigation.Login} component={Login} />
           <Route path={Navigation.Register} component={Register} />
-          {/* <Route path={Navigation.Home} component={} /> */}
+          <Route path={Navigation.Home} component={UnknownPage} />
         </Switch>
       </Paper>
     </div>

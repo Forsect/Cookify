@@ -1,6 +1,7 @@
 @import "../../../styles/index.scss";
 
 .buttonBase {
+  border-radius: 12px;
   &:hover {
     cursor: pointer;
   }
@@ -11,6 +12,14 @@
   background-color: $primary-color;
   &:hover {
     background-color: darken($color: $primary-color, $amount: 10);
+  }
+}
+
+.buttonOrangeActive {
+  @extend .buttonBase;
+  background-color: $complementary-color;
+  &:hover {
+    background-color: darken($color: $complementary-color, $amount: 10);
   }
 }
 

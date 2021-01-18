@@ -36,8 +36,15 @@ const pl = {
     errors: {
       emailRequired: "Adres email jest wymagany!",
       passwordRequired: "Hasło jest wymagane!",
-      wrongEmail: "Błędny adres email!",
+      wrongEmail: "Nieprawidłowy adres email!",
+      invalidLoginOrPassword: "Nieprawidłowy adres email lub hasło!",
+      unknownError: "Wystąpił nieznany błąd, spróbuj ponownie później.",
+      inactiveAccount: "Twoje konto jest nieaktywne. Skontaktuj się z administratorem w celu jego odblokowania",
     },
+  },
+  unknownPage: {
+    main: "Strona, którą próbujesz się dostać nie istnieje!",
+    button: "Wróć na stronę główną",
   },
 };
 

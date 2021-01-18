@@ -5,28 +5,29 @@ import styles from "./Login.module.scss";
 import pl from "../../localisation/pl";
 import TextInput from "../../shared/components/inputs/TextInput";
 import PasswordInput from "../../shared/components/inputs/PasswordInput";
-import Paper from "../../shared/components/papers/Paper";
 import Button from "../../shared/components/buttons/Button";
 import { ButtonVariant } from "../../shared/enums/ButtonVariant";
 import { emailRegex } from "../../shared/constants/Regex";
-import Error from "../../shared/components/custom/Error";
 import { Navigation } from "../../shared/enums/Navigation";
 import { useHistory } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../shared/stores/Store";
+import InfoBar from "../../shared/components/custom/InfoBar";
+import { InfoBarVariant } from "../../shared/enums/InfoBarVariant";
+import { AccountStatusEnum } from "../../shared/enums/AccountStatusEnum";
 
 const Login: React.FC = observer(() => {
   const { userStore } = useStore();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState<string>("");
+  const [errorText, setErrorText] = useState<string>("");
 
   const history = useHistory();
 
   const formValidator = () => {
     let error: string = "";
 
-    setErrors("");
+    setErrorText("");
     if (!email) {
       error = pl.login.errors.emailRequired;
     } else if (!emailRegex.test(email)) {
@@ -35,20 +36,30 @@ const Login: React.FC = observer(() => {
       error = pl.login.errors.passwordRequired;
     }
 
-    setErrors(error);
+    setErrorText(error);
 
     if (error) return false;
     else return true;
   };
 
+  const mapErrorToMessage = (status: AccountStatusEnum | null) => {
+    switch (status) {
+      case AccountStatusEnum.InvalidLoginOrPassword:
+        return pl.login.errors.invalidLoginOrPassword;
+      case AccountStatusEnum.InactiveAccount:
+        return pl.login.errors.inactiveAccount;
+      default:
+        return pl.login.errors.unknownError;
+    }
+  };
+
   return (
     <>
-      {errors ? (
-        <Error borderClassName={styles.errorContainer} text={errors} />
-      ) : (
-        <Error borderClassName={styles.errorContainerHidden} text={""} />
-      )}
-      <div className={styles.bottomContainer}>
+      <div className={styles.errorContainer}>
+        {errorText && <InfoBar variant={InfoBarVariant.Red} text={errorText} onClose={() => setErrorText("")} />}
+      </div>
+
+      <div className={styles.container}>
         <CookifyLogo className={styles.cookifyLogo} width={"150"} height={"150"} />
         <Text className={styles.header} text={pl.login.loginText} />
         <div className={styles.inputsContainer}>
@@ -79,14 +90,14 @@ const Login: React.FC = observer(() => {
             if (result.succeeded) {
               alert("Zalogowano");
             } else {
-              alert("Błąd logowania");
+              setErrorText(mapErrorToMessage(result.status));
             }
           }}
         />
 
         <Button
           className={styles.registerButton}
-          variant={ButtonVariant.Blue}
+          variant={ButtonVariant.Orange}
           text={pl.login.buttons.register}
           onClick={() => {
             history.push(Navigation.Register);

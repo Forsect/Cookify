@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import { Route } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import { Navigation } from "../shared/enums/Navigation";
+import { refreshToken } from "./../shared/api/AuthProvider";
 
 interface PrivateRouteProps {
   path: string;
@@ -11,9 +12,19 @@ interface PrivateRouteProps {
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ path, component }: PrivateRouteProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState<null | boolean>(null);
 
-  useEffect(() => {
-    localStorage.getItem("JWT") ? setIsAuthenticated(true) : setIsAuthenticated(false);
+  const getIsAuthenticated = useCallback(async () => {
+    const jwtToken = await refreshToken();
+
+    if (jwtToken) {
+      setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false);
+    }
   }, []);
+
+  useEffect(() => {
+    getIsAuthenticated();
+  }, [getIsAuthenticated]);
 
   if (isAuthenticated === null) {
     return <></>;

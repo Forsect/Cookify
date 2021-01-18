@@ -9,10 +9,9 @@ import Home from "../Pages/Home/Home";
 const Routes = () => {
   return (
     <Switch>
-      {/* <PrivateRoute path={Navigation.Home} component={() => ""} /> */}
-      <Route exact path={Navigation.Home} component={Home} />
       <Route path={Navigation.Login} component={Login} />
       <Route path={Navigation.Register} component={Register} />
+      <PrivateRoute path={Navigation.Home} component={Home} />
     </Switch>
   );
 };

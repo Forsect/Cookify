@@ -1,6 +1,9 @@
-﻿using Cookify.API.Models.Common;
+﻿using Cookify.API.Models;
+using Cookify.API.Models.Common;
+using Cookify.API.Models.Enums;
 using Cookify.API.Models.Repository;
 using Cookify.API.Models.Requests;
+using Cookify.API.Models.Results;
 using Cookify.API.Repositories.Users;
 using Microsoft.Extensions.Logging;
 using System;
@@ -22,23 +25,84 @@ namespace Cookify.API.Services.Users
         }
 
 
-        public ServiceResponse AddUser(AddUserRequest request)
+        public ServiceResponse<AddUserResultEnum> AddUser(AddUserRequest request)
         {
             try
             {
+                var usersList = _userRepository.GetAllWhere(x => x.Login == request.Login);
+
+                if (usersList == null)
+                {
+                    return ServiceResponse<AddUserResultEnum>.Failed();
+                }
+                else if (usersList.Any())
+                {
+                    return ServiceResponse<AddUserResultEnum>.Succeeded(AddUserResultEnum.LoginIsTaken);
+                }
+
+
                 _userRepository.Create(new User
                 {
-                    Email = request.Email,
+                    Login = request.Login,
                     Password = BCrypt.Net.BCrypt.HashPassword(request.Password),
+                    IsActive = true
                 });
 
-                return ServiceResponse.Succeeded();
+                return ServiceResponse<AddUserResultEnum>.Succeeded(AddUserResultEnum.UserCreated);
             }
             catch (Exception ex)
             {
                 _logger.LogCritical(ex.ToString());
-                return ServiceResponse.Failed();
+                return ServiceResponse<AddUserResultEnum>.Failed();
             }
+        }
+
+        public User GetUser(string id)
+        {
+            try
+            {
+                return _userRepository.GetWhere(x => x.Id == id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogCritical(ex.ToString());
+                return null;
+            }
+        }
+
+        public ServiceResponse<GetUserAccountStatusResult> GetUserAccountStatus(string login, string password)
+        {
+            try
+            {
+                var usersList = _userRepository.GetAllWhere(x => x.Login == login);
+
+                if (usersList == null || !usersList.Any())
+                {
+                    return ServiceResponse<GetUserAccountStatusResult>.Succeeded(new GetUserAccountStatusResult { AccountStatus = AccountStatusEnum.InvalidLoginOrPassword });
+                }
+
+                var user = usersList.FirstOrDefault(x => BCrypt.Net.BCrypt.Verify(password, x.Password));
+
+                if (user == null)
+                {
+                    return ServiceResponse<GetUserAccountStatusResult>.Succeeded(new GetUserAccountStatusResult { AccountStatus = AccountStatusEnum.InvalidLoginOrPassword });
+                }
+
+                return ServiceResponse<GetUserAccountStatusResult>.Succeeded(new GetUserAccountStatusResult
+                {
+                    AccountStatus = user.IsActive
+                        ? AccountStatusEnum.Valid
+                        : AccountStatusEnum.InactiveAccount,
+                    UserId = user.Id
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogCritical(ex.ToString());
+                return ServiceResponse<GetUserAccountStatusResult>.Failed();
+            }
+
+           
         }
     }
 }

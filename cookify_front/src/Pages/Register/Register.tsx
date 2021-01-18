@@ -7,20 +7,11 @@ import ReCAPTCHA from "react-google-recaptcha";
 import TextInput from "../../shared/components/inputs/TextInput";
 import PasswordInput from "../../shared/components/inputs/PasswordInput";
 import Checkbox from "../../shared/components/checkboxes/Checkbox";
-import captchaKey from "../../shared/constants/CaptchaKey";
+import { CAPTCHA_KEY } from "../../shared/constants/Constants";
 import Paper from "../../shared/components/papers/Paper";
 import Button from "../../shared/components/buttons/Button";
 import { ButtonVariant } from "../../shared/enums/ButtonVariant";
-import useAxios from "axios-hooks";
-import {
-  emailRegex,
-  bigCharRegex,
-  passwordRegex,
-  smallCharRegex,
-  specialCharOrDigitRegex,
-} from "../../shared/constants/Regex";
-import { BASE_API_URL, endpoints } from "../../shared/constants/Endpoints";
-import axios from "axios";
+import { emailRegex, bigCharRegex, passwordRegex, smallCharRegex, specialCharOrDigitRegex } from "../../shared/constants/Regex";
 import Error from "../../shared/components/custom/Error";
 
 const Register: React.FC = () => {
@@ -31,13 +22,13 @@ const Register: React.FC = () => {
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
   const [errors, setErrors] = useState<string>("");
 
-  const [{ data, loading, error }, executeRegister] = useAxios(
-    {
-      url: `${BASE_API_URL}${endpoints.client.REGISTER}`,
-      method: "POST",
-    },
-    { manual: true }
-  );
+  // const [{ data, loading, error }, executeRegister] = useAxios(
+  //   {
+  //     url: `${BASE_API_URL}${endpoints.client.REGISTER}`,
+  //     method: "POST",
+  //   },
+  //   { manual: true }
+  // );
 
   const formValidator = () => {
     setErrors("");
@@ -83,15 +74,8 @@ const Register: React.FC = () => {
           <Error borderClassName={styles.errorContainerHidden} text={""} />
         )}
         <div className={styles.bottomContainer}>
-          <CookifyLogo
-            className={styles.cookifyLogo}
-            width={"150"}
-            height={"150"}
-          />
-          <Text
-            className={styles.header}
-            text={pl.registration.registrationText}
-          />
+          <CookifyLogo className={styles.cookifyLogo} width={"150"} height={"150"} />
+          <Text className={styles.header} text={pl.registration.registrationText} />
           <div className={styles.inputsContainer}>
             <TextInput
               borderClassName={styles.inputs}
@@ -110,22 +94,12 @@ const Register: React.FC = () => {
             />
 
             <div className={styles.checkboxContainer}>
-              <Checkbox
-                checked={isChecked}
-                sizeClass={styles.checkbox}
-                onCheckedChanged={() => setChecked(!isChecked)}
-              />
-              <Text
-                className={styles.regulationsOfServiceText}
-                text={pl.registration.regulationsOfService}
-              />
+              <Checkbox checked={isChecked} sizeClass={styles.checkbox} onCheckedChanged={() => setChecked(!isChecked)} />
+              <Text className={styles.regulationsOfServiceText} text={pl.registration.regulationsOfService} />
             </div>
           </div>
           <div className={styles.reCaptcha}>
-            <ReCAPTCHA
-              sitekey={captchaKey}
-              onChange={() => setButtonDisabled(false)}
-            />
+            <ReCAPTCHA sitekey={CAPTCHA_KEY} onChange={() => setButtonDisabled(false)} />
           </div>
           <Button
             disabled={buttonDisabled}
@@ -135,12 +109,12 @@ const Register: React.FC = () => {
             onClick={() => {
               console.dir(password);
               if (!formValidator()) return;
-              executeRegister({
-                data: {
-                  Email: email,
-                  Password: password,
-                },
-              }).catch(() => setErrors("Błąd serwera!"));
+              // executeRegister({
+              //   data: {
+              //     Email: email,
+              //     Password: password,
+              //   },
+              // }).catch(() => setErrors("Błąd serwera!"));
             }}
           />
         </div>

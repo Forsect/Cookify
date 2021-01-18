@@ -8,10 +8,7 @@ import PasswordInput from "../../shared/components/inputs/PasswordInput";
 import Paper from "../../shared/components/papers/Paper";
 import Button from "../../shared/components/buttons/Button";
 import { ButtonVariant } from "../../shared/enums/ButtonVariant";
-import useAxios from "axios-hooks";
 import { emailRegex } from "../../shared/constants/Regex";
-import { BASE_API_URL, endpoints } from "../../shared/constants/Endpoints";
-import axios from "axios";
 import Error from "../../shared/components/custom/Error";
 import { Navigation } from "../../shared/enums/Navigation";
 import { useHistory } from "react-router-dom";
@@ -46,11 +43,7 @@ const Login: React.FC = () => {
           <Error borderClassName={styles.errorContainerHidden} text={""} />
         )}
         <div className={styles.bottomContainer}>
-          <CookifyLogo
-            className={styles.cookifyLogo}
-            width={"150"}
-            height={"150"}
-          />
+          <CookifyLogo className={styles.cookifyLogo} width={"150"} height={"150"} />
           <Text className={styles.header} text={pl.login.loginText} />
           <div className={styles.inputsContainer}>
             <TextInput
@@ -65,10 +58,7 @@ const Login: React.FC = () => {
             />
 
             <div className={styles.checkboxContainer}>
-              <Text
-                className={styles.forgotPasswordText}
-                text={pl.login.forgotPasswordText}
-              />
+              <Text className={styles.forgotPasswordText} text={pl.login.forgotPasswordText} />
             </div>
           </div>
           <Button

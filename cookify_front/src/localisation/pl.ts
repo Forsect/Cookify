@@ -18,8 +18,7 @@ const pl = {
         passwordLength: "Hasło powinno zawierać minimum 8 znaków!",
         passwordBigChar: "Hasło powinno zawierać 1 dużą literę!",
         passwordSmallChar: "Hasło powinno zawierać 1 małą literę!",
-        passwordSpecialChar:
-          "Hasło powinno zawierać 1 znak specjalny lub cyfrę!",
+        passwordSpecialChar: "Hasło powinno zawierać 1 znak specjalny lub cyfrę!",
       },
     },
   },

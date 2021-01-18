@@ -86,11 +86,12 @@ namespace Cookify.API
         {
             if (env.IsDevelopment())
             {
-                app.UseCors(AppSettings.CorsConfigurationName);
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Cookify.API v1"));
             }
+
+            app.UseCors(AppSettings.CorsConfigurationName);
 
             app.UseHttpsRedirection();
 

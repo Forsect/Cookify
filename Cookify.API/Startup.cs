@@ -40,7 +40,11 @@ namespace Cookify.API
             services.AddHttpContextAccessor();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options => options.Cookie.SameSite = SameSiteMode.None);
+                .AddCookie(options => 
+                { 
+                    options.Cookie.SameSite = SameSiteMode.None; 
+                    options.Cookie.SecurePolicy = CookieSecurePolicy.Always; 
+                });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

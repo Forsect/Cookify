@@ -1,4 +1,5 @@
 const pl = {
+  loading: "Trwa ładowanie",
   registration: {
     registrationText: "Rejestracja",
     regulationsOfService: "Akcpetuję regulamin serwisu cookify.pl",
@@ -39,7 +40,7 @@ const pl = {
       wrongEmail: "Nieprawidłowy adres email!",
       invalidLoginOrPassword: "Nieprawidłowy adres email lub hasło!",
       unknownError: "Wystąpił nieznany błąd, spróbuj ponownie później.",
-      inactiveAccount: "Twoje konto jest nieaktywne. Skontaktuj się z administratorem w celu jego odblokowania",
+      inactiveAccount: "Twoje konto jest nieaktywne. Skontaktuj się z administratorem w celu jego odblokowania.",
     },
   },
   unknownPage: {

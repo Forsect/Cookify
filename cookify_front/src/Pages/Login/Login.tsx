@@ -15,6 +15,7 @@ import { useStore } from "../../shared/stores/Store";
 import InfoBar from "../../shared/components/custom/InfoBar";
 import { InfoBarVariant } from "../../shared/enums/InfoBarVariant";
 import { AccountStatusEnum } from "../../shared/enums/AccountStatusEnum";
+import Loader from "../../shared/components/loader/Loader";
 
 const Login: React.FC = observer(() => {
   const { userStore } = useStore();
@@ -55,10 +56,6 @@ const Login: React.FC = observer(() => {
 
   return (
     <>
-      <div className={styles.errorContainer}>
-        {errorText && <InfoBar variant={InfoBarVariant.Red} text={errorText} onClose={() => setErrorText("")} />}
-      </div>
-
       <div className={styles.container}>
         <CookifyLogo className={styles.cookifyLogo} width={"150"} height={"150"} />
         <Text className={styles.header} text={pl.login.loginText} />
@@ -74,7 +71,7 @@ const Login: React.FC = observer(() => {
             onChange={(text) => setPassword(text.currentTarget.value)}
           />
 
-          <div className={styles.checkboxContainer}>
+          <div className={styles.forgotPassword}>
             <Text className={styles.forgotPasswordText} text={pl.login.forgotPasswordText} />
           </div>
         </div>
@@ -94,7 +91,10 @@ const Login: React.FC = observer(() => {
             }
           }}
         />
-
+        <div className={styles.infoContainer}>
+          {errorText && <InfoBar variant={InfoBarVariant.Red} text={errorText} onClose={() => setErrorText("")} />}
+          {userStore.isLoading && <Loader text={pl.loading} containerClass={styles.Loader} />}
+        </div>
         <Button
           className={styles.registerButton}
           variant={ButtonVariant.Orange}

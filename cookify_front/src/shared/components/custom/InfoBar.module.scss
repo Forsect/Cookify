@@ -1,8 +1,7 @@
 @import "../../../styles/index.scss";
 
 .infoBar {
-  width: 100%;
-  margin: 24px;
+  margin: 24px 0;
   border-radius: 16px;
 }
 
@@ -19,9 +18,10 @@
 .infoBarText {
   font-family: $primary-font-family;
   font-weight: $weightSemi;
-  font-size: 14px;
+  font-size: 16px;
   padding: 16px 24px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
 }
 
@@ -38,7 +38,7 @@
 .close {
   font-weight: bold;
   font-size: 24px;
-  line-height: 20px;
   cursor: pointer;
   transition: 0.3s;
+  margin-left: 10px;
 }

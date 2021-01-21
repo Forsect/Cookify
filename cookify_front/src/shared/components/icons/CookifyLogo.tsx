@@ -1,19 +1,14 @@
 import * as React from "react";
 
 interface CookifyLogoProps {
-  width: string;
-  height: string;
+  width?: string;
+  height?: string;
   className?: string;
 }
 
 function CookifyLogo(props: CookifyLogoProps) {
   return (
-    <svg
-      id="prefix__Kartki"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 256 256"
-      {...props}
-    >
+    <svg id="prefix__Kartki" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" {...props}>
       <defs>
         <style>{".prefix__cls-3{fill-rule:evenodd}"}</style>
       </defs>

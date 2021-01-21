@@ -110,7 +110,7 @@ const Register: React.FC = observer(() => {
       </div>
       <Button
         disabled={buttonDisabled}
-        className={styles.registerButton}
+        className={styles.button}
         variant={ButtonVariant.Blue}
         text={pl.registration.buttons.register}
         onClick={async () => {
@@ -131,7 +131,7 @@ const Register: React.FC = observer(() => {
         {userStore.registerUserIsLoading && <Loader text={pl.loading} containerClass={styles.Loader} />}
       </div>
       <Button
-        className={styles.loginButton}
+        className={styles.button}
         variant={ButtonVariant.Orange}
         text={pl.registration.buttons.login}
         onClick={() => {

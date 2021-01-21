@@ -57,7 +57,7 @@ const Login: React.FC = observer(() => {
 
   return (
     <div className={styles.componentContainer}>
-      <CookifyLogo className={styles.cookifyLogo} width={"150"} height={"150"} />
+      <CookifyLogo className={styles.cookifyLogo} />
       <Text className={styles.header} text={pl.login.loginText} />
       <div className={styles.inputsContainer}>
         <TextInput

@@ -40,17 +40,8 @@
 }
 
 .button {
-  width: 85%;
-  border-radius: 20px;
-}
-
-.registerButton {
-  @extend .button;
   margin-top: 10px;
-}
-
-.loginButton {
-  @extend .button;
+  width: 85%;
 }
 
 .inputs {
@@ -74,7 +65,6 @@
 }
 
 @include mediumDevice() {
-
   .infoContainer {
     width: 40%;
   }

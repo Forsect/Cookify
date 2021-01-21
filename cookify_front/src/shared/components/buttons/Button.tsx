@@ -26,7 +26,7 @@ const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
 
   return (
     <div
-      className={classNames({ [styles.buttonDisabled]: props.disabled }, props.className, buttonActiveClass)}
+      className={classNames({ [styles.buttonDisabled]: props.disabled }, buttonActiveClass, props.className)}
       onClick={() => {
         if (props.disabled) {
           return;

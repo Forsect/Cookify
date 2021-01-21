@@ -6,13 +6,22 @@ import { AuthResult } from "./../models/AuthResult";
 import RequestHelper from "../api/RequestHelper";
 import AuthService from "./../api/services/AuthService";
 import { AccountStatusEnum } from "../enums/AccountStatusEnum";
+import { RegisterResult } from "./../models/RegisterResult";
+import UserService from "../api/services/UserService";
+import { RegisterUserResultEnum } from "../enums/RegisterUserResultEnum";
 
 class UserStore {
-  isLoading: boolean = false;
+  authorizeUserIsLoading: boolean = false;
+  registerUserIsLoading: boolean = false;
   currentUser: User = {} as User;
 
   constructor() {
-    makeObservable(this, { isLoading: observable, currentUser: observable, setCurrentUser: action });
+    makeObservable(this, {
+      authorizeUserIsLoading: observable,
+      registerUserIsLoading: observable,
+      currentUser: observable,
+      setCurrentUser: action,
+    });
   }
 
   setCurrentUser() {
@@ -21,7 +30,7 @@ class UserStore {
 
   async authorizeUser(login: string, password: string): Promise<AuthResult> {
     try {
-      this.isLoading = true;
+      this.authorizeUserIsLoading = true;
 
       const status = await RequestHelper.handleAnyRequest(() => AuthService.getAccountStatus({ login, password }));
 
@@ -42,7 +51,25 @@ class UserStore {
     } catch {
       return { status: null, succeeded: false };
     } finally {
-      this.isLoading = false;
+      this.authorizeUserIsLoading = false;
+    }
+  }
+
+  async registerUser(login: string, password: string): Promise<RegisterResult> {
+    try {
+      this.registerUserIsLoading = true;
+
+      const status = await RequestHelper.handleAnyRequest(() => UserService.registerUser({ login, password }));
+
+      if (status !== RegisterUserResultEnum.UserCreated) {
+        return { status: status, succeeded: false };
+      }
+
+      return { status: RegisterUserResultEnum.UserCreated, succeeded: true };
+    } catch {
+      return { status: null, succeeded: false };
+    } finally {
+      this.registerUserIsLoading = false;
     }
   }
 }

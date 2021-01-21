@@ -8,11 +8,13 @@
 .infoBarRedActive {
   @extend .infoBar;
   background-color: $infobar-box-red-color;
+  border: 1px solid $infobar-text-red-color;
 }
 
 .infoBarBlueActive {
   @extend .infoBar;
   background-color: $infobar-box-blue-color;
+  border: 1px solid $infobar-text-blue-color;
 }
 
 .infoBarText {

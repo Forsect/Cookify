@@ -27,7 +27,7 @@ namespace Cookify.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddUser([FromBody] AddUserRequest request)
+        public IActionResult RegisterUser([FromBody] AddUserRequest request)
         {
             if (request == null || !request.IsValid)
             {
@@ -35,7 +35,7 @@ namespace Cookify.API.Controllers
             }
 
 
-            var result =  _usersService.AddUser(request);
+            var result =  _usersService.RegisterUser(request);
 
             return result.IsSuccess ? Ok(result.Data) : StatusCode(StatusCodes.Status500InternalServerError);
         }

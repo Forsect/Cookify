@@ -12,7 +12,7 @@ namespace Cookify.API.Services.Users
 {
     public interface IUserService
     {
-        ServiceResponse<AddUserResultEnum> AddUser(AddUserRequest request);
+        ServiceResponse<RegisterUserResultEnum> RegisterUser(AddUserRequest request);
         ServiceResponse<GetUserAccountStatusResult> GetUserAccountStatus(string login, string password);
         User GetUser(string id);
     }

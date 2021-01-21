@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Cookify.API.Models.Enums
 {
-    public enum AddUserResultEnum
+    public enum RegisterUserResultEnum
     {
         UserCreated = 0,
         LoginIsTaken = 1

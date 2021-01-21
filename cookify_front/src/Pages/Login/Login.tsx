@@ -18,10 +18,11 @@ import { AccountStatusEnum } from "../../shared/enums/AccountStatusEnum";
 import Loader from "../../shared/components/loader/Loader";
 
 const Login: React.FC = observer(() => {
-  const { userStore } = useStore();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorText, setErrorText] = useState<string>("");
+
+  const { userStore } = useStore();
 
   const history = useHistory();
 
@@ -55,56 +56,54 @@ const Login: React.FC = observer(() => {
   };
 
   return (
-    <>
-      <div className={styles.container}>
-        <CookifyLogo className={styles.cookifyLogo} width={"150"} height={"150"} />
-        <Text className={styles.header} text={pl.login.loginText} />
-        <div className={styles.inputsContainer}>
-          <TextInput
-            borderClassName={styles.inputs}
-            placeholder={pl.registration.inputs.email}
-            onChange={(text) => setEmail(text.currentTarget.value)}
-          />
-          <PasswordInput
-            additionalClassName={styles.inputs}
-            placeholder={pl.registration.inputs.password}
-            onChange={(text) => setPassword(text.currentTarget.value)}
-          />
-
-          <div className={styles.forgotPassword}>
-            <Text className={styles.forgotPasswordText} text={pl.login.forgotPasswordText} />
-          </div>
-        </div>
-        <Button
-          className={styles.loginButton}
-          variant={ButtonVariant.Blue}
-          text={pl.login.buttons.login}
-          onClick={async () => {
-            console.dir(password);
-            if (!formValidator()) return;
-            const result = await userStore.authorizeUser(email, password);
-
-            if (result.succeeded) {
-              alert("Zalogowano");
-            } else {
-              setErrorText(mapErrorToMessage(result.status));
-            }
-          }}
+    <div className={styles.componentContainer}>
+      <CookifyLogo className={styles.cookifyLogo} width={"150"} height={"150"} />
+      <Text className={styles.header} text={pl.login.loginText} />
+      <div className={styles.inputsContainer}>
+        <TextInput
+          borderClassName={styles.inputs}
+          placeholder={pl.registration.inputs.email}
+          onChange={(text) => setEmail(text.currentTarget.value)}
         />
-        <div className={styles.infoContainer}>
-          {errorText && <InfoBar variant={InfoBarVariant.Red} text={errorText} onClose={() => setErrorText("")} />}
-          {userStore.isLoading && <Loader text={pl.loading} containerClass={styles.Loader} />}
-        </div>
-        <Button
-          className={styles.registerButton}
-          variant={ButtonVariant.Orange}
-          text={pl.login.buttons.register}
-          onClick={() => {
-            history.push(Navigation.Register);
-          }}
+        <PasswordInput
+          additionalClassName={styles.inputs}
+          placeholder={pl.registration.inputs.password}
+          onChange={(text) => setPassword(text.currentTarget.value)}
         />
+
+        <div className={styles.forgotPassword}>
+          <Text className={styles.forgotPasswordText} text={pl.login.forgotPasswordText} />
+        </div>
       </div>
-    </>
+      <Button
+        className={styles.loginButton}
+        variant={ButtonVariant.Blue}
+        text={pl.login.buttons.login}
+        onClick={async () => {
+          console.dir(password);
+          if (!formValidator()) return;
+          const result = await userStore.authorizeUser(email, password);
+
+          if (result.succeeded) {
+            alert("Zalogowano");
+          } else {
+            setErrorText(mapErrorToMessage(result.status));
+          }
+        }}
+      />
+      <div className={styles.infoContainer}>
+        {errorText && <InfoBar variant={InfoBarVariant.Red} text={errorText} onClose={() => setErrorText("")} />}
+        {userStore.authorizeUserIsLoading && <Loader text={pl.loading} containerClass={styles.Loader} />}
+      </div>
+      <Button
+        className={styles.registerButton}
+        variant={ButtonVariant.Orange}
+        text={pl.login.buttons.register}
+        onClick={() => {
+          history.push(Navigation.Register);
+        }}
+      />
+    </div>
   );
 });
 

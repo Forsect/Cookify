@@ -1,39 +1,56 @@
 @import "../../styles/index.scss";
 
-.bottomContainer {
+.componentContainer {
+  margin-top: 20px;
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
 }
 
-.errorContainer {
-  height: 30px;
-  position: fixed;
-  top: 0;
-}
-
-.errorContainerHidden {
-  @extend .errorContainer;
-  visibility: hidden;
-}
-
 .cookifyLogo {
-  // margin-top: 10px;
 }
 
 .header {
-  margin-top: 20px;
   font-weight: $weightSemi;
   font-size: 32px;
-  text-align: center;
 }
 
 .inputsContainer {
   width: 85%;
-  margin-top: 30px;
+  margin-top: 10px;
+}
+
+.reCaptcha {
+  margin-top: 20px;
+}
+
+.infoContainer {
+  height: 15%;
+  width: 85%;
+}
+
+.Loader {
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
+  width: 85%;
+  border-radius: 20px;
+}
+
+.registerButton {
+  @extend .button;
+  margin-top: 10px;
+}
+
+.loginButton {
+  @extend .button;
 }
 
 .inputs {
@@ -56,23 +73,18 @@
   font-size: 12px;
 }
 
-.reCaptcha {
-  margin-top: 20px;
-}
-
-.button {
-  margin-top: 20px;
-  width: 55%;
-  border-radius: 20px;
-}
-
 @include mediumDevice() {
+
+  .infoContainer {
+    width: 40%;
+  }
+
   .inputsContainer {
     width: 40%;
   }
 
   .button {
-    width: 25%;
+    width: 40%;
   }
 
   .inputsContainer {

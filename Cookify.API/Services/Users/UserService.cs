@@ -25,7 +25,7 @@ namespace Cookify.API.Services.Users
         }
 
 
-        public ServiceResponse<AddUserResultEnum> AddUser(AddUserRequest request)
+        public ServiceResponse<RegisterUserResultEnum> RegisterUser(AddUserRequest request)
         {
             try
             {
@@ -33,11 +33,11 @@ namespace Cookify.API.Services.Users
 
                 if (usersList == null)
                 {
-                    return ServiceResponse<AddUserResultEnum>.Failed();
+                    return ServiceResponse<RegisterUserResultEnum>.Failed();
                 }
                 else if (usersList.Any())
                 {
-                    return ServiceResponse<AddUserResultEnum>.Succeeded(AddUserResultEnum.LoginIsTaken);
+                    return ServiceResponse<RegisterUserResultEnum>.Succeeded(RegisterUserResultEnum.LoginIsTaken);
                 }
 
 
@@ -48,12 +48,12 @@ namespace Cookify.API.Services.Users
                     IsActive = true
                 });
 
-                return ServiceResponse<AddUserResultEnum>.Succeeded(AddUserResultEnum.UserCreated);
+                return ServiceResponse<RegisterUserResultEnum>.Succeeded(RegisterUserResultEnum.UserCreated);
             }
             catch (Exception ex)
             {
                 _logger.LogCritical(ex.ToString());
-                return ServiceResponse<AddUserResultEnum>.Failed();
+                return ServiceResponse<RegisterUserResultEnum>.Failed();
             }
         }
 

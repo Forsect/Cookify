@@ -3,7 +3,10 @@ const pl = {
   registration: {
     registrationText: "Rejestracja",
     regulationsOfService: "Akcpetuję regulamin serwisu cookify.pl",
-    registerButton: "Zarejestruj się",
+    buttons: {
+      register: "Zarejestruj się",
+      login: "Logowanie",
+    },
     inputs: {
       email: "Email",
       password: "Hasło",
@@ -21,6 +24,8 @@ const pl = {
         passwordSmallChar: "Hasło powinno zawierać 1 małą literę!",
         passwordSpecialChar: "Hasło powinno zawierać 1 znak specjalny lub cyfrę!",
       },
+      emailIsAlreadyTaken: "Podany adres email jest już używany!",
+      unknownError: "Wystąpił nieznany błąd, spróbuj ponownie później.",
     },
   },
   login: {

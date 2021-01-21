@@ -102,6 +102,8 @@ const Register: React.FC = observer(() => {
           onChange={(token) => {
             if (token) {
               setButtonDisabled(false);
+            } else {
+              setButtonDisabled(true);
             }
           }}
         />

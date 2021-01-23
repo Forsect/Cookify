@@ -9,7 +9,7 @@ interface UserService {
 }
 
 export class DefaultUserService implements UserService {
-  private registerUserUrl: string = "/user/AddUser";
+  private registerUserUrl: string = "/user/RegisterUser";
 
   registerUser(request: RegisterRequest): AxiosPromise<RegisterUserResultEnum> {
     return post<RegisterUserResultEnum>(BASE_API_URL + this.registerUserUrl, request);

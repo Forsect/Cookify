@@ -1,0 +1,46 @@
+@import "../../../styles/index.scss";
+
+.infoBar {
+  margin: 24px 0;
+  border-radius: 16px;
+}
+
+.infoBarRedActive {
+  @extend .infoBar;
+  background-color: $infobar-box-red-color;
+  border: 1px solid $infobar-text-red-color;
+}
+
+.infoBarBlueActive {
+  @extend .infoBar;
+  background-color: $infobar-box-blue-color;
+  border: 1px solid $infobar-text-blue-color;
+}
+
+.infoBarText {
+  font-family: $primary-font-family;
+  font-weight: $weightSemi;
+  font-size: 16px;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.infoBarTextRedActive {
+  @extend .infoBarText;
+  color: $infobar-text-red-color;
+}
+
+.infoBarTextBlueActive {
+  @extend .infoBarText;
+  color: $infobar-text-blue-color;
+}
+
+.close {
+  font-weight: bold;
+  font-size: 24px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-left: 10px;
+}

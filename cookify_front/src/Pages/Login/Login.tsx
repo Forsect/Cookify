@@ -5,95 +5,106 @@ import styles from "./Login.module.scss";
 import pl from "../../localisation/pl";
 import TextInput from "../../shared/components/inputs/TextInput";
 import PasswordInput from "../../shared/components/inputs/PasswordInput";
-import Paper from "../../shared/components/papers/Paper";
 import Button from "../../shared/components/buttons/Button";
 import { ButtonVariant } from "../../shared/enums/ButtonVariant";
-import useAxios from "axios-hooks";
 import { emailRegex } from "../../shared/constants/Regex";
-import { BASE_API_URL, endpoints } from "../../shared/constants/Endpoints";
-import axios from "axios";
-import Error from "../../shared/components/custom/Error";
 import { Navigation } from "../../shared/enums/Navigation";
 import { useHistory } from "react-router-dom";
+import { observer } from "mobx-react-lite";
+import { useStore } from "../../shared/stores/Store";
+import InfoBar from "../../shared/components/custom/InfoBar";
+import { InfoBarVariant } from "../../shared/enums/InfoBarVariant";
+import { AccountStatusEnum } from "../../shared/enums/AccountStatusEnum";
+import Loader from "../../shared/components/loader/Loader";
 
-const Login: React.FC = () => {
+const Login: React.FC = observer(() => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState<string>("");
+  const [errorText, setErrorText] = useState<string>("");
+
+  const { userStore } = useStore();
 
   const history = useHistory();
 
   const formValidator = () => {
-    setErrors("");
+    let error: string = "";
+
+    setErrorText("");
     if (!email) {
-      setErrors(pl.login.errors.emailRequired);
+      error = pl.login.errors.emailRequired;
     } else if (!emailRegex.test(email)) {
-      setErrors(pl.login.errors.wrongEmail);
+      error = pl.login.errors.wrongEmail;
+    } else if (!password) {
+      error = pl.login.errors.passwordRequired;
     }
-    if (!password) {
-      setErrors(pl.login.errors.passwordRequired);
-    }
-    if (errors) return false;
+
+    setErrorText(error);
+
+    if (error) return false;
     else return true;
   };
 
+  const mapErrorToMessage = (status: AccountStatusEnum | null) => {
+    switch (status) {
+      case AccountStatusEnum.InvalidLoginOrPassword:
+        return pl.login.errors.invalidLoginOrPassword;
+      case AccountStatusEnum.InactiveAccount:
+        return pl.login.errors.inactiveAccount;
+      default:
+        return pl.login.errors.unknownError;
+    }
+  };
+
   return (
-    <div className={styles.mainContainer}>
-      <Paper className={styles.paper}>
-        {errors ? (
-          <Error borderClassName={styles.errorContainer} text={errors} />
-        ) : (
-          <Error borderClassName={styles.errorContainerHidden} text={""} />
-        )}
-        <div className={styles.bottomContainer}>
-          <CookifyLogo
-            className={styles.cookifyLogo}
-            width={"150"}
-            height={"150"}
-          />
-          <Text className={styles.header} text={pl.login.loginText} />
-          <div className={styles.inputsContainer}>
-            <TextInput
-              borderClassName={styles.inputs}
-              placeholder={pl.registration.inputs.email}
-              onChange={(text) => setEmail(text.currentTarget.value)}
-            />
-            <PasswordInput
-              additionalClassName={styles.inputs}
-              placeholder={pl.registration.inputs.password}
-              onChange={(text) => setPassword(text.currentTarget.value)}
-            />
+    <div className={styles.componentContainer}>
+      <CookifyLogo className={styles.cookifyLogo} />
+      <Text className={styles.header} text={pl.login.loginText} />
+      <div className={styles.inputsContainer}>
+        <TextInput
+          borderClassName={styles.inputs}
+          placeholder={pl.registration.inputs.email}
+          onChange={(text) => setEmail(text.currentTarget.value)}
+        />
+        <PasswordInput
+          additionalClassName={styles.inputs}
+          placeholder={pl.registration.inputs.password}
+          onChange={(text) => setPassword(text.currentTarget.value)}
+        />
 
-            <div className={styles.checkboxContainer}>
-              <Text
-                className={styles.forgotPasswordText}
-                text={pl.login.forgotPasswordText}
-              />
-            </div>
-          </div>
-          <Button
-            className={styles.loginButton}
-            variant={ButtonVariant.Blue}
-            text={pl.login.buttons.login}
-            onClick={() => {
-              console.dir(password);
-              if (!formValidator()) return;
-              alert("Zalogowano"); // AXIOS POST
-            }}
-          />
-
-          <Button
-            className={styles.registerButton}
-            variant={ButtonVariant.Blue}
-            text={pl.login.buttons.register}
-            onClick={() => {
-              history.push(Navigation.Register);
-            }}
-          />
+        <div className={styles.forgotPassword}>
+          <Text className={styles.forgotPasswordText} text={pl.login.forgotPasswordText} />
         </div>
-      </Paper>
+      </div>
+      <Button
+        className={styles.loginButton}
+        variant={ButtonVariant.Blue}
+        text={pl.login.buttons.login}
+        onClick={async () => {
+          console.dir(password);
+          if (!formValidator()) return;
+          const result = await userStore.authorizeUser(email, password);
+
+          if (result.succeeded) {
+            alert("Zalogowano");
+          } else {
+            setErrorText(mapErrorToMessage(result.status));
+          }
+        }}
+      />
+      <div className={styles.infoContainer}>
+        {errorText && <InfoBar variant={InfoBarVariant.Red} text={errorText} onClose={() => setErrorText("")} />}
+        {userStore.authorizeUserIsLoading && <Loader text={pl.loading} containerClass={styles.Loader} />}
+      </div>
+      <Button
+        className={styles.registerButton}
+        variant={ButtonVariant.Orange}
+        text={pl.login.buttons.register}
+        onClick={() => {
+          history.push(Navigation.Register);
+        }}
+      />
     </div>
   );
-};
+});
 
 export default Login;

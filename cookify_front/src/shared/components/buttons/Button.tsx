@@ -19,29 +19,22 @@ const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
     case ButtonVariant.Blue:
       buttonActiveClass = styles.buttonBlueActive;
       break;
-    case ButtonVariant.Green:
-      buttonActiveClass = styles.buttonGreenActive;
+    case ButtonVariant.Orange:
+      buttonActiveClass = styles.buttonOrangeActive;
       break;
   }
 
   return (
     <div
-      className={classNames(
-        { [styles.buttonDisabled]: props.disabled },
-        props.className,
-        buttonActiveClass
-      )}
+      className={classNames({ [styles.buttonDisabled]: props.disabled }, buttonActiveClass, props.className)}
       onClick={() => {
         if (props.disabled) {
           return;
         }
 
         props.onClick();
-      }}
-    >
-      <div className={classNames(styles.buttonText, props.buttonTextClass)}>
-        {props.text}
-      </div>
+      }}>
+      <div className={classNames(styles.buttonText, props.buttonTextClass)}>{props.text}</div>
     </div>
   );
 };

@@ -1,9 +1,8 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Navigation } from "../../shared/enums/Navigation";
 
 const Home: React.FC = () => {
-  const history = useHistory();
   return (
     <div>
       <Link to={Navigation.Login}>Logowanie</Link>

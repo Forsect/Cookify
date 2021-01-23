@@ -1,8 +1,12 @@
 const pl = {
+  loading: "Trwa ładowanie",
   registration: {
     registrationText: "Rejestracja",
     regulationsOfService: "Akcpetuję regulamin serwisu cookify.pl",
-    registerButton: "Zarejestruj się",
+    buttons: {
+      register: "Zarejestruj się",
+      login: "Logowanie",
+    },
     inputs: {
       email: "Email",
       password: "Hasło",
@@ -18,9 +22,10 @@ const pl = {
         passwordLength: "Hasło powinno zawierać minimum 8 znaków!",
         passwordBigChar: "Hasło powinno zawierać 1 dużą literę!",
         passwordSmallChar: "Hasło powinno zawierać 1 małą literę!",
-        passwordSpecialChar:
-          "Hasło powinno zawierać 1 znak specjalny lub cyfrę!",
+        passwordSpecialChar: "Hasło powinno zawierać 1 znak specjalny lub cyfrę!",
       },
+      emailIsAlreadyTaken: "Podany adres email jest już używany!",
+      unknownError: "Wystąpił nieznany błąd, spróbuj ponownie później.",
     },
   },
   login: {
@@ -37,8 +42,15 @@ const pl = {
     errors: {
       emailRequired: "Adres email jest wymagany!",
       passwordRequired: "Hasło jest wymagane!",
-      wrongEmail: "Błędny adres email!",
+      wrongEmail: "Nieprawidłowy adres email!",
+      invalidLoginOrPassword: "Nieprawidłowy adres email lub hasło!",
+      unknownError: "Wystąpił nieznany błąd, spróbuj ponownie później.",
+      inactiveAccount: "Twoje konto jest nieaktywne. Skontaktuj się z administratorem w celu jego odblokowania.",
     },
+  },
+  unknownPage: {
+    main: "Strona, którą próbujesz się dostać nie istnieje!",
+    button: "Wróć na stronę główną",
   },
 };
 

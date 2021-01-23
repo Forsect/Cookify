@@ -12,7 +12,8 @@ namespace Cookify.API.Models.Repository
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
-        public string Email { get; set; }
+        public string Login { get; set; }
         public string Password { get; set; }
+        public bool IsActive { get; set; }
     }
 }

@@ -2,7 +2,28 @@ $weightRegular: 400;
 $weightSemi: 600;
 $weightBold: 700;
 
-$primary-font-family: Arial, sans-serif;
+@font-face {
+  font-family: "NunitoSans";
+  src: url("/fonts/NunitoSans-Regular.ttf") format("ttf");
+  font-weight: $weightRegular;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NunitoSans";
+  src: url("/fonts/NunitoSans-SemiBold.ttf") format("ttf");
+  font-weight: $weightSemi;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NunitoSans";
+  src: url("/fonts/NunitoSans-Bold.ttf") format("ttf");
+  font-weight: $weightBold;
+  font-style: normal;
+}
+
+$primary-font-family: "NunitoSans", Arial, sans-serif;
 $Arial: Arial, sans-serif;
 
 $primary-font-family: $primary-font-family;

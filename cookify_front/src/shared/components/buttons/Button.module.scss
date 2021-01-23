@@ -1,6 +1,7 @@
 @import "../../../styles/index.scss";
 
 .buttonBase {
+  border-radius: 20px;
   &:hover {
     cursor: pointer;
   }
@@ -14,11 +15,11 @@
   }
 }
 
-.buttonGreenActive {
+.buttonOrangeActive {
   @extend .buttonBase;
-  background-color: $room-status-available-color;
+  background-color: $complementary-color;
   &:hover {
-    background-color: darken($color: $room-status-available-color, $amount: 10);
+    background-color: darken($color: $complementary-color, $amount: 10);
   }
 }
 

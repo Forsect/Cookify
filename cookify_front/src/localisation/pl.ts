@@ -48,6 +48,9 @@ const pl = {
       inactiveAccount: "Twoje konto jest nieaktywne. Skontaktuj się z administratorem w celu jego odblokowania.",
     },
   },
+  shoppingList: {
+    addNew: "Dodaj produkt",
+  },
   unknownPage: {
     main: "Strona, na którą próbujesz się dostać nie istnieje!",
     button: "Wróć na stronę główną",

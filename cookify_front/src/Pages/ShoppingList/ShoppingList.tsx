@@ -1,20 +1,22 @@
-import React, { useState, useEffect } from "react";
-import Button from "../../shared/components/buttons/Button";
+import React, { useState } from "react";
 import NavBar from "../../shared/components/navBar/NavBar";
-import Paper from "../../shared/components/papers/Paper";
 import ShoppingListItem from "../../shared/components/shoppingList/ShoppingListItem";
 import ShoppingListObject from "../../shared/components/shoppingList/ShoppingListObject";
-import { ButtonVariant } from "../../shared/enums/ButtonVariant";
 import NavBarIconVariant from "../../shared/enums/NavBarIconVariant";
 import styles from "./ShoppingList.module.scss";
+import pl from "./../../localisation/pl";
+import InfoBar from "../../shared/components/custom/InfoBar";
+import { InfoBarVariant } from "../../shared/enums/InfoBarVariant";
 
-interface ShoppingListObject {
+interface ShoppingListObjectMock {
   object: { name: string; items: string[] };
 }
 
 const ShoppingList: React.FC = () => {
+  const [errorText, setErrorText] = useState<string>("");
+  const [newProduct, setNewProduct] = useState<string>("");
   const [shoppingList, setShoppingList] = useState<string[]>(["chipsy", "cola", "monsterek", "paluszki"]);
-  const [shoppingListObjects, setShoppingListObjects] = useState<ShoppingListObject[]>([
+  const [shoppingListObjects, setShoppingListObjects] = useState<ShoppingListObjectMock[]>([
     { object: { name: "Frytki ze schabowym", items: [] } },
     {
       object: {
@@ -30,30 +32,66 @@ const ShoppingList: React.FC = () => {
     },
   ]);
 
+  const addProduct = (product: string) => {
+    if (!product) {
+      setErrorText("Podaj nazwę produktu");
+      return;
+    } else if (shoppingList.includes(product)) {
+      setErrorText("Produkt jest już na liścię");
+      return;
+    }
+    setShoppingList([...shoppingList, product]);
+    setErrorText("");
+    setNewProduct("");
+  };
+
   return (
     <div className={styles.componentContainer}>
       <NavBar title="Cookify" iconVariant={NavBarIconVariant.Calendar} />
       <div className={styles.listContainer}>
-        <div className={styles.shareButton}>{"--->"}Udostępnij</div>
+        <div className={styles.shareButton}>&#10150;Udostępnij</div>
+        <div className={styles.inputContainer}>
+          <div className={styles.inputBox}>
+            <input
+              onChange={(text) => setNewProduct(text.currentTarget.value)}
+              className={styles.inputText}
+              placeholder={pl.shoppingList.addNew}
+              onKeyDown={(key) => {
+                if (key.key === "Enter") {
+                  addProduct(newProduct);
+                }
+              }}
+              value={newProduct}
+            />
+            <div className={styles.inputUnderline} />
+          </div>
+          <div onClick={() => addProduct(newProduct)} className={styles.inputPlusIcon}>
+            &#x2B;
+          </div>
+        </div>
+        <div className={styles.infoContainer}>
+          {errorText && (
+            <InfoBar
+              className={styles.infoBar}
+              textClassName={styles.infoBarText}
+              variant={InfoBarVariant.Red}
+              text={errorText}
+              onClose={() => setErrorText("")}
+            />
+          )}
+        </div>
         <ul>
           {shoppingList.map((item, index) => (
-            <li>
-              <ShoppingListItem
-                name={item}
-                key={item}
-                onDelete={() => setShoppingList(shoppingList.filter((x, index2) => index2 !== index))}
-              />
-            </li>
+            <ShoppingListItem
+              key={item}
+              name={item}
+              onDelete={() => setShoppingList(shoppingList.filter((x, index2) => index2 !== index))}
+            />
           ))}
         </ul>
-        <Button
-          className={styles.addItemButton}
-          onClick={() => setShoppingList([...shoppingList, "item"])}
-          text={"(+) Dodaj element"}
-          variant={ButtonVariant.Blue}
-        />
         {shoppingListObjects.map((item, index) => (
           <ShoppingListObject
+            key={index}
             onDelete={() => setShoppingListObjects(shoppingListObjects.filter((x, index2) => index2 !== index))}
             items={item.object.items}
             header={item.object.name}

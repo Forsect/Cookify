@@ -7,17 +7,32 @@
   justify-content: space-between;
 }
 
-.input {
+.text {
   width: 90%;
-  border-width: 0px;
-  border: none;
+  font-size: 16px;
+  background-color: $complementary-color-brighter;
+  color: black;
 }
 
-.underLine {
+.underline {
+  margin-bottom: 5px;
   border-bottom: 1px solid;
-  width: 96%;
+  width: 95%;
+}
+
+.liChecked {
+  color: $shoppping-list-checked-product-color;
+}
+
+.underlineChecked {
+  @extend .underline;
+  color: $shoppping-list-checked-product-color;
 }
 
 .deleteButton {
+  color: black;
+  margin-right: 5px;
+  font-size: 16px;
+  font-weight: $weightSemi;
   cursor: pointer;
 }

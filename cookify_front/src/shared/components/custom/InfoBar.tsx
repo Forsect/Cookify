@@ -7,6 +7,7 @@ export interface InfoBarProps {
   text: string;
   variant: InfoBarVariant;
   className?: string;
+  textClassName?: string;
   onClose: () => void;
 }
 
@@ -28,7 +29,7 @@ const InfoBar: React.FC<InfoBarProps> = (props: InfoBarProps) => {
 
   return (
     <div className={classNames(infoBarActiveClass, props.className)}>
-      <div className={infoBarTextActiveClass}>
+      <div className={classNames(infoBarTextActiveClass, props.textClassName)}>
         <div>{props.text}</div>
         <div className={styles.close} onClick={props.onClose}>
           &times;

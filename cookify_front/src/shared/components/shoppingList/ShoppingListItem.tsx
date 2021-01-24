@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import Text from "../../Text";
-import TextInput from "../inputs/TextInput";
 import styles from "./ShoppingListItem.module.scss";
 
 interface ShoppingListItemProps {
@@ -9,17 +7,17 @@ interface ShoppingListItemProps {
 }
 
 const ShoppingListItem: React.FC<ShoppingListItemProps> = (props: ShoppingListItemProps) => {
-  const [name, setName] = useState(props.name);
+  const [isChecked, setIsChecked] = useState<boolean>(false);
   return (
-    <>
-      <div className={styles.itemContainer}>
-        <input className={styles.input} value={name} onChange={(text) => setName(text.currentTarget.value)} />
+    <li className={isChecked ? styles.liChecked : undefined}>
+      <div onClick={() => setIsChecked(!isChecked)} className={styles.itemContainer}>
+        <div className={styles.text}>{props.name}</div>
         <div className={styles.deleteButton} onClick={props.onDelete}>
-          &times;
+          &#10761;
         </div>
       </div>
-      <div className={styles.underLine} />
-    </>
+      <div className={isChecked ? styles.underlineChecked : styles.underline} />
+    </li>
   );
 };
 

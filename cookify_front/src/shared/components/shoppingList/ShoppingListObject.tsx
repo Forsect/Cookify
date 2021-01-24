@@ -14,9 +14,7 @@ interface ShoppingListObjectProps {
   header: string;
 }
 
-const ShoppingListObjectSingleItem: React.FC<ShoppingListObjectSingleItemProps> = (
-  props: ShoppingListObjectSingleItemProps
-) => {
+const ShoppingListObjectSingleItem: React.FC<ShoppingListObjectSingleItemProps> = (props: ShoppingListObjectSingleItemProps) => {
   return (
     <>
       <div className={styles.itemContainer}>
@@ -27,15 +25,13 @@ const ShoppingListObjectSingleItem: React.FC<ShoppingListObjectSingleItemProps> 
   );
 };
 
-const ShoppingListObject: React.FC<ShoppingListObjectProps> = (
-  props: ShoppingListObjectProps
-) => {
+const ShoppingListObject: React.FC<ShoppingListObjectProps> = (props: ShoppingListObjectProps) => {
   return (
     <Paper className={styles.paper}>
       <div className={styles.headerContainer}>
         <div className={styles.header}>{props.header}</div>
         <div onClick={props.onDelete} className={styles.deleteButton}>
-          X
+          &times;
         </div>
       </div>
       {props.items.length > 0 && <div className={styles.line} />}

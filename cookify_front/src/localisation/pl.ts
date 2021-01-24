@@ -49,7 +49,7 @@ const pl = {
     },
   },
   unknownPage: {
-    main: "Strona, którą próbujesz się dostać nie istnieje!",
+    main: "Strona, na którą próbujesz się dostać nie istnieje!",
     button: "Wróć na stronę główną",
   },
 };

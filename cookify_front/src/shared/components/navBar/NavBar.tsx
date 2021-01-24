@@ -12,28 +12,18 @@ interface NavBarProps {
 }
 
 const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
-  const [iconVariant, setIconVariant] = useState<NavBarIconVariant>(
-    props.iconVariant
-  );
+  const [iconVariant, setIconVariant] = useState<NavBarIconVariant>(props.iconVariant);
 
   return (
     <div className={styles.navBar}>
       <div className={styles.mainContainer}>
-        <UserIcon width="40px" height="40px" />
+        <UserIcon className={styles.userIcon} />
         <Text text={props.title} />
         {iconVariant === NavBarIconVariant.Calendar && (
-          <CalendarIcon
-            width="40px"
-            height="40px"
-            onClick={() => setIconVariant(NavBarIconVariant.ShoppingCart)}
-          />
+          <CalendarIcon className={styles.calendarIcon} onClick={() => setIconVariant(NavBarIconVariant.ShoppingCart)} />
         )}
         {iconVariant === NavBarIconVariant.ShoppingCart && (
-          <ShoppingCartIcon
-            width="40px"
-            height="40px"
-            onClick={() => setIconVariant(NavBarIconVariant.Calendar)}
-          />
+          <ShoppingCartIcon className={styles.shoppingCartIcon} onClick={() => setIconVariant(NavBarIconVariant.Calendar)} />
         )}
       </div>
     </div>

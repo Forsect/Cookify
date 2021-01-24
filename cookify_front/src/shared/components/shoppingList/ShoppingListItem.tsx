@@ -8,20 +8,14 @@ interface ShoppingListItemProps {
   onDelete: () => void;
 }
 
-const ShoppingListItem: React.FC<ShoppingListItemProps> = (
-  props: ShoppingListItemProps
-) => {
+const ShoppingListItem: React.FC<ShoppingListItemProps> = (props: ShoppingListItemProps) => {
   const [name, setName] = useState(props.name);
   return (
     <>
       <div className={styles.itemContainer}>
-        <input
-          className={styles.input}
-          value={name}
-          onChange={(text) => setName(text.currentTarget.value)}
-        />
+        <input className={styles.input} value={name} onChange={(text) => setName(text.currentTarget.value)} />
         <div className={styles.deleteButton} onClick={props.onDelete}>
-          X
+          &times;
         </div>
       </div>
       <div className={styles.underLine} />

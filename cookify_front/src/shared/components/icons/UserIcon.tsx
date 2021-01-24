@@ -1,12 +1,7 @@
-import * as React from "react";
+import React from "react";
+import IconCommonProps from "./IconCommonProps";
 
-interface UserIconProps {
-  width: string;
-  height: string;
-  onClick?: () => void;
-}
-
-const UserIcon: React.FC<UserIconProps> = (props: UserIconProps) => {
+const UserIcon: React.FC<IconCommonProps> = (props: IconCommonProps) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 350" {...props}>
       <path d="M175 171.173c38.914 0 70.463-38.318 70.463-85.586C245.463 38.318 235.105 0 175 0s-70.465 38.318-70.465 85.587c0 47.268 31.549 85.586 70.465 85.586zM41.909 301.853c-.012-2.882-.024-.812 0 0zM308.085 304.104c.038-.789.013-5.474 0 0z" />

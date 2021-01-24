@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import CookifyLogo from "../../shared/components/icons/CookifyLogo";
+import CookibuyLogo from "../../shared/components/icons/CookibuyLogo";
 import Text from "../../shared/Text";
 import styles from "./Login.module.scss";
 import pl from "../../localisation/pl";
@@ -57,7 +57,7 @@ const Login: React.FC = observer(() => {
 
   return (
     <div className={styles.componentContainer}>
-      <CookifyLogo className={styles.cookifyLogo} />
+      <CookibuyLogo className={styles.cookifyLogo} />
       <Text className={styles.header} text={pl.login.loginText} />
       <div className={styles.inputsContainer}>
         <TextInput
@@ -85,7 +85,7 @@ const Login: React.FC = observer(() => {
           const result = await userStore.authorizeUser(email, password);
 
           if (result.succeeded) {
-            alert("Zalogowano");
+            history.push(Navigation.Home);
           } else {
             setErrorText(mapErrorToMessage(result.status));
           }

@@ -5,6 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { store, StoreContext } from "./shared/stores/Store";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 const routing = (
   <StoreContext.Provider value={store}>
@@ -20,3 +21,8 @@ ReactDOM.render(routing, document.getElementById("root"));
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://cra.link/PWA
+serviceWorkerRegistration.register();

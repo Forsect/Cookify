@@ -1,14 +1,9 @@
-import * as React from "react";
+import React from "react";
+import IconCommonProps from "./IconCommonProps";
 
-interface CookifyLogoProps {
-  width?: string;
-  height?: string;
-  className?: string;
-}
-
-function CookifyLogo(props: CookifyLogoProps) {
+const CookibuyLogo: React.FC<IconCommonProps> = (props: IconCommonProps) => {
   return (
-    <svg id="prefix__Kartki" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" {...props}>
+    <svg {...props} id="prefix__Kartki" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
       <defs>
         <style>{".prefix__cls-3{fill-rule:evenodd}"}</style>
       </defs>
@@ -143,6 +138,6 @@ function CookifyLogo(props: CookifyLogoProps) {
       />
     </svg>
   );
-}
+};
 
-export default CookifyLogo;
+export default CookibuyLogo;

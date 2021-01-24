@@ -1,13 +1,14 @@
 import React from "react";
-import CookifyLogo from "./../../shared/components/icons/CookifyLogo";
+import CookibuyLogo from "../../shared/components/icons/CookibuyLogo";
 import pl from "./../../localisation/pl";
 import Button from "../../shared/components/buttons/Button";
 import { ButtonVariant } from "../../shared/enums/ButtonVariant";
+import styles from "./UnknownPage.module.scss";
 
 const UnknownPage: React.FC = () => {
   return (
     <>
-      <CookifyLogo width={"150"} height={"150"} />
+      <CookibuyLogo className={styles.cookibuyLogo} />
       <div>{pl.unknownPage.main}</div>
       <Button text={pl.unknownPage.button} variant={ButtonVariant.Blue} onClick={() => {}} />
     </>

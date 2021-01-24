@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import CookifyLogo from "../../shared/components/icons/CookifyLogo";
+import CookibuyLogo from "../../shared/components/icons/CookibuyLogo";
 import Text from "../../shared/Text";
 import styles from "./Register.module.scss";
 import pl from "../../localisation/pl";
@@ -72,7 +72,7 @@ const Register: React.FC = observer(() => {
 
   return (
     <div className={styles.componentContainer}>
-      <CookifyLogo className={styles.cookifyLogo} />
+      <CookibuyLogo className={styles.cookifyLogo} />
       <Text className={styles.header} text={pl.registration.registrationText} />
       <div className={styles.inputsContainer}>
         <TextInput

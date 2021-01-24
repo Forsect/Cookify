@@ -1,0 +1,40 @@
+@import "../../../styles/index.scss";
+
+.navBar {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  background-color: $primary-color;
+  display: flex;
+  justify-content: center;
+  height: 50px;
+  align-items: center;
+}
+
+.mainContainer {
+  font-size: 20px;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 90%;
+}
+
+.baseIcon {
+  width: 40px;
+  height: 40px;
+  fill: white;
+}
+
+.userIcon {
+  @extend .baseIcon;
+  fill: $complementary-color;
+}
+
+.calendarIcon {
+  @extend .baseIcon;
+}
+
+.shoppingCartIcon {
+  @extend .baseIcon;
+}

@@ -49,7 +49,10 @@ const ShoppingList: React.FC = () => {
     <div className={styles.componentContainer}>
       <NavBar title="Cookify" iconVariant={NavBarIconVariant.Calendar} />
       <div className={styles.listContainer}>
-        <div className={styles.shareButton}>&#10150;Udostępnij</div>
+        <div className={styles.shareButton}>
+          <div>&#10150;</div>
+          <div>{pl.shoppingList.share}</div>
+        </div>
         <div className={styles.inputContainer}>
           <div className={styles.inputBox}>
             <input
@@ -63,11 +66,11 @@ const ShoppingList: React.FC = () => {
               }}
               value={newProduct}
             />
-            <div className={styles.inputUnderline} />
+            <div onClick={() => addProduct(newProduct)} className={styles.inputPlusIcon}>
+              &#x2B;
+            </div>
           </div>
-          <div onClick={() => addProduct(newProduct)} className={styles.inputPlusIcon}>
-            &#x2B;
-          </div>
+          <div className={styles.inputUnderline} />
         </div>
         <div className={styles.infoContainer}>
           {errorText && (
@@ -80,7 +83,7 @@ const ShoppingList: React.FC = () => {
             />
           )}
         </div>
-        <ul>
+        <div className={styles.shoppingListItems}>
           {shoppingList.map((item, index) => (
             <ShoppingListItem
               key={item}
@@ -88,7 +91,7 @@ const ShoppingList: React.FC = () => {
               onDelete={() => setShoppingList(shoppingList.filter((x, index2) => index2 !== index))}
             />
           ))}
-        </ul>
+        </div>
         {shoppingListObjects.map((item, index) => (
           <ShoppingListObject
             key={index}

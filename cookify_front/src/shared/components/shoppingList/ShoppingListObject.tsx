@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import Text from "../../Text";
 import Paper from "../papers/Paper";
-import ShoppingListItem from "./ShoppingListItem";
 import styles from "./ShoppingListObject.module.scss";
 
 interface ShoppingListObjectSingleItemProps {
@@ -15,13 +14,14 @@ interface ShoppingListObjectProps {
 }
 
 const ShoppingListObjectSingleItem: React.FC<ShoppingListObjectSingleItemProps> = (props: ShoppingListObjectSingleItemProps) => {
+  const [isChecked, setIsChecked] = useState<boolean>(false);
   return (
-    <>
-      <div className={styles.itemContainer}>
-        <Text text={props.name} />
+    <li className={isChecked ? styles.liChecked : undefined}>
+      <div onClick={() => setIsChecked(!isChecked)} className={styles.itemContainer}>
+        <Text className={styles.itemText} text={props.name} />
       </div>
-      <div className={styles.underLine} />
-    </>
+      <div className={isChecked ? styles.underlineChecked : styles.underline} />
+    </li>
   );
 };
 
@@ -31,16 +31,14 @@ const ShoppingListObject: React.FC<ShoppingListObjectProps> = (props: ShoppingLi
       <div className={styles.headerContainer}>
         <div className={styles.header}>{props.header}</div>
         <div onClick={props.onDelete} className={styles.deleteButton}>
-          &times;
+          &#10761;
         </div>
       </div>
       {props.items.length > 0 && <div className={styles.line} />}
       {props.items.length > 0 && (
         <ul>
           {props.items.map((item, index) => (
-            <li>
-              <ShoppingListObjectSingleItem name={item} />
-            </li>
+            <ShoppingListObjectSingleItem key={item} name={item} />
           ))}
         </ul>
       )}

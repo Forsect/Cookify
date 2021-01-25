@@ -87,4 +87,7 @@
 }
 
 @include mediumDevice() {
+  .shareButton {
+    margin-right: 40px;
+  }
 }

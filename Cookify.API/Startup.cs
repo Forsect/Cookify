@@ -18,6 +18,7 @@ using Microsoft.Extensions.Options;
 using Cookify.API.Repositories.Users;
 using Cookify.API.Services.Users;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Cookify.API.Services.Shopping;
 
 namespace Cookify.API
 {
@@ -89,6 +90,7 @@ namespace Cookify.API
         private void RegisterServices(ref IServiceCollection services)
         {
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IShoppingService, ShoppingService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

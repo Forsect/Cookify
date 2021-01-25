@@ -8,6 +8,7 @@ namespace Cookify.API.Models.Settings
     public interface ICookifyDatabaseSettings
     {
         string UsersCollectionName { get; set; }
+        string ShoppingListsCollectionName { get; set; }
         string ConnectionString { get; set; }
         string DatabaseName { get; set; }
     }
@@ -15,6 +16,7 @@ namespace Cookify.API.Models.Settings
     public class CookifyDatabaseSettings : ICookifyDatabaseSettings
     {
         public string UsersCollectionName { get; set; }
+        public string ShoppingListsCollectionName { get; set; }
         public string ConnectionString { get; set; }
         public string DatabaseName { get; set; }
     }

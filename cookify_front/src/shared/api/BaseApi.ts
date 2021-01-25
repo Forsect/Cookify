@@ -10,7 +10,7 @@ export function deleteWithJwt<T>(url: string, jwtToken: string, data: any) {
   return baseApi.delete<T>(url, { withCredentials: true, headers: { Authentication: jwtToken }, data: { ...data } });
 }
 
-export function postWithHwt<T>(url: string, jwtToken: string, data: any) {
+export function postWithJwt<T>(url: string, jwtToken: string, data: any) {
   return baseApi.post<T>(url, { ...data }, { withCredentials: true, headers: { Authentication: jwtToken } });
 }
 

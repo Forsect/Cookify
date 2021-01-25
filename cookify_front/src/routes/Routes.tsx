@@ -17,7 +17,7 @@ const Routes = () => {
           <PrivateRoute exact path={Navigation.Home} component={ShoppingList} />
           <Route path={Navigation.Login} component={Login} />
           <Route path={Navigation.Register} component={Register} />
-          <Route path={Navigation.Home} component={UnknownPage} />
+          <Route component={UnknownPage} />
         </Switch>
       </Paper>
     </div>

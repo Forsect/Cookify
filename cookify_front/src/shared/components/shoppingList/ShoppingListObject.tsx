@@ -18,9 +18,9 @@ const ShoppingListObjectSingleItem: React.FC<ShoppingListObjectSingleItemProps> 
   return (
     <>
       <div onClick={() => setIsChecked(!isChecked)} className={styles.itemContainer}>
-        <Text className={styles.itemText} text={props.name} />
+        <Text className={isChecked ? styles.itemTextChecked : styles.itemText} text={props.name} />
       </div>
-      <div className={isChecked ? styles.underlineChecked : styles.underline} />
+      <div className={styles.underline} />
     </>
   );
 };

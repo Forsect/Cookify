@@ -42,15 +42,15 @@
   color: black;
 }
 
+.itemTextChecked {
+  @extend .itemText;
+  text-decoration: line-through;
+}
+
 .underline {
   border-bottom: 1px solid;
   width: 96%;
-  opacity: 25%;
-}
-
-.underlineChecked {
-  @extend .underline;
-  color: $shoppping-list-checked-product-color;
+  opacity: 30%;
 }
 
 .deleteButton {

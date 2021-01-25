@@ -16,12 +16,12 @@ interface ShoppingListObjectProps {
 const ShoppingListObjectSingleItem: React.FC<ShoppingListObjectSingleItemProps> = (props: ShoppingListObjectSingleItemProps) => {
   const [isChecked, setIsChecked] = useState<boolean>(false);
   return (
-    <li className={isChecked ? styles.liChecked : undefined}>
+    <>
       <div onClick={() => setIsChecked(!isChecked)} className={styles.itemContainer}>
         <Text className={styles.itemText} text={props.name} />
       </div>
       <div className={isChecked ? styles.underlineChecked : styles.underline} />
-    </li>
+    </>
   );
 };
 
@@ -36,11 +36,11 @@ const ShoppingListObject: React.FC<ShoppingListObjectProps> = (props: ShoppingLi
       </div>
       {props.items.length > 0 && <div className={styles.line} />}
       {props.items.length > 0 && (
-        <ul>
+        <div className={styles.shoppingListObjectItems}>
           {props.items.map((item, index) => (
             <ShoppingListObjectSingleItem key={item} name={item} />
           ))}
-        </ul>
+        </div>
       )}
     </Paper>
   );

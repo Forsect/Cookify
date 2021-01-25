@@ -50,6 +50,7 @@ const pl = {
   },
   shoppingList: {
     addNew: "Dodaj produkt",
+    share: "Udostępnij",
   },
   unknownPage: {
     main: "Strona, na którą próbujesz się dostać nie istnieje!",

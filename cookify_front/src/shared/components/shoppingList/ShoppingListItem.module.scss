@@ -1,7 +1,7 @@
 @import "../../../styles/index.scss";
 
 .itemContainer {
-  width: 95%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -14,19 +14,15 @@
   color: black;
 }
 
+.textChecked {
+  text-decoration: line-through;
+}
+
 .underline {
   margin-bottom: 5px;
   border-bottom: 1px solid;
-  width: 95%;
-}
-
-.liChecked {
-  color: $shoppping-list-checked-product-color;
-}
-
-.underlineChecked {
-  @extend .underline;
-  color: $shoppping-list-checked-product-color;
+  width: 100%;
+  opacity: 25%;
 }
 
 .deleteButton {
@@ -35,4 +31,10 @@
   font-size: 16px;
   font-weight: $weightSemi;
   cursor: pointer;
+}
+
+@include mediumDevice() {
+  .li {
+    margin-left: 50px;
+  }
 }

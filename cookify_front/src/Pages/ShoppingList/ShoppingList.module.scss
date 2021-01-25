@@ -15,16 +15,20 @@
   margin-top: 10px;
 }
 
+.shoppingListItems {
+  align-self: center;
+  width: 90%;
+}
+
 .shareButton {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   padding: 3px;
   margin-top: 5px;
   margin-right: 5px;
   margin-bottom: 10px;
   align-self: flex-end;
   width: 120px;
-  background-color: white;
   border-radius: 20px;
   background-color: $primary-color;
   color: white;
@@ -39,17 +43,16 @@
 
 .inputContainer {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-self: center;
-  align-items: flex-end;
-  width: 80%;
+  width: 90%;
+  padding: 0px 25px;
   margin-bottom: 2px;
 }
 
 .inputBox {
   display: flex;
-  width: 90%;
-  flex-direction: column;
+  justify-content: space-between;
   font-weight: $weightSemi;
 }
 
@@ -58,6 +61,7 @@
   outline: none;
   border: none;
   background-color: $complementary-color-brighter;
+  width: 100%;
 }
 
 .inputPlusIcon {

@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Button from "../../shared/components/buttons/Button";
-import NavBar from "../../shared/components/navBar/NavBar";
-import Paper from "../../shared/components/papers/Paper";
 import ShoppingListItem from "../../shared/components/shoppingList/ShoppingListItem";
 import ShoppingListObject from "../../shared/components/shoppingList/ShoppingListObject";
 import { ButtonVariant } from "../../shared/enums/ButtonVariant";
-import NavBarIconVariant from "../../shared/enums/NavBarIconVariant";
 import styles from "./ShoppingList.module.scss";
 
 interface ShoppingListObject {
@@ -24,7 +21,7 @@ const ShoppingList: React.FC = () => {
     },
     {
       object: {
-        name: "Frytki ze schabowym",
+        name: "Frytki z kurczakiem",
         items: ["1 kg kurczaka", "sól", "pieprz", "przyprawa do kurczaka", "folia aluminiowa"],
       },
     },
@@ -32,7 +29,6 @@ const ShoppingList: React.FC = () => {
 
   return (
     <div className={styles.componentContainer}>
-      <NavBar title="Cookify" iconVariant={NavBarIconVariant.Calendar} />
       <div className={styles.listContainer}>
         <div className={styles.shareButton}>{"--->"}Udostępnij</div>
         <ul>
@@ -48,7 +44,7 @@ const ShoppingList: React.FC = () => {
         </ul>
         <Button
           className={styles.addItemButton}
-          onClick={() => setShoppingList([...shoppingList, "item"])}
+          onClick={() => setShoppingList([...shoppingList, "itemek"])}
           text={"(+) Dodaj element"}
           variant={ButtonVariant.Blue}
         />

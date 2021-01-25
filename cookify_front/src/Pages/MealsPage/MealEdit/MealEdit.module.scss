@@ -1,0 +1,27 @@
+@import "../../../styles/index.scss";
+
+.componentContainer {
+  margin-top: 15px;
+  width: 90%;
+  height: 100%;
+}
+
+.header {
+  font-size: 20px;
+  font-weight: $weightSemi;
+}
+
+.nameContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.additionalInfoTextInput {
+  align-items: baseline;
+  min-height: 100px;
+}
+
+.addItemInput {
+  border: none;
+  outline: none;
+}

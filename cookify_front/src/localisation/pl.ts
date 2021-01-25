@@ -52,6 +52,18 @@ const pl = {
     main: "Strona, na którą próbujesz się dostać nie istnieje!",
     button: "Wróć na stronę główną",
   },
+  meals: {
+    searchButton: "Wyszukaj posiłek",
+    newMealButton: "Nowy posiłek",
+    mealDetails: {
+      name: "Nazwa: ",
+      ingredients: "Składniki: ",
+      recipe: "Przepis: ",
+      additionalInfo: "Dodatkowe uwagi: ",
+      close: "Zamknij",
+      save: "Zapisz",
+    },
+  },
 };
 
 export default pl;

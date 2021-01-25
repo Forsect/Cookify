@@ -1,20 +1,22 @@
-import classNames from "classnames";
 import React from "react";
-import styles from "./TextInput.module.scss";
+import styles from "./SearchInput.module.scss";
+import classNames from "classnames";
+import SearchIcon from "../icons/SearchIcon";
 
-interface TextInputProps {
+interface SearchInputProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   borderClassName?: string;
   inputClassName?: string;
   placeholder?: string;
-  text?: string;
+  searchedName: string;
 }
 
-const TextInput: React.FC<TextInputProps> = (props: TextInputProps) => {
+const SearchInput: React.FC<SearchInputProps> = (props: SearchInputProps) => {
   return (
     <div className={classNames(props.borderClassName, styles.inputBorder)}>
+      <SearchIcon onClick={() => {}} className={styles.searchIcon} />
       <input
-        value={props.text}
+        value={props.searchedName}
         className={classNames(props.inputClassName, styles.input)}
         type="text"
         onChange={props.onChange}
@@ -24,4 +26,4 @@ const TextInput: React.FC<TextInputProps> = (props: TextInputProps) => {
   );
 };
 
-export default TextInput;
+export default SearchInput;

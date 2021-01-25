@@ -10,6 +10,7 @@ interface ButtonProps {
   className?: string;
   buttonTextClass?: string;
   variant: ButtonVariant;
+  specialMark?: string;
 }
 
 const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
@@ -34,7 +35,10 @@ const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
 
         props.onClick();
       }}>
-      <div className={classNames(styles.buttonText, props.buttonTextClass)}>{props.text}</div>
+      <div className={classNames(styles.buttonText, props.buttonTextClass)}>
+        {props.specialMark}
+        {props.text}
+      </div>
     </div>
   );
 };

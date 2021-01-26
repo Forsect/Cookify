@@ -1,0 +1,11 @@
+@import "../../../styles/index.scss";
+
+.textArea {
+  resize: none;
+  outline: none;
+  border: 1px solid $input-border-color;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: $primary-font-family;
+  padding: 8px;
+}

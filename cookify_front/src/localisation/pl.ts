@@ -66,6 +66,7 @@ const pl = {
       additionalInfo: "Dodatkowe uwagi: ",
       close: "Zamknij",
       save: "Zapisz",
+      edit: "Edytuj",
     },
   },
 };

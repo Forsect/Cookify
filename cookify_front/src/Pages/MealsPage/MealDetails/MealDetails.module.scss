@@ -11,23 +11,11 @@
   font-weight: $weightSemi;
 }
 
-.containerBase {
-  margin-bottom: 15px;
-}
-
 .nameContainer {
-  @extend .containerBase;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-}
-
-.ingredientsContainer {
-  @extend .containerBase;
-}
-
-.recipeContainer {
-  @extend .containerBase;
+  align-items: center;
 }
 
 .mealNameInput {
@@ -35,9 +23,8 @@
 }
 
 .textAreaBase {
-  margin-top: 10px;
+  margin-top: 8px;
   align-items: baseline;
-  min-height: 100px;
   min-width: 100%;
 }
 
@@ -49,13 +36,7 @@
   @extend .textAreaBase;
 }
 
-.addNewIngredientInputContainer {
-  display: flex;
-  flex-direction: row;
-  border-bottom: 1px solid rgba($color: $black-color, $alpha: 0.25);
-}
-
-.addNewIngredientInput {
+.addItemInput {
   border: none;
   outline: none;
 }

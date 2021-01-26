@@ -5,6 +5,7 @@ import SearchInput from "../../shared/components/inputs/SearchInput";
 import MealsListItem from "../../shared/components/meals/MealsListItem";
 import { ButtonVariant } from "../../shared/enums/ButtonVariant";
 import { Meal } from "../../shared/models/Meal";
+import MealDetails from "./MealDetails/MealDetails";
 import MealEdit from "./MealEdit/MealEdit";
 import styles from "./Meals.module.scss";
 
@@ -105,12 +106,7 @@ const Meals: React.FC = () => {
   };
 
   const renderMealDetails = () => {
-    return (
-      <div style={{ backgroundColor: "blue" }}>
-        <button onClick={() => setIsMealDetailsOpen(false)}>Cofnij</button>
-        <button onClick={() => setIsMealEditOpen(true)}>Edytuj</button>
-      </div>
-    );
+    return <MealDetails meal={selectedMeal} onClose={() => setIsMealDetailsOpen(false)} onEdit={() => setIsMealEditOpen(true)} />;
   };
 
   const renderContent = () => {

@@ -8,13 +8,15 @@
 }
 
 .text {
-  width: 90%;
+  width: 92%;
   font-size: 16px;
   background-color: $complementary-color-brighter;
   color: black;
+  overflow-x: auto;
 }
 
 .textChecked {
+  @extend .text;
   text-decoration: line-through;
 }
 

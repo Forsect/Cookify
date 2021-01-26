@@ -1,4 +1,5 @@
 ﻿using Cookify.API.Models.Repository;
+using Cookify.API.Models.Results;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,12 @@ namespace Cookify.API.Repositories.Users
     public interface IUserRepository
     {
         User GetById(string id);
-        void Create(User user);
+        Task RegisterUser(User user);
         List<User> GetAllWhere(Expression<Func<User, bool>> predicate);
         User GetWhere(Expression<Func<User, bool>> predicate);
+        GetShoppingListForUserResult GetShoppingListForUser(string id);
+        IEnumerable<string> AddProductToList(string userId, string productName);
+        IEnumerable<string> RemoveProductFromList(string userId, string productName);
+
     }
 }

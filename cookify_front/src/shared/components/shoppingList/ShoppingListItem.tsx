@@ -6,12 +6,18 @@ interface ShoppingListItemProps {
   onDelete: () => void;
 }
 
-const ShoppingListItem: React.FC<ShoppingListItemProps> = (props: ShoppingListItemProps) => {
+const ShoppingListItem: React.FC<ShoppingListItemProps> = (
+  props: ShoppingListItemProps
+) => {
   const [isChecked, setIsChecked] = useState<boolean>(false);
   return (
     <>
-      <div onClick={() => setIsChecked(!isChecked)} className={styles.itemContainer}>
-        <div className={isChecked ? styles.textChecked : styles.text}>{props.name}</div>
+      <div className={styles.itemContainer}>
+        <div
+          onClick={() => setIsChecked(!isChecked)}
+          className={isChecked ? styles.textChecked : styles.text}>
+          {props.name}
+        </div>
         <div className={styles.deleteButton} onClick={props.onDelete}>
           &#10761;
         </div>

@@ -6,7 +6,7 @@
   border-radius: 20px;
   align-self: center;
   box-shadow: 2px 2px 3px 2px rgba(0, 0, 0, 0.25);
-  background-color: $primary-color-brighter;
+  background-color: $shopping-paper-color;
 }
 
 .shoppingListObjectItems {
@@ -15,8 +15,12 @@
   padding-bottom: 20px;
 }
 
+.shoppingListObjectItem {
+  background-color: $shopping-paper-color;
+}
+
 .line {
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   border-bottom: 1px solid;
   width: 100%;
 }
@@ -26,7 +30,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin: 5px 0px 5px 20px;
+  margin: 8px 0px 8px 20px;
   height: 100%;
 }
 
@@ -48,7 +52,7 @@
 }
 
 .underline {
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   border-bottom: 1px solid;
   width: 96%;
   opacity: 0.3;

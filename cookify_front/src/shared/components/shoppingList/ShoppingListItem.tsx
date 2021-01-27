@@ -3,7 +3,8 @@ import styles from "./ShoppingListItem.module.scss";
 
 interface ShoppingListItemProps {
   name: string;
-  onDelete: () => void;
+  onDelete?: () => void;
+  disableOnClick?: boolean;
 }
 
 const ShoppingListItem: React.FC<ShoppingListItemProps> = (
@@ -12,15 +13,17 @@ const ShoppingListItem: React.FC<ShoppingListItemProps> = (
   const [isChecked, setIsChecked] = useState<boolean>(false);
   return (
     <>
-      <div className={styles.itemContainer}>
-        <div
-          onClick={() => setIsChecked(!isChecked)}
-          className={isChecked ? styles.textChecked : styles.text}>
+      <div
+        onClick={() => !props.disableOnClick && setIsChecked(!isChecked)}
+        className={styles.itemContainer}>
+        <div className={isChecked ? styles.textChecked : styles.text}>
           {props.name}
         </div>
-        <div className={styles.deleteButton} onClick={props.onDelete}>
-          &#10761;
-        </div>
+        {props.onDelete && (
+          <div className={styles.deleteButton} onClick={props.onDelete}>
+            &#10761;
+          </div>
+        )}
       </div>
       <div className={styles.underline} />
     </>

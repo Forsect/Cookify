@@ -1,0 +1,53 @@
+@import "../../../styles/index.scss";
+
+.componentContainer {
+  margin-top: 15px;
+  width: 90%;
+  height: 100%;
+}
+
+.header {
+  font-size: 20px;
+  font-weight: $weightSemi;
+}
+
+.nameContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mealNameInput {
+  width: 70%;
+}
+
+.textAreaBase {
+  margin-top: 8px;
+  align-items: baseline;
+  min-width: 100%;
+}
+
+.additionalInfoTextArea {
+  @extend .textAreaBase;
+}
+
+.recipeTextArea {
+  @extend .textAreaBase;
+}
+
+.addItemInput {
+  border: none;
+  outline: none;
+}
+
+.button {
+  width: 45%;
+}
+
+.buttonsContainer {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

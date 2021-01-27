@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import NavBar from "../../shared/components/navBar/NavBar";
 import ShoppingListItem from "../../shared/components/shoppingList/ShoppingListItem";
 import ShoppingListObject from "../../shared/components/shoppingList/ShoppingListObject";
-import NavBarIconVariant from "../../shared/enums/NavBarIconVariant";
 import styles from "./ShoppingList.module.scss";
 import pl from "./../../localisation/pl";
 import InfoBar from "../../shared/components/custom/InfoBar";
@@ -31,7 +29,7 @@ const ShoppingList: React.FC = observer(() => {
     },
     {
       object: {
-        name: "Frytki ze schabowym",
+        name: "Frytki z kurczakiem",
         items: [
           "1 kg kurczaka",
           "sól",
@@ -65,7 +63,6 @@ const ShoppingList: React.FC = observer(() => {
 
   return (
     <div className={styles.componentContainer}>
-      <NavBar title="Cookify" iconVariant={NavBarIconVariant.Calendar} />
       <div className={styles.listContainer}>
         <div className={styles.shareButton}>
           <div>&#10150;</div>

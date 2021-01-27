@@ -13,19 +13,28 @@ interface ShoppingListObjectProps {
   header: string;
 }
 
-const ShoppingListObjectSingleItem: React.FC<ShoppingListObjectSingleItemProps> = (props: ShoppingListObjectSingleItemProps) => {
+const ShoppingListObjectSingleItem: React.FC<ShoppingListObjectSingleItemProps> = (
+  props: ShoppingListObjectSingleItemProps
+) => {
   const [isChecked, setIsChecked] = useState<boolean>(false);
   return (
     <>
-      <div onClick={() => setIsChecked(!isChecked)} className={styles.itemContainer}>
-        <Text className={isChecked ? styles.itemTextChecked : styles.itemText} text={props.name} />
+      <div
+        onClick={() => setIsChecked(!isChecked)}
+        className={styles.itemContainer}>
+        <Text
+          className={isChecked ? styles.itemTextChecked : styles.itemText}
+          text={props.name}
+        />
       </div>
       <div className={styles.underline} />
     </>
   );
 };
 
-const ShoppingListObject: React.FC<ShoppingListObjectProps> = (props: ShoppingListObjectProps) => {
+const ShoppingListObject: React.FC<ShoppingListObjectProps> = (
+  props: ShoppingListObjectProps
+) => {
   return (
     <Paper className={styles.paper}>
       <div className={styles.headerContainer}>

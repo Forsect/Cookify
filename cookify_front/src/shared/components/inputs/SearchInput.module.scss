@@ -1,7 +1,14 @@
 @import "../../../styles/index.scss";
 
+.searchIcon {
+  width: 20px;
+  height: 20px;
+  margin: 2px 8px;
+}
+
 .inputBorder {
   border: 1px solid $input-border-color;
+  box-sizing: border-box;
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -13,6 +20,7 @@
   padding: 8px;
   font-size: 14px;
   width: 100%;
+  box-sizing: border-box;
   font-family: $primary-font-family;
 
   &:focus {

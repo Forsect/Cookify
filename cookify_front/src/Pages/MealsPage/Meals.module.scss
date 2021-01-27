@@ -1,0 +1,29 @@
+@import "../../styles/index.scss";
+
+.componentContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.searchInputBorder {
+  margin-top: 15px;
+  width: 90%;
+  border-radius: 20px;
+}
+
+.searchInput {
+  border-radius: 20px;
+}
+
+.addNewMealButton {
+  margin-top: 30px;
+  width: 70%;
+}
+
+.mealsListContainer {
+  width: 90%;
+  margin-top: 30px;
+}

@@ -8,13 +8,14 @@ import ShoppingList from "../Pages/ShoppingList/ShoppingList";
 import Paper from "../shared/components/papers/Paper";
 import styles from "./Routes.module.scss";
 import UnknownPage from "./../Pages/UnknownPage/UnknownPage";
+import Home from "../Pages/Home/Home";
 
 const Routes = () => {
   return (
     <div className={styles.mainContainer}>
       <Paper className={styles.paper}>
         <Switch>
-          <PrivateRoute exact path={Navigation.Home} component={ShoppingList} />
+          <PrivateRoute exact path={Navigation.Home} component={Home} />
           <Route path={Navigation.Login} component={Login} />
           <Route path={Navigation.Register} component={Register} />
           <Route component={UnknownPage} />

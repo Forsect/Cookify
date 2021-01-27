@@ -21,7 +21,8 @@ const Meals: React.FC = () => {
       name: "Frytki ze schabowym",
       ingredients: ["frytki", "1kg mięso z łopatki"],
       recipe: "Usmaż frytki, rozbij mięso i potem przypraw",
-      additionalInfo: "Potrawę znalazłem na www.mojapotrawa.pl/frytkiZeSchabowym",
+      additionalInfo:
+        "Potrawę znalazłem na www.mojapotrawa.pl/frytkiZeSchabowym",
     },
     {
       name: "Kluski śląskie",
@@ -49,7 +50,12 @@ const Meals: React.FC = () => {
     },
   ]);
   const [searchedName, setSearchedName] = useState("");
-  const [selectedMeal, setSelectedMeal] = useState<Meal>({ name: "", additionalInfo: "", recipe: "", ingredients: [] });
+  const [selectedMeal, setSelectedMeal] = useState<Meal>({
+    name: "",
+    additionalInfo: "",
+    recipe: "",
+    ingredients: [],
+  });
   const [isMealEditOpen, setIsMealEditOpen] = useState<boolean>(false);
   const [isMealDetailsOpen, setIsMealDetailsOpen] = useState<boolean>(false);
 
@@ -70,9 +76,14 @@ const Meals: React.FC = () => {
         <Button
           specialMark="&#x2B; "
           className={styles.addNewMealButton}
-          variant={ButtonVariant.Blue}
+          variant={ButtonVariant.Orange}
           onClick={() => {
-            setSelectedMeal({ name: "", additionalInfo: "", recipe: "", ingredients: [] });
+            setSelectedMeal({
+              name: "",
+              additionalInfo: "",
+              recipe: "",
+              ingredients: [],
+            });
             setIsMealEditOpen(true);
           }}
           text={pl.meals.newMealButton}
@@ -106,7 +117,13 @@ const Meals: React.FC = () => {
   };
 
   const renderMealDetails = () => {
-    return <MealDetails meal={selectedMeal} onClose={() => setIsMealDetailsOpen(false)} onEdit={() => setIsMealEditOpen(true)} />;
+    return (
+      <MealDetails
+        meal={selectedMeal}
+        onClose={() => setIsMealDetailsOpen(false)}
+        onEdit={() => setIsMealEditOpen(true)}
+      />
+    );
   };
 
   const renderContent = () => {

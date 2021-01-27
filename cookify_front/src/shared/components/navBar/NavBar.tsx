@@ -21,19 +21,39 @@ const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
     switch (screen) {
       case Screen.Calendar:
         setIconVariant(NavBarIconVariant.Calendar);
-        return <CalendarIcon className={styles.calendarIcon} onClick={() => props.setScreen(Screen.ShoppingList)} />;
+        return (
+          <CalendarIcon
+            className={styles.calendarIcon}
+            onClick={() => props.setScreen(Screen.ShoppingList)}
+          />
+        );
         break;
       case Screen.ShoppingList:
         setIconVariant(NavBarIconVariant.ShoppingCart);
-        return <ShoppingCartIcon className={styles.shoppingCartIcon} onClick={() => props.setScreen(Screen.Calendar)} />;
+        return (
+          <ShoppingCartIcon
+            className={styles.shoppingCartIcon}
+            onClick={() => props.setScreen(Screen.Calendar)}
+          />
+        );
         break;
       case Screen.Meals:
         if (iconVariant === NavBarIconVariant.Calendar) {
           setIconVariant(NavBarIconVariant.Calendar);
-          return <CalendarIcon className={styles.calendarIcon} onClick={() => props.setScreen(Screen.ShoppingList)} />;
+          return (
+            <CalendarIcon
+              className={styles.calendarIcon}
+              onClick={() => props.setScreen(Screen.ShoppingList)}
+            />
+          );
         } else if (iconVariant === NavBarIconVariant.ShoppingCart) {
           setIconVariant(NavBarIconVariant.ShoppingCart);
-          return <ShoppingCartIcon className={styles.shoppingCartIcon} onClick={() => props.setScreen(Screen.Calendar)} />;
+          return (
+            <ShoppingCartIcon
+              className={styles.shoppingCartIcon}
+              onClick={() => props.setScreen(Screen.Calendar)}
+            />
+          );
         }
         break;
       default:
@@ -44,8 +64,11 @@ const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
   return (
     <div className={styles.navBar}>
       <div className={styles.mainContainer}>
-        <UserIcon className={styles.userIcon} onClick={() => props.setScreen(Screen.Meals)} />
-        <Text text={props.title} />
+        <UserIcon
+          className={styles.userIcon}
+          onClick={() => props.setScreen(Screen.Meals)}
+        />
+        <Text className={styles.navBarText} text={props.title} />
         {props.screen === Screen.ShoppingList && (
           <CalendarIcon
             className={styles.calendarIcon}

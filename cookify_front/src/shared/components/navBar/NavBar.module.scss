@@ -7,7 +7,7 @@
   background-color: $primary-color;
   display: flex;
   justify-content: center;
-  height: 50px;
+  min-height: 50px;
   align-items: center;
 }
 
@@ -15,9 +15,15 @@
   font-size: 20px;
   color: white;
   display: flex;
+  align-items: center;
   flex-direction: row;
   justify-content: space-between;
   width: 90%;
+}
+
+.navBarText {
+  font-size: 24px;
+  font-weight: $weightSemi;
 }
 
 .baseIcon {

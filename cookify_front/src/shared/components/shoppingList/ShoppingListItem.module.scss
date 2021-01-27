@@ -10,9 +10,9 @@
 .text {
   width: 92%;
   font-size: 16px;
-  background-color: $complementary-color-brighter;
   color: black;
   overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .textChecked {
@@ -21,7 +21,7 @@
 }
 
 .underline {
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   border-bottom: 1px solid;
   width: 100%;
   opacity: 0.3;

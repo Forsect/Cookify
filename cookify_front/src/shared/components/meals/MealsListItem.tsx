@@ -9,12 +9,14 @@ interface MealsListItemProps {
   onClick: () => void;
 }
 
-const MealsListItem: React.FC<MealsListItemProps> = (props: MealsListItemProps) => {
+const MealsListItem: React.FC<MealsListItemProps> = (
+  props: MealsListItemProps
+) => {
   return (
     <Button
       buttonTextClass={styles.buttonText}
       className={styles.button}
-      variant={ButtonVariant.Orange}
+      variant={ButtonVariant.Blue}
       onClick={() => props.onClick()}
       text={props.meal.name}
     />

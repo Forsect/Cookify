@@ -3,14 +3,12 @@
 .componentContainer {
   width: 100%;
   height: 100%;
-  background-color: $complementary-color-brighter;
 }
 
 .listContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: $complementary-color-brighter;
   padding-bottom: 15px;
 }
 
@@ -22,14 +20,14 @@
 .shareButton {
   display: flex;
   justify-content: space-around;
-  padding: 3px;
+  padding: 8px;
   margin-top: 15px;
-  margin-right: 5px;
+  margin-right: 16px;
   margin-bottom: 10px;
   align-self: flex-end;
   width: 120px;
   border-radius: 20px;
-  background-color: $primary-color;
+  background-color: $share-button-color;
   color: white;
   font-weight: $weightSemi;
 }
@@ -46,7 +44,7 @@
   align-self: center;
   width: 90%;
   padding: 0px 25px;
-  margin-bottom: 2px;
+  margin-bottom: 12px;
 }
 
 .inputBox {
@@ -59,7 +57,6 @@
   font-size: 16px;
   outline: none;
   border: none;
-  background-color: $complementary-color-brighter;
   width: 100%;
 }
 
@@ -77,6 +74,7 @@
   align-self: center;
   height: 40px;
   width: 90%;
+  margin-bottom: 20px;
 }
 
 .infoBar {

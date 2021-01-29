@@ -4,7 +4,6 @@ import { Navigation } from "../shared/enums/Navigation";
 import PrivateRoute from "./PrivateRoute";
 import Register from "../Pages/Register/Register";
 import Login from "../Pages/Login/Login";
-import ShoppingList from "../Pages/ShoppingList/ShoppingList";
 import Paper from "../shared/components/papers/Paper";
 import styles from "./Routes.module.scss";
 import UnknownPage from "./../Pages/UnknownPage/UnknownPage";

@@ -3,7 +3,6 @@ import NavBar from "../../shared/components/navBar/NavBar";
 import { Screen } from "../../shared/enums/Screen";
 import Meals from "../MealsPage/Meals";
 import ShoppingList from "../ShoppingList/ShoppingList";
-import styles from "./Home.module.scss";
 
 const Home: React.FC = () => {
   const [screen, setScreen] = useState<Screen>(Screen.ShoppingList);

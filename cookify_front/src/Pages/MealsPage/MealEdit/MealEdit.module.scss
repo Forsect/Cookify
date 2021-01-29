@@ -7,19 +7,23 @@
 }
 
 .header {
+  margin-bottom: 8px;
   font-size: 20px;
   font-weight: $weightSemi;
 }
 
+.nameHeader {
+  @extend .header;
+}
+
 .containerBase {
-  margin-bottom: 15px;
+  margin-bottom: 16px;
 }
 
 .nameContainer {
   @extend .containerBase;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
 }
 
 .ingredientsContainer {
@@ -28,26 +32,26 @@
 
 .recipeContainer {
   @extend .containerBase;
+  margin-bottom: 8px;
 }
 
 .mealNameInput {
-  width: 70%;
 }
 
 .textAreaBase {
-  box-sizing: border-box;
-  margin-top: 10px;
   align-items: baseline;
-  min-height: 100px;
+  min-height: 70px;
   min-width: 100%;
-}
-
-.additionalInfoTextArea {
-  @extend .textAreaBase;
+  box-sizing: border-box;
 }
 
 .recipeTextArea {
   @extend .textAreaBase;
+}
+
+.additionalInfoTextArea {
+  @extend .textAreaBase;
+  margin-bottom: 16px;
 }
 
 .addNewIngredientInputContainer {
@@ -62,12 +66,10 @@
 }
 
 .button {
-  width: 45%;
+  margin-bottom: 15px;
 }
 
 .buttonsContainer {
-  margin-top: 20px;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
 }

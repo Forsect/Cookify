@@ -98,6 +98,7 @@ const Meals: React.FC = () => {
                   setIsMealDetailsOpen(true);
                 }}
                 meal={meal}
+                key={meal.name}
               />
             ))}
         </div>
@@ -122,6 +123,10 @@ const Meals: React.FC = () => {
         meal={selectedMeal}
         onClose={() => setIsMealDetailsOpen(false)}
         onEdit={() => setIsMealEditOpen(true)}
+        onDelete={() => {
+          setMealsList(mealsList.filter((meal) => meal !== selectedMeal));
+          setIsMealDetailsOpen(false);
+        }}
       />
     );
   };
@@ -133,7 +138,7 @@ const Meals: React.FC = () => {
     return renderMeals();
   };
 
-  return <div className={styles.componentContainer}>{renderContent()}</div>;
+  return renderContent();
 };
 
 export default Meals;

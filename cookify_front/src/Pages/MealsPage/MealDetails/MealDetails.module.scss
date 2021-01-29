@@ -1,39 +1,66 @@
 @import "../../../styles/index.scss";
 
 .componentContainer {
-  margin-top: 15px;
   width: 90%;
   height: 100%;
 }
 
+.iconsContainer {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+.pencilIcon {
+  @extend .icon;
+}
+
+.trashCanIcon {
+  @extend .icon;
+  fill: $trashCan-icon-color;
+}
+
 .header {
+  margin-bottom: 8px;
   font-size: 20px;
   font-weight: $weightSemi;
 }
 
-.nameContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+.nameHeader {
+  @extend .header;
 }
 
 .mealNameInput {
-  width: 70%;
+  overflow-wrap: anywhere;
 }
 
-.textAreaBase {
-  margin-top: 8px;
-  align-items: baseline;
-  min-width: 100%;
+.containerBase {
+  margin-bottom: 15px;
 }
 
-.additionalInfoTextArea {
-  @extend .textAreaBase;
+.nameContainer {
+  @extend .containerBase;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.recipeTextArea {
-  @extend .textAreaBase;
+.ingredientsContainer {
+  @extend .containerBase;
+}
+
+.recipeContainer {
+  @extend .containerBase;
+}
+
+.additionalInfoContainer {
+  @extend .containerBase;
 }
 
 .addItemInput {
@@ -42,12 +69,5 @@
 }
 
 .button {
-  width: 45%;
-}
-
-.buttonsContainer {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  margin-bottom: 15px;
 }

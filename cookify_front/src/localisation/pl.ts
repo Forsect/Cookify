@@ -22,7 +22,8 @@ const pl = {
         passwordLength: "Hasło powinno zawierać minimum 8 znaków!",
         passwordBigChar: "Hasło powinno zawierać 1 dużą literę!",
         passwordSmallChar: "Hasło powinno zawierać 1 małą literę!",
-        passwordSpecialChar: "Hasło powinno zawierać 1 znak specjalny lub cyfrę!",
+        passwordSpecialChar:
+          "Hasło powinno zawierać 1 znak specjalny lub cyfrę!",
       },
       emailIsAlreadyTaken: "Podany adres email jest już używany!",
       unknownError: "Wystąpił nieznany błąd, spróbuj ponownie później.",
@@ -45,7 +46,8 @@ const pl = {
       wrongEmail: "Nieprawidłowy adres email!",
       invalidLoginOrPassword: "Nieprawidłowy adres email lub hasło!",
       unknownError: "Wystąpił nieznany błąd, spróbuj ponownie później.",
-      inactiveAccount: "Twoje konto jest nieaktywne. Skontaktuj się z administratorem w celu jego odblokowania.",
+      inactiveAccount:
+        "Twoje konto jest nieaktywne. Skontaktuj się z administratorem w celu jego odblokowania.",
     },
   },
   shoppingList: {
@@ -67,6 +69,7 @@ const pl = {
       close: "Zamknij",
       save: "Zapisz",
       edit: "Edytuj",
+      delete: "Usuń",
     },
   },
 };

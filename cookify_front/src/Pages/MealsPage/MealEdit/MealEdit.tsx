@@ -19,8 +19,12 @@ interface MealEditProps {
 const MealEdit: React.FC<MealEditProps> = (props: MealEditProps) => {
   const [mealName, setMealName] = useState<string>(props.meal.name);
   const [mealRecipe, setMealRecipe] = useState<string>(props.meal.recipe);
-  const [mealAdditionalInfo, setMealAdditionalInfo] = useState<string>(props.meal.additionalInfo);
-  const [mealIngredients, setMealIngredients] = useState<string[]>(props.meal.ingredients);
+  const [mealAdditionalInfo, setMealAdditionalInfo] = useState<string>(
+    props.meal.additionalInfo
+  );
+  const [mealIngredients, setMealIngredients] = useState<string[]>(
+    props.meal.ingredients
+  );
   const [newIngredient, setNewIngredient] = useState<string>("");
 
   const addProduct = (product: string) => {
@@ -40,20 +44,33 @@ const MealEdit: React.FC<MealEditProps> = (props: MealEditProps) => {
     <div className={styles.componentContainer}>
       <div className={styles.nameContainer}>
         <Text className={styles.nameHeader} text={pl.meals.mealDetails.name} />
-        <TextInput borderClassName={styles.mealNameInput} onChange={(text) => setMealName(text.currentTarget.value)} text={mealName} />
+        <TextInput
+          borderClassName={styles.mealNameInput}
+          onChange={(text) => setMealName(text.currentTarget.value)}
+          text={mealName}
+        />
       </div>
       <div className={styles.ingredientsContainer}>
-        <Text className={styles.header} text={pl.meals.mealDetails.ingredients} />
+        <Text
+          className={styles.header}
+          text={pl.meals.mealDetails.ingredients}
+        />
         {mealIngredients.map((ingredient, index) => (
           <ShoppingListItem
             disableOnClick
-            onDelete={() => setMealIngredients(mealIngredients.filter((item, index2) => index !== index2))}
+            onDelete={() =>
+              setMealIngredients(
+                mealIngredients.filter((item, index2) => index !== index2)
+              )
+            }
             name={ingredient}
             key={ingredient}
           />
         ))}
         <div className={styles.addNewIngredientInputContainer}>
-          <div style={{ marginBottom: "3px" }} onClick={() => addProduct(newIngredient)}>
+          <div
+            style={{ marginBottom: "3px" }}
+            onClick={() => addProduct(newIngredient)}>
             &#x2B;
           </div>
           <input
@@ -69,10 +86,17 @@ const MealEdit: React.FC<MealEditProps> = (props: MealEditProps) => {
       </div>
       <div className={styles.recipeContainer}>
         <Text className={styles.header} text={pl.meals.mealDetails.recipe} />
-        <TextArea className={styles.recipeTextArea} onChange={(text) => setMealRecipe(text.currentTarget.value)} text={mealRecipe} />
+        <TextArea
+          className={styles.recipeTextArea}
+          onChange={(text) => setMealRecipe(text.currentTarget.value)}
+          text={mealRecipe}
+        />
       </div>
       <div className={styles.additionalInfoContainer}>
-        <Text className={styles.header} text={pl.meals.mealDetails.additionalInfo} />
+        <Text
+          className={styles.header}
+          text={pl.meals.mealDetails.additionalInfo}
+        />
         <TextArea
           className={styles.additionalInfoTextArea}
           onChange={(text) => setMealAdditionalInfo(text.currentTarget.value)}
@@ -101,7 +125,12 @@ const MealEdit: React.FC<MealEditProps> = (props: MealEditProps) => {
             } else if (mealName) {
               newMeals = [
                 ...props.meals,
-                { name: mealName, ingredients: mealIngredients, recipe: mealRecipe, additionalInfo: mealAdditionalInfo },
+                {
+                  name: mealName,
+                  ingredients: mealIngredients,
+                  recipe: mealRecipe,
+                  additionalInfo: mealAdditionalInfo,
+                },
               ];
             }
             props.setMealsList([...newMeals]);

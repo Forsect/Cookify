@@ -8,5 +8,6 @@ namespace Cookify.API
     public static class AppSettings
     {
         public const string CorsConfigurationName = nameof(CorsConfigurationName);
+        public const string AuthenticationHeader = "Authentication";
     }
 }

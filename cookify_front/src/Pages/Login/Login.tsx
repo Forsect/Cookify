@@ -55,6 +55,17 @@ const Login: React.FC = observer(() => {
     }
   };
 
+  const loginRequest = async () => {
+    if (!formValidator()) return;
+    const result = await userStore.authorizeUser(email, password);
+
+    if (result.succeeded) {
+      history.push(Navigation.Home);
+    } else {
+      setErrorText(mapErrorToMessage(result.status));
+    }
+  };
+
   return (
     <div className={styles.componentContainer}>
       <CookibuyLogo className={styles.cookifyLogo} />
@@ -69,31 +80,37 @@ const Login: React.FC = observer(() => {
           additionalClassName={styles.inputs}
           placeholder={pl.registration.inputs.password}
           onChange={(text) => setPassword(text.currentTarget.value)}
+          onKeyDown={async (key) => {
+            if (key.key === "Enter") {
+              await loginRequest();
+            }
+          }}
         />
 
         <div className={styles.forgotPassword}>
-          <Text className={styles.forgotPasswordText} text={pl.login.forgotPasswordText} />
+          <Text
+            className={styles.forgotPasswordText}
+            text={pl.login.forgotPasswordText}
+          />
         </div>
       </div>
       <Button
         className={styles.loginButton}
         variant={ButtonVariant.Blue}
         text={pl.login.buttons.login}
-        onClick={async () => {
-          console.dir(password);
-          if (!formValidator()) return;
-          const result = await userStore.authorizeUser(email, password);
-
-          if (result.succeeded) {
-            history.push(Navigation.Home);
-          } else {
-            setErrorText(mapErrorToMessage(result.status));
-          }
-        }}
+        onClick={async () => await loginRequest()}
       />
       <div className={styles.infoContainer}>
-        {errorText && <InfoBar variant={InfoBarVariant.Red} text={errorText} onClose={() => setErrorText("")} />}
-        {userStore.authorizeUserIsLoading && <Loader text={pl.loading} containerClass={styles.Loader} />}
+        {errorText && (
+          <InfoBar
+            variant={InfoBarVariant.Red}
+            text={errorText}
+            onClose={() => setErrorText("")}
+          />
+        )}
+        {userStore.authorizeUserIsLoading && (
+          <Loader text={pl.loading} containerClass={styles.Loader} />
+        )}
       </div>
       <Button
         className={styles.registerButton}

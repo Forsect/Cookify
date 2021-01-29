@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { store, StoreContext } from "./shared/stores/Store";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+import "normalize.css";
 
 const routing = (
   <StoreContext.Provider value={store}>

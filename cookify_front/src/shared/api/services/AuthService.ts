@@ -14,7 +14,10 @@ export class DefaultAuthService implements AuthService {
   private getJwtTokenUrl: string = "/authorization/GetJwtToken";
 
   getAccountStatus(request: LoginRequest): AxiosPromise<AccountStatusEnum> {
-    return post<AccountStatusEnum>(BASE_API_URL + this.getAccountStatusUrl, request);
+    return post<AccountStatusEnum>(
+      BASE_API_URL + this.getAccountStatusUrl,
+      request
+    );
   }
   getJwtToken(): AxiosPromise<string> {
     return get<string>(BASE_API_URL + this.getJwtTokenUrl);

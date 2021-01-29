@@ -25,7 +25,7 @@ namespace Cookify.API.Services.Users
         }
 
 
-        public ServiceResponse<RegisterUserResultEnum> RegisterUser(AddUserRequest request)
+        public async Task<ServiceResponse<RegisterUserResultEnum>> RegisterUser(AddUserRequest request)
         {
             try
             {
@@ -41,10 +41,11 @@ namespace Cookify.API.Services.Users
                 }
 
 
-                _userRepository.Create(new User
+                await _userRepository.RegisterUser(new User
                 {
                     Login = request.Login,
                     Password = BCrypt.Net.BCrypt.HashPassword(request.Password),
+                    ShoppingList = new List<string>(),
                     IsActive = true
                 });
 

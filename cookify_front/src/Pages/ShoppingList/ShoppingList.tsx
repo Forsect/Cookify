@@ -1,20 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ShoppingListItem from "../../shared/components/shoppingList/ShoppingListItem";
 import ShoppingListObject from "../../shared/components/shoppingList/ShoppingListObject";
 import styles from "./ShoppingList.module.scss";
 import pl from "./../../localisation/pl";
 import InfoBar from "../../shared/components/custom/InfoBar";
 import { InfoBarVariant } from "../../shared/enums/InfoBarVariant";
+import { observer } from "mobx-react-lite";
+import { useStore } from "../../shared/stores/Store";
 
 interface ShoppingListObjectMock {
   object: { name: string; items: string[] };
 }
 
-const ShoppingList: React.FC = () => {
+const ShoppingList: React.FC = observer(() => {
   const [errorText, setErrorText] = useState<string>("");
   const [newProduct, setNewProduct] = useState<string>("");
-  const [shoppingList, setShoppingList] = useState<string[]>(["chipsy", "cola", "monsterek", "paluszki"]);
-  const [shoppingListObjects, setShoppingListObjects] = useState<ShoppingListObjectMock[]>([
+  // const [shoppingList, setShoppingList] = useState<string[]>([]);
+
+  const [shoppingListObjects, setShoppingListObjects] = useState<
+    ShoppingListObjectMock[]
+  >([
     { object: { name: "Frytki ze schabowym", items: [] } },
     {
       object: {
@@ -25,23 +30,36 @@ const ShoppingList: React.FC = () => {
     {
       object: {
         name: "Frytki z kurczakiem",
-        items: ["1 kg kurczaka", "sól", "pieprz", "przyprawa do kurczaka", "folia aluminiowa"],
+        items: [
+          "1 kg kurczaka",
+          "sól",
+          "pieprz",
+          "przyprawa do kurczaka",
+          "folia aluminiowa",
+        ],
       },
     },
   ]);
+
+  const { shoppingStore } = useStore();
 
   const addProduct = (product: string) => {
     if (!product) {
       setErrorText("Podaj nazwę produktu");
       return;
-    } else if (shoppingList.includes(product)) {
+    } else if (shoppingStore.mainShoppingList.shoppingList.includes(product)) {
       setErrorText("Produkt jest już na liścię");
       return;
     }
-    setShoppingList([...shoppingList, product]);
+    shoppingStore.addProductToList(product);
     setErrorText("");
     setNewProduct("");
   };
+
+  useEffect(() => {
+    shoppingStore.getShoppingListForUser();
+    //eslint-disable-next-line
+  }, []);
 
   return (
     <div className={styles.componentContainer}>
@@ -63,7 +81,9 @@ const ShoppingList: React.FC = () => {
               }}
               value={newProduct}
             />
-            <div onClick={() => addProduct(newProduct)} className={styles.inputPlusIcon}>
+            <div
+              onClick={() => addProduct(newProduct)}
+              className={styles.inputPlusIcon}>
               &#x2B;
             </div>
           </div>
@@ -81,18 +101,22 @@ const ShoppingList: React.FC = () => {
           )}
         </div>
         <div className={styles.shoppingListItems}>
-          {shoppingList.map((item, index) => (
+          {shoppingStore.mainShoppingList.shoppingList.map((item, index) => (
             <ShoppingListItem
               key={item}
               name={item}
-              onDelete={() => setShoppingList(shoppingList.filter((x, index2) => index2 !== index))}
+              onDelete={() => shoppingStore.removeProductFromList(item)}
             />
           ))}
         </div>
         {shoppingListObjects.map((item, index) => (
           <ShoppingListObject
             key={index}
-            onDelete={() => setShoppingListObjects(shoppingListObjects.filter((x, index2) => index2 !== index))}
+            onDelete={() =>
+              setShoppingListObjects(
+                shoppingListObjects.filter((x, index2) => index2 !== index)
+              )
+            }
             items={item.object.items}
             header={item.object.name}
           />
@@ -100,6 +124,6 @@ const ShoppingList: React.FC = () => {
       </div>
     </div>
   );
-};
+});
 
 export default ShoppingList;

@@ -9,12 +9,16 @@ const Home: React.FC = () => {
   const [screen, setScreen] = useState<Screen>(Screen.ShoppingList);
 
   return (
-    <div className={styles.mainCointainer}>
-      <NavBar title={screen} screen={screen} setScreen={(screen) => setScreen(screen)} />
+    <>
+      <NavBar
+        title={screen}
+        screen={screen}
+        setScreen={(screen) => setScreen(screen)}
+      />
       {screen === Screen.ShoppingList && <ShoppingList />}
       {screen === Screen.Calendar && <div>Tu bedzie kalendarz</div>}
       {screen === Screen.Meals && <Meals />}
-    </div>
+    </>
   );
 };
 

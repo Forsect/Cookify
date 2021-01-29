@@ -8,6 +8,7 @@ interface PasswordInputProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   additionalClassName?: string;
   placeholder?: string;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 const PasswordInput: React.FC<PasswordInputProps> = (
@@ -21,6 +22,7 @@ const PasswordInput: React.FC<PasswordInputProps> = (
         className={styles.input}
         type={passwordVisible ? "text" : "password"}
         onChange={props.onChange}
+        onKeyDown={props.onKeyDown}
         placeholder={props.placeholder ? props.placeholder : undefined}
       />
       {passwordVisible ? (

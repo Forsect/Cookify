@@ -1,14 +1,30 @@
 @import "../../../styles/index.scss";
 
 .componentContainer {
-  margin-top: 15px;
   width: 90%;
   height: 100%;
 }
 
+.iconContainer {
+  margin-top: 5px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.pencilIcon {
+  width: 24px;
+  height: 24px;
+}
+
 .header {
+  margin-bottom: 8px;
   font-size: 20px;
   font-weight: $weightSemi;
+}
+
+.nameHeader {
+  @extend .header;
+  margin-bottom: 0px;
 }
 
 .nameContainer {
@@ -16,24 +32,34 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 22px;
 }
 
 .mealNameInput {
   width: 70%;
 }
 
-.textAreaBase {
-  margin-top: 8px;
-  align-items: baseline;
-  min-width: 100%;
+.containerBase {
+  margin-bottom: 15px;
 }
 
-.additionalInfoTextArea {
-  @extend .textAreaBase;
+.nameContainer {
+  @extend .containerBase;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-.recipeTextArea {
-  @extend .textAreaBase;
+.ingredientsContainer {
+  @extend .containerBase;
+}
+
+.recipeContainer {
+  @extend .containerBase;
+}
+
+.additionalInfoContainer {
+  @extend .containerBase;
 }
 
 .addItemInput {
@@ -42,12 +68,11 @@
 }
 
 .button {
-  width: 45%;
+  margin-bottom: 15px;
 }
 
 .buttonsContainer {
-  margin-top: 20px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
 }

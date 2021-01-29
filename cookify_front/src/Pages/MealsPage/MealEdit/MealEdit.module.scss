@@ -7,8 +7,14 @@
 }
 
 .header {
+  margin-bottom: 8px;
   font-size: 20px;
   font-weight: $weightSemi;
+}
+
+.nameHeader {
+  @extend .header;
+  margin-bottom: 0px;
 }
 
 .containerBase {
@@ -35,9 +41,9 @@
 }
 
 .textAreaBase {
-  margin-top: 10px;
+  margin-bottom: 15px;
   align-items: baseline;
-  min-height: 100px;
+  min-height: 60px;
   min-width: 100%;
 }
 
@@ -61,12 +67,12 @@
 }
 
 .button {
-  width: 45%;
+  // width: 90%;
+  margin-bottom: 15px;
 }
 
 .buttonsContainer {
-  margin-top: 20px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
 }

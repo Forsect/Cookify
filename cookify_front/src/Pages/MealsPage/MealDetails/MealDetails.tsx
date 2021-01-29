@@ -3,11 +3,10 @@ import styles from "./MealDetails.module.scss";
 import pl from "../../../localisation/pl";
 import { Meal } from "../../../shared/models/Meal";
 import Text from "../../../shared/Text";
-import TextInput from "../../../shared/components/inputs/TextInput";
+import PencilIcon from "../../../shared/components/icons/PencilIcon";
 import ShoppingListItem from "../../../shared/components/shoppingList/ShoppingListItem";
 import Button from "../../../shared/components/buttons/Button";
 import { ButtonVariant } from "../../../shared/enums/ButtonVariant";
-import TextArea from "../../../shared/components/inputs/TextArea";
 
 interface MealDetailsProps {
   meal: Meal;
@@ -18,8 +17,11 @@ interface MealDetailsProps {
 const MealDetails: React.FC<MealDetailsProps> = (props: MealDetailsProps) => {
   return (
     <div className={styles.componentContainer}>
+      <div className={styles.iconContainer}>
+        <PencilIcon onClick={props.onEdit} className={styles.pencilIcon} />
+      </div>
       <div className={styles.nameContainer}>
-        <Text className={styles.header} text={pl.meals.mealDetails.name} />
+        <Text className={styles.nameHeader} text={pl.meals.mealDetails.name} />
         <Text className={styles.mealNameInput} text={props.meal.name} />
       </div>
       <div className={styles.ingredientsContainer}>
@@ -43,7 +45,7 @@ const MealDetails: React.FC<MealDetailsProps> = (props: MealDetailsProps) => {
           onClick={() => props.onClose()}
           text={pl.meals.mealDetails.close}
         />
-        <Button className={styles.button} variant={ButtonVariant.Blue} onClick={props.onEdit} text={pl.meals.mealDetails.edit} />
+        {/* <Button className={styles.button} variant={ButtonVariant.Blue} onClick={props.onEdit} text={pl.meals.mealDetails.edit} /> */}
       </div>
     </div>
   );

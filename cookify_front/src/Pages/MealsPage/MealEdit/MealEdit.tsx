@@ -39,7 +39,7 @@ const MealEdit: React.FC<MealEditProps> = (props: MealEditProps) => {
   return (
     <div className={styles.componentContainer}>
       <div className={styles.nameContainer}>
-        <Text className={styles.header} text={pl.meals.mealDetails.name} />
+        <Text className={styles.nameHeader} text={pl.meals.mealDetails.name} />
         <TextInput borderClassName={styles.mealNameInput} onChange={(text) => setMealName(text.currentTarget.value)} text={mealName} />
       </div>
       <div className={styles.ingredientsContainer}>
@@ -98,7 +98,7 @@ const MealEdit: React.FC<MealEditProps> = (props: MealEditProps) => {
               item.recipe = mealRecipe;
               item.additionalInfo = mealAdditionalInfo;
               newMeals[newMeals.indexOf(props.meal)] = item;
-            } else {
+            } else if (mealName) {
               newMeals = [
                 ...props.meals,
                 { name: mealName, ingredients: mealIngredients, recipe: mealRecipe, additionalInfo: mealAdditionalInfo },

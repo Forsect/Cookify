@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-// import NavBarIconVariant from "../../enums/NavBarIconVariant";
+import React from "react";
 import { Screen } from "../../enums/Screen";
 import Text from "../../Text";
 import CalendarIcon from "../icons/CalendarIcon";
@@ -92,12 +91,18 @@ const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
         )}
 
         {props.screen === Screen.Meals && (
-          <ShoppingCartIcon
-            className={styles.shoppingCartIcon}
-            onClick={() => {
-              props.setScreen(Screen.ShoppingList);
-            }}
-          />
+          <div className={styles.cartBox} id="cart">
+            <ShoppingCartIcon
+              className={
+                props.selectedDays.length > 0
+                  ? styles.shoppingCartIconAdd
+                  : styles.shoppingCartIcon
+              }
+              onClick={() => {
+                props.setScreen(Screen.ShoppingList);
+              }}
+            />
+          </div>
         )}
       </div>
     </div>

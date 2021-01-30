@@ -1,0 +1,15 @@
+@import "../../styles/index.scss";
+
+.flatList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: auto;
+  width: 100%;
+}
+
+@include mediumDevice() {
+  .singleCalendarItem {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  }
+}

@@ -1,7 +1,9 @@
 import { AxiosPromise } from "axios";
 
 class RequestHelper {
-  public async handleAnyRequest<TResponse>(fetchMethod: () => AxiosPromise<TResponse>): Promise<TResponse | null> {
+  public handleAnyRequest<TResponse>(
+    fetchMethod: () => AxiosPromise<TResponse>
+  ): Promise<TResponse | null> {
     return this.handle<TResponse>(async () => {
       const response = await fetchMethod();
 

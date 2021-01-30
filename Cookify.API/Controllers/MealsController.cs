@@ -1,7 +1,7 @@
 ﻿using Clavis.API.Utilities;
 using Cookify.API.Models.Requests;
 using Cookify.API.Models.Settings;
-using Cookify.API.Services.Shopping;
+using Cookify.API.Services.Meals;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,20 +12,20 @@ using System.Threading.Tasks;
 namespace Cookify.API.Controllers
 {
     [ApiController]
-    [Route("/api/shopping/[action]")]
-    public class ShoppingController : ControllerBase
+    [Route("/api/meals/[action]")]
+    public class MealsController : ControllerBase
     {
-        private readonly IShoppingService _shoppingService;
+        private readonly IMealsService _mealsService;
         private readonly IJwtTokenSettings _jwtTokenSettings;
 
-        public ShoppingController(IShoppingService shoppingService, IJwtTokenSettings jwtTokenSettings)
+        public MealsController(IMealsService mealsService, IJwtTokenSettings jwtTokenSettings)
         {
-            _shoppingService = shoppingService;
+            _mealsService = mealsService;
             _jwtTokenSettings = jwtTokenSettings;
         }
 
         [HttpGet]
-        public IActionResult GetShoppingListForUser([FromQuery] string id)
+        public IActionResult GetMealsList()
         {
             HttpContext.Request.Headers.TryGetValue(AppSettings.AuthenticationHeader, out var jwtValues);
             string jwtToken = jwtValues.FirstOrDefault();
@@ -40,13 +40,13 @@ namespace Cookify.API.Controllers
                 return Unauthorized();
             }
 
-            var result = _shoppingService.GetShoppingListForUser(id ?? user.Id);
+            var result = _mealsService.GetMealsList(user.Id);
 
             return result.IsSuccess ? new OkObjectResult(result.Data) : StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         [HttpPost]
-        public IActionResult AddProductToList([FromBody] AddAndRemoveProductFromListRequest request)
+        public IActionResult AddMealToList([FromBody] AddMealRequest request)
         {
             HttpContext.Request.Headers.TryGetValue(AppSettings.AuthenticationHeader, out var jwtValues);
             string jwtToken = jwtValues.FirstOrDefault();
@@ -61,13 +61,18 @@ namespace Cookify.API.Controllers
                 return Unauthorized();
             }
 
-            var result = _shoppingService.AddProductToList(user.Id, request.ProductName);
+            if (request == null || !request.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var result = _mealsService.AddMealToList(user.Id, request);
 
             return result.IsSuccess ? new OkResult() : StatusCode(StatusCodes.Status500InternalServerError);
         }
 
         [HttpDelete]
-        public IActionResult RemoveProductFromList([FromBody] AddAndRemoveProductFromListRequest request)
+        public IActionResult RemoveMealFromList([FromBody] RemoveMealRequest request)
         {
             HttpContext.Request.Headers.TryGetValue(AppSettings.AuthenticationHeader, out var jwtValues);
             string jwtToken = jwtValues.FirstOrDefault();
@@ -82,7 +87,33 @@ namespace Cookify.API.Controllers
                 return Unauthorized();
             }
 
-            var result = _shoppingService.RemoveProductFromList(user.Id, request.ProductName);
+            var result = _mealsService.RemoveMealFromList(user.Id, request.MealId);
+
+            return result.IsSuccess ? new OkResult() : StatusCode(StatusCodes.Status500InternalServerError);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateMealFromList([FromBody] UpdateMealRequest request)
+        {
+            HttpContext.Request.Headers.TryGetValue(AppSettings.AuthenticationHeader, out var jwtValues);
+            string jwtToken = jwtValues.FirstOrDefault();
+
+            if (!JwtHelper.IsJwtValid(jwtToken, _jwtTokenSettings.TokenKey, _jwtTokenSettings.Issuer, out var user))
+            {
+                return Unauthorized();
+            }
+
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            if (request == null || !request.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var result = _mealsService.UpdateMealFromList(user.Id, request);
 
             return result.IsSuccess ? new OkResult() : StatusCode(StatusCodes.Status500InternalServerError);
         }

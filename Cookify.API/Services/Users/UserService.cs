@@ -46,6 +46,7 @@ namespace Cookify.API.Services.Users
                     Login = request.Login,
                     Password = BCrypt.Net.BCrypt.HashPassword(request.Password),
                     ShoppingList = new List<string>(),
+                    MealsList = new List<Meal>(),
                     IsActive = true
                 });
 

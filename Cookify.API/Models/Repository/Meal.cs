@@ -7,15 +7,14 @@ using System.Threading.Tasks;
 
 namespace Cookify.API.Models.Repository
 {
-    public class User
+    public class Meal
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }
-        public List<string> ShoppingList { get; set; }
-        public List<Meal> MealsList { get; set; }
-        public bool IsActive { get; set; }
+        public string Name { get; set; }
+        public List<string> Ingredients { get; set; }
+        public string Recipe { get; set; }
+        public string AdditionalInfo { get; set; }
     }
 }

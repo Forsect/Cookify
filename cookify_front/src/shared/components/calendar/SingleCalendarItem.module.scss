@@ -1,0 +1,33 @@
+@import "../../../styles/index.scss";
+
+.singleClanedarItemContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dateContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50px;
+}
+
+.scheduledMeals {
+}
+
+.checkbox {
+  width: 15px;
+  height: 15px;
+  margin-left: 8px;
+}
+
+.dayOfTheMonth {
+  font-size: 36px;
+  font-weight: $weightSemi;
+}
+
+.dayOfTheWeek {
+  font-size: 14px;
+}

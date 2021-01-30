@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // import NavBarIconVariant from "../../enums/NavBarIconVariant";
 import { Screen } from "../../enums/Screen";
 import Text from "../../Text";
@@ -11,6 +11,7 @@ interface NavBarProps {
   setScreen: (screen: Screen) => void;
   screen: Screen;
   title: string;
+  selectedDays: Date[];
 }
 
 const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
@@ -79,7 +80,11 @@ const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
         )}
         {props.screen === Screen.Calendar && (
           <ShoppingCartIcon
-            className={styles.shoppingCartIcon}
+            className={
+              props.selectedDays.length > 0
+                ? styles.shoppingCartIconAdd
+                : styles.shoppingCartIcon
+            }
             onClick={() => {
               props.setScreen(Screen.ShoppingList);
             }}

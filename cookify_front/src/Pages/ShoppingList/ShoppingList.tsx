@@ -101,13 +101,16 @@ const ShoppingList: React.FC = observer(() => {
           )}
         </div>
         <div className={styles.shoppingListItems}>
-          {shoppingStore.mainShoppingList.shoppingList.map((item, index) => (
-            <ShoppingListItem
-              key={item}
-              name={item}
-              onDelete={() => shoppingStore.removeProductFromList(item)}
-            />
-          ))}
+          {shoppingStore.mainShoppingList.shoppingList.map((item, index) => {
+            console.dir(item);
+            return (
+              <ShoppingListItem
+                key={item}
+                name={item}
+                onDelete={() => shoppingStore.removeProductFromList(item)}
+              />
+            );
+          })}
         </div>
         {shoppingListObjects.map((item, index) => (
           <ShoppingListObject

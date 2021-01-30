@@ -33,6 +33,7 @@
   font-size: 16px;
   font-weight: $weightSemi;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 @include mediumDevice() {

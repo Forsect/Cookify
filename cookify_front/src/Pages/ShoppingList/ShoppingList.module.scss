@@ -32,12 +32,6 @@
   font-weight: $weightSemi;
 }
 
-.addItemButton {
-  width: 90%;
-  border-radius: 20px;
-  align-self: center;
-}
-
 .inputContainer {
   display: flex;
   flex-direction: column;
@@ -63,6 +57,7 @@
 .inputPlusIcon {
   font-size: 32px;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .inputUnderline {

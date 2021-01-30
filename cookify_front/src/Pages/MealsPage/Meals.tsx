@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import pl from "../../localisation/pl";
 import Button from "../../shared/components/buttons/Button";
 import SearchInput from "../../shared/components/inputs/SearchInput";
@@ -8,60 +8,32 @@ import { Meal } from "../../shared/models/Meal";
 import MealDetails from "./MealDetails/MealDetails";
 import MealEdit from "./MealEdit/MealEdit";
 import styles from "./Meals.module.scss";
+import { observer } from "mobx-react-lite";
+import { useStore } from "../../shared/stores/Store";
 
-const Meals: React.FC = () => {
-  const [mealsList, setMealsList] = useState<Meal[]>([
-    {
-      name: "Gołąbki",
-      ingredients: ["kapusta", "1kg mielone", "sos pomidorowy"],
-      recipe: "Brak",
-      additionalInfo: "Potrawę znalazłem na www.mojapotrawa.pl/golabki",
-    },
-    {
-      name: "Frytki ze schabowym",
-      ingredients: ["frytki", "1kg mięso z łopatki"],
-      recipe: "Usmaż frytki, rozbij mięso i potem przypraw",
-      additionalInfo:
-        "Potrawę znalazłem na www.mojapotrawa.pl/frytkiZeSchabowym",
-    },
-    {
-      name: "Kluski śląskie",
-      ingredients: ["kluski", "kapusta kiszona"],
-      recipe: "Brak",
-      additionalInfo: "Brak",
-    },
-    {
-      name: "Pizza hawajska",
-      ingredients: ["ser", "ketchup", "ciasto", "ananas"],
-      recipe: "Brak",
-      additionalInfo: "150 minut w piekarniku na 260^C",
-    },
-    {
-      name: "Grochowa",
-      ingredients: ["groch", "3 łopatki z indyka", "kapusta kiszona"],
-      recipe: "Brak",
-      additionalInfo: "Brak",
-    },
-    {
-      name: "Zapiekanka",
-      ingredients: ["ciasto", "ser", "pieczarki"],
-      recipe: "Brak",
-      additionalInfo: "Brak",
-    },
-  ]);
+const Meals: React.FC = observer(() => {
+  const { mealsStore } = useStore();
+
   const [searchedName, setSearchedName] = useState("");
-  const [selectedMeal, setSelectedMeal] = useState<Meal>({
-    name: "",
-    additionalInfo: "",
-    recipe: "",
-    ingredients: [],
-  });
   const [isMealEditOpen, setIsMealEditOpen] = useState<boolean>(false);
   const [isMealDetailsOpen, setIsMealDetailsOpen] = useState<boolean>(false);
+
+  // const [selectedMeal, setSelectedMeal] = useState<Meal>({
+  //   id: "",
+  //   name: "",
+  //   additionalInfo: "",
+  //   recipe: "",
+  //   ingredients: [],
+  // });
 
   const searchByName = (meal: Meal, text: string) => {
     return meal.name.toLowerCase().includes(text.toLowerCase());
   };
+
+  useEffect(() => {
+    mealsStore.getMealsListForUser();
+    //eslint-disable-next-line
+  }, []);
 
   const renderMeals = () => {
     return (
@@ -78,53 +50,49 @@ const Meals: React.FC = () => {
           className={styles.addNewMealButton}
           variant={ButtonVariant.Orange}
           onClick={() => {
-            setSelectedMeal({
+            mealsStore.selectedMeal = {
+              id: "",
               name: "",
               additionalInfo: "",
               recipe: "",
               ingredients: [],
-            });
+            };
             setIsMealEditOpen(true);
           }}
           text={pl.meals.newMealButton}
         />
         <div className={styles.mealsListContainer}>
-          {mealsList
+          {mealsStore.mealsList
             .filter((x) => searchByName(x, searchedName))
-            .map((meal) => (
-              <MealsListItem
-                onClick={() => {
-                  setSelectedMeal(meal);
-                  setIsMealDetailsOpen(true);
-                }}
-                meal={meal}
-                key={meal.name}
-              />
-            ))}
+            .map((meal) => {
+              console.dir(meal);
+              return (
+                <MealsListItem
+                  onClick={() => {
+                    mealsStore.selectedMeal = meal;
+                    setIsMealDetailsOpen(true);
+                  }}
+                  meal={meal}
+                  key={meal.id}
+                />
+              );
+            })}
         </div>
       </>
     );
   };
 
   const renderMealEdit = () => {
-    return (
-      <MealEdit
-        onClose={() => setIsMealEditOpen(false)}
-        meals={mealsList}
-        setMealsList={(meal) => setMealsList(meal)}
-        meal={selectedMeal}
-      />
-    );
+    return <MealEdit onClose={() => setIsMealEditOpen(false)} />;
   };
 
   const renderMealDetails = () => {
     return (
       <MealDetails
-        meal={selectedMeal}
         onClose={() => setIsMealDetailsOpen(false)}
         onEdit={() => setIsMealEditOpen(true)}
         onDelete={() => {
-          setMealsList(mealsList.filter((meal) => meal !== selectedMeal));
+          mealsStore.removeMealFromList(mealsStore.selectedMeal.id);
           setIsMealDetailsOpen(false);
         }}
       />
@@ -139,6 +107,6 @@ const Meals: React.FC = () => {
   };
 
   return renderContent();
-};
+});
 
 export default Meals;

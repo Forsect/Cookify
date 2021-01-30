@@ -8,22 +8,27 @@ import ShoppingListItem from "../../../shared/components/shoppingList/ShoppingLi
 import Button from "../../../shared/components/buttons/Button";
 import { ButtonVariant } from "../../../shared/enums/ButtonVariant";
 import TextArea from "../../../shared/components/inputs/TextArea";
+import { observer } from "mobx-react-lite";
+import { useStore } from "../../../shared/stores/Store";
 
 interface MealEditProps {
-  meal: Meal;
-  meals: Meal[];
-  setMealsList: (meals: Meal[]) => void;
   onClose: () => void;
 }
 
-const MealEdit: React.FC<MealEditProps> = (props: MealEditProps) => {
-  const [mealName, setMealName] = useState<string>(props.meal.name);
-  const [mealRecipe, setMealRecipe] = useState<string>(props.meal.recipe);
+const MealEdit: React.FC<MealEditProps> = observer((props: MealEditProps) => {
+  const { mealsStore } = useStore();
+
+  const [mealName, setMealName] = useState<string>(
+    mealsStore.selectedMeal.name
+  );
+  const [mealRecipe, setMealRecipe] = useState<string>(
+    mealsStore.selectedMeal.recipe
+  );
   const [mealAdditionalInfo, setMealAdditionalInfo] = useState<string>(
-    props.meal.additionalInfo
+    mealsStore.selectedMeal.additionalInfo
   );
   const [mealIngredients, setMealIngredients] = useState<string[]>(
-    props.meal.ingredients
+    mealsStore.selectedMeal.ingredients
   );
   const [newIngredient, setNewIngredient] = useState<string>("");
 
@@ -114,26 +119,19 @@ const MealEdit: React.FC<MealEditProps> = (props: MealEditProps) => {
           className={styles.button}
           variant={ButtonVariant.Blue}
           onClick={() => {
-            let newMeals = [...props.meals];
-            if (newMeals[newMeals.indexOf(props.meal)]) {
-              let item = newMeals[newMeals.indexOf(props.meal)];
-              item.name = mealName;
-              item.ingredients = mealIngredients;
-              item.recipe = mealRecipe;
-              item.additionalInfo = mealAdditionalInfo;
-              newMeals[newMeals.indexOf(props.meal)] = item;
+            let newMeal = {
+              id: mealsStore.selectedMeal.id,
+              name: mealName,
+              ingredients: mealIngredients,
+              recipe: mealRecipe,
+              additionalInfo: mealAdditionalInfo,
+            } as Meal;
+            if (mealsStore.mealsList.includes(mealsStore.selectedMeal)) {
+              mealsStore.updateMealFromList(newMeal);
+              mealsStore.selectedMeal = newMeal;
             } else if (mealName) {
-              newMeals = [
-                ...props.meals,
-                {
-                  name: mealName,
-                  ingredients: mealIngredients,
-                  recipe: mealRecipe,
-                  additionalInfo: mealAdditionalInfo,
-                },
-              ];
+              mealsStore.addMealToList(newMeal);
             }
-            props.setMealsList([...newMeals]);
             props.onClose();
           }}
           text={pl.meals.mealDetails.save}
@@ -141,6 +139,6 @@ const MealEdit: React.FC<MealEditProps> = (props: MealEditProps) => {
       </div>
     </div>
   );
-};
+});
 
 export default MealEdit;

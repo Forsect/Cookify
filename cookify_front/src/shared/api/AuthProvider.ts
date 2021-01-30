@@ -20,7 +20,9 @@ export const refreshToken = async () => {
       return jwtToken;
     }
 
-    const token = await RequestHelper.handleAnyRequest(() => AuthService.getJwtToken());
+    const token = await RequestHelper.handleAnyRequest(() =>
+      AuthService.getJwtToken()
+    );
 
     if (!token) {
       return null;

@@ -13,10 +13,10 @@ const ShoppingListItem: React.FC<ShoppingListItemProps> = (
   const [isChecked, setIsChecked] = useState<boolean>(false);
   return (
     <>
-      <div
-        onClick={() => !props.disableOnClick && setIsChecked(!isChecked)}
-        className={styles.itemContainer}>
-        <div className={isChecked ? styles.textChecked : styles.text}>
+      <div className={styles.itemContainer}>
+        <div
+          onClick={() => !props.disableOnClick && setIsChecked(!isChecked)}
+          className={isChecked ? styles.textChecked : styles.text}>
           {props.name}
         </div>
         {props.onDelete && (

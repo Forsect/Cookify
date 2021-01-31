@@ -1,21 +1,22 @@
 import { makeObservable, observable, action } from "mobx";
-import { GetShoppingListResult } from "./../models/GetShoppingListResult";
+import { ShoppingList } from "../models/ShoppingList";
 import { refreshToken } from "./../api/AuthProvider";
 import RequestHelper from "../api/RequestHelper";
 import ShoppingService from "../api/services/ShoppingService";
+import { GetGeneratedShoppingList } from "../models/GetGeneratedShoppingList";
 
 class ShoppingStore {
   getShoppingListIsLoading: boolean = false;
-  mainShoppingList: GetShoppingListResult = {
-    userLogin: "",
-    shoppingList: [],
-  } as GetShoppingListResult;
-  sharedShoppingLists: GetShoppingListResult[] = [];
+  shoppingList: ShoppingList = {
+    mainShoppingList: [],
+    generatedShoppingList: [],
+  };
+  sharedShoppingLists: ShoppingList[] = [];
 
   constructor() {
     makeObservable(this, {
       getShoppingListIsLoading: observable,
-      mainShoppingList: observable,
+      shoppingList: observable,
       sharedShoppingLists: observable,
       getShoppingListForUser: action,
       addProductToList: action,
@@ -41,7 +42,7 @@ class ShoppingStore {
         return;
       }
 
-      this.mainShoppingList = result;
+      this.shoppingList = result;
     } catch {
       return;
     } finally {

@@ -1,5 +1,5 @@
-import React from "react";
-// import NavBarIconVariant from "../../enums/NavBarIconVariant";
+import React, { useState } from "react";
+import UserIconPopper from "../../../Pages/Home/PopperUserIcon";
 import { Screen } from "../../enums/Screen";
 import Text from "../../Text";
 import CalendarIcon from "../icons/CalendarIcon";
@@ -11,6 +11,7 @@ interface NavBarProps {
   setScreen: (screen: Screen) => void;
   screen: Screen;
   title: string;
+  selectedDays: Date[];
 }
 
 const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
@@ -64,7 +65,7 @@ const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
   return (
     <div className={styles.navBar}>
       <div className={styles.mainContainer}>
-        <UserIcon
+        <UserIconPopper
           className={styles.userIcon}
           onClick={() => props.setScreen(Screen.Meals)}
         />
@@ -79,7 +80,11 @@ const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
         )}
         {props.screen === Screen.Calendar && (
           <ShoppingCartIcon
-            className={styles.shoppingCartIcon}
+            className={
+              props.selectedDays.length > 0
+                ? styles.shoppingCartIconAdd
+                : styles.shoppingCartIcon
+            }
             onClick={() => {
               props.setScreen(Screen.ShoppingList);
             }}
@@ -87,12 +92,18 @@ const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
         )}
 
         {props.screen === Screen.Meals && (
-          <ShoppingCartIcon
-            className={styles.shoppingCartIcon}
-            onClick={() => {
-              props.setScreen(Screen.ShoppingList);
-            }}
-          />
+          <div className={styles.cartBox} id="cart">
+            <ShoppingCartIcon
+              className={
+                props.selectedDays.length > 0
+                  ? styles.shoppingCartIconAdd
+                  : styles.shoppingCartIcon
+              }
+              onClick={() => {
+                props.setScreen(Screen.ShoppingList);
+              }}
+            />
+          </div>
         )}
       </div>
     </div>

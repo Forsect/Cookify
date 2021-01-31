@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Cookify.API.Models.Requests
 {
-    public class AddAndRemoveProductFromListRequest
+    public class AddOrRemoveProductFromListRequest
     {
         public string ProductName { get; set; }
     }

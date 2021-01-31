@@ -7,6 +7,7 @@ import InfoBar from "../../shared/components/custom/InfoBar";
 import { InfoBarVariant } from "../../shared/enums/InfoBarVariant";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../shared/stores/Store";
+import { DailyMeals } from "../../shared/models/DailyMeals";
 
 interface ShoppingListObjectMock {
   object: { name: string; items: string[] };
@@ -47,7 +48,7 @@ const ShoppingList: React.FC = observer(() => {
     if (!product) {
       setErrorText("Podaj nazwę produktu");
       return;
-    } else if (shoppingStore.mainShoppingList.shoppingList.includes(product)) {
+    } else if (shoppingStore.shoppingList.mainShoppingList.includes(product)) {
       setErrorText("Produkt jest już na liścię");
       return;
     }
@@ -101,8 +102,7 @@ const ShoppingList: React.FC = observer(() => {
           )}
         </div>
         <div className={styles.shoppingListItems}>
-          {shoppingStore.mainShoppingList.shoppingList.map((item, index) => {
-            console.dir(item);
+          {shoppingStore.shoppingList.mainShoppingList.map((item, index) => {
             return (
               <ShoppingListItem
                 key={item}

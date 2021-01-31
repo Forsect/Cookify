@@ -1,13 +1,13 @@
 import { AxiosPromise } from "axios";
 import { BASE_API_URL } from "../../constants/Constants";
 import { getWithJwt, postWithJwt, deleteWithJwt } from "./../BaseApi";
-import { GetShoppingListResult } from "./../../models/GetShoppingListResult";
+import { ShoppingList } from "../../models/ShoppingList";
 
 interface ShoppingService {
   getShoppingListForUser(
     jwtToken: string,
     id?: string
-  ): AxiosPromise<GetShoppingListResult>;
+  ): AxiosPromise<ShoppingList>;
   addProductToList(jwtToken: string, productName: string): AxiosPromise;
   removeProductFromList(jwtToken: string, productName: string): AxiosPromise;
 }
@@ -20,8 +20,8 @@ export class DefaultShoppingService implements ShoppingService {
   getShoppingListForUser(
     jwtToken: string,
     id?: string
-  ): AxiosPromise<GetShoppingListResult> {
-    return getWithJwt<GetShoppingListResult>(
+  ): AxiosPromise<ShoppingList> {
+    return getWithJwt<ShoppingList>(
       BASE_API_URL + this.getShoppingListForUseUrl + (id ? `?id=${id}` : ""),
       jwtToken
     );

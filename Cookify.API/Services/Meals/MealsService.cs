@@ -115,7 +115,6 @@ namespace Cookify.API.Services.Meals
         {
             try
             {
-                var user = _userRepository.GetWhere(x => x.Id == userId);
 
                 var mealToUpdate = new Meal
                 {
@@ -126,7 +125,7 @@ namespace Cookify.API.Services.Meals
                     AdditionalInfo = request.AdditionalInfo
                 };
 
-                var result = _userRepository.UpdateMealFromList(user.Id, mealToUpdate);
+                var result = _userRepository.UpdateMealFromList(userId, mealToUpdate);
 
                 if (result == null)
                 {
@@ -151,5 +150,45 @@ namespace Cookify.API.Services.Meals
                 return ServiceResponse.Failed();
             }
         }
+
+        public ServiceResponse AddDailyMeal(string userId, AddOrRemoveDailyMealRequest request)
+        {
+            try
+            {
+                var result = _userRepository.AddOrUpdateDailyMeal(userId, request);
+
+                if (result == null)
+                {
+                    return ServiceResponse.Failed();
+                }
+
+                return ServiceResponse.Succeeded();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogCritical(ex.ToString());
+                return ServiceResponse.Failed();
+            }
+        }
+        public ServiceResponse RemoveDailyMeal(string userId, AddOrRemoveDailyMealRequest request)
+        {
+            try
+            {
+                var result = _userRepository.RemoveDailyMeal(userId, request);
+
+                if (result == null)
+                {
+                    return ServiceResponse.Failed();
+                }
+
+                return ServiceResponse.Succeeded();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogCritical(ex.ToString());
+                return ServiceResponse.Failed();
+            }
+        }
+
     }
 }

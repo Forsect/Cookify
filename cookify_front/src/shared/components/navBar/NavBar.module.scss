@@ -9,6 +9,7 @@
   justify-content: center;
   min-height: 50px;
   align-items: center;
+  z-index: 1;
 }
 
 .mainContainer {
@@ -30,6 +31,7 @@
   width: 40px;
   height: 40px;
   fill: white;
+  cursor: pointer;
 }
 
 .userIcon {
@@ -43,4 +45,9 @@
 
 .shoppingCartIcon {
   @extend .baseIcon;
+}
+
+.shoppingCartIconAdd {
+  @extend .baseIcon;
+  fill: red;
 }

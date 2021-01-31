@@ -150,6 +150,26 @@ namespace Cookify.API.Services.Meals
                 return ServiceResponse.Failed();
             }
         }
+        public ServiceResponse<List<DailyMeals>> GetDailyMealsList(string userId)
+        {
+            try
+            {
+                var result = _userRepository.GetDailyMealsList(userId);
+
+                if (result == null)
+                {
+                    return ServiceResponse<List<DailyMeals>>.Failed();
+                }
+
+                return ServiceResponse<List<DailyMeals>>.Succeeded(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogCritical(ex.ToString());
+                return ServiceResponse<List<DailyMeals>>.Failed();
+            }
+
+        }
 
         public ServiceResponse AddDailyMeal(string userId, AddOrRemoveDailyMealRequest request)
         {

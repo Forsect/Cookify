@@ -3,7 +3,6 @@ import { ShoppingList } from "../models/ShoppingList";
 import { refreshToken } from "./../api/AuthProvider";
 import RequestHelper from "../api/RequestHelper";
 import ShoppingService from "../api/services/ShoppingService";
-import { GetGeneratedShoppingList } from "../models/GetGeneratedShoppingList";
 
 class ShoppingStore {
   getShoppingListIsLoading: boolean = false;

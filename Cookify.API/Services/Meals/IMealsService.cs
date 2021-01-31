@@ -14,6 +14,7 @@ namespace Cookify.API.Services.Meals
         ServiceResponse AddMealToList(string userId, AddMealRequest addMealRequest);
         ServiceResponse RemoveMealFromList(string userId, string mealId);
         ServiceResponse UpdateMealFromList(string userId, UpdateMealRequest request);
+        ServiceResponse<List<DailyMeals>> GetDailyMealsList(string userId);
         ServiceResponse AddDailyMeal(string userId, AddOrRemoveDailyMealRequest request);
         ServiceResponse RemoveDailyMeal(string userId, AddOrRemoveDailyMealRequest request);
     }

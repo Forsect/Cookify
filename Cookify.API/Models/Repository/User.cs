@@ -14,8 +14,15 @@ namespace Cookify.API.Models.Repository
         public string Id { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
-        public List<string> ShoppingList { get; set; }
+        public ShoppingList ShoppingList { get; set; }
         public List<Meal> MealsList { get; set; }
+        public List<DailyMeals> DailyMealsList { get; set; }
         public bool IsActive { get; set; }
+    }
+
+    public class DailyMeals
+    {
+        public DateTime Date { get; set; }
+        public List<Meal> MealsList { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cookify.API.Models.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,6 +9,6 @@ namespace Cookify.API.Models.Results
     public class GetShoppingListForUserResult
     {
         public string UserLogin { get; set; }
-        public IEnumerable<string> ShoppingList { get; set; }
+        public ShoppingList ShoppingList { get; set; }
     }
 }

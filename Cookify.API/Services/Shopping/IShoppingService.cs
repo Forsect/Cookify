@@ -10,7 +10,7 @@ namespace Cookify.API.Services.Shopping
 {
     public interface IShoppingService
     {
-        ServiceResponse<GetShoppingListForUserResult> GetShoppingListForUser(string id);
+        ServiceResponse<ShoppingList> GetShoppingListForUser(string id);
         ServiceResponse AddProductToList(string userId, string productName);
         ServiceResponse RemoveProductFromList(string userId, string productName);
     }

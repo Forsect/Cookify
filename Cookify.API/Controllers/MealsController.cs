@@ -117,5 +117,31 @@ namespace Cookify.API.Controllers
 
             return result.IsSuccess ? new OkResult() : StatusCode(StatusCodes.Status500InternalServerError);
         }
+
+        [HttpDelete]
+        public IActionResult AddDailyMeal([FromBody] AddOrRemoveDailyMealRequest request)
+        {
+            HttpContext.Request.Headers.TryGetValue(AppSettings.AuthenticationHeader, out var jwtValues);
+            string jwtToken = jwtValues.FirstOrDefault();
+
+            if (!JwtHelper.IsJwtValid(jwtToken, _jwtTokenSettings.TokenKey, _jwtTokenSettings.Issuer, out var user))
+            {
+                return Unauthorized();
+            }
+
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            if (request == null || !request.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var result = _mealsService.RemoveDailyMeal(user.Id, request);
+
+            return result.IsSuccess ? new OkResult() : StatusCode(StatusCodes.Status500InternalServerError);
+        }
     }
 }

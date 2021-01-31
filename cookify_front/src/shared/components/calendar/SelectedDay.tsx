@@ -32,7 +32,7 @@ const SelectedDay: React.FC<SelectedDayProps> = observer(
         <div className={styles.mealsListContainer}>
           {mealsStore.dailyMealsList
             .find((x) => isSameDay(x.date, props.date))
-            ?.meals?.map((meal) => (
+            ?.mealsList?.map((meal) => (
               <div key={meal.name} className={styles.singleMealContainer}>
                 <MealsListItem
                   className={styles.singleMeal}

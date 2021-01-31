@@ -93,7 +93,7 @@ const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
               if (props.selectedDays.length > 0) {
                 let request: GeneratedShopping[] = [];
                 props.selectedDays.forEach((day) => {
-                  day.meals.forEach((meal) => {
+                  day.mealsList.forEach((meal) => {
                     request.push({
                       id: meal.id,
                       name: meal.name,

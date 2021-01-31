@@ -72,6 +72,9 @@ const pl = {
       delete: "Usuń",
     },
   },
+  calendar: {
+    addNewMeal: "Dodaj posiłek",
+  },
 };
 
 export default pl;

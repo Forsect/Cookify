@@ -3,6 +3,7 @@ import { GetShoppingListResult } from "./../models/GetShoppingListResult";
 import { refreshToken } from "./../api/AuthProvider";
 import RequestHelper from "../api/RequestHelper";
 import ShoppingService from "../api/services/ShoppingService";
+import { GetGeneratedShoppingList } from "../models/GetGeneratedShoppingList";
 
 class ShoppingStore {
   getShoppingListIsLoading: boolean = false;
@@ -10,13 +11,13 @@ class ShoppingStore {
     userLogin: "",
     shoppingList: [],
   } as GetShoppingListResult;
-  sharedShoppingLists: GetShoppingListResult[] = [];
+  generatedShoppingList: GetGeneratedShoppingList[] = [];
 
   constructor() {
     makeObservable(this, {
       getShoppingListIsLoading: observable,
       mainShoppingList: observable,
-      sharedShoppingLists: observable,
+      generatedShoppingList: observable,
       getShoppingListForUser: action,
       addProductToList: action,
       removeProductFromList: action,

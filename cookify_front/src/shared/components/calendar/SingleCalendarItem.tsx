@@ -51,7 +51,6 @@ const SingleCalendarItem: React.FC<SingleCalendarItemProps> = forwardRef(
     useImperativeHandle(
       ref,
       () => ({
-        xd: (cos: any) => console.dir(cos),
         getYPosition: () => calendarItemRef.current?.offsetTop,
       }),
       []
@@ -84,6 +83,7 @@ const SingleCalendarItem: React.FC<SingleCalendarItemProps> = forwardRef(
             </div>
           </div>
           <Checkbox
+            key={props.date.toString()}
             sizeClass={styles.checkbox}
             checked={props.isSelected}
             onCheckedChanged={() => {

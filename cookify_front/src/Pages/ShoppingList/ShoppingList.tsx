@@ -7,6 +7,7 @@ import InfoBar from "../../shared/components/custom/InfoBar";
 import { InfoBarVariant } from "../../shared/enums/InfoBarVariant";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../shared/stores/Store";
+import { DailyMeals } from "../../shared/models/DailyMeals";
 
 interface ShoppingListObjectMock {
   object: { name: string; items: string[] };
@@ -102,7 +103,6 @@ const ShoppingList: React.FC = observer(() => {
         </div>
         <div className={styles.shoppingListItems}>
           {shoppingStore.mainShoppingList.shoppingList.map((item, index) => {
-            console.dir(item);
             return (
               <ShoppingListItem
                 key={item}

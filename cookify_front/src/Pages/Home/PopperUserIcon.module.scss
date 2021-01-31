@@ -1,0 +1,30 @@
+@import "../../styles/index.scss";
+
+.wrapper {
+  position: absolute;
+  inset: 0px auto auto 0px;
+  transform: translate(14px, 47px);
+  border-radius: 16px;
+}
+
+.menuContainer {
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  justify-content: center;
+  background-color: rgb(231, 231, 231);
+  color: black;
+  border: 1px solid black;
+  padding: 16px;
+}
+
+.menuItem {
+  &:hover {
+    background-color: rgb(201, 195, 195);
+    border-radius: 8px;
+  }
+  // background-color: red;
+  cursor: pointer;
+  padding: 6px;
+  margin-bottom: 8px;
+}

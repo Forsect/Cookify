@@ -19,8 +19,7 @@ const Checkbox: React.FC<CheckboxProps> = (props: CheckboxProps) => {
       />
       <svg
         viewBox="0 0 21 21"
-        className={classNames(styles.tickMark, props.sizeClass)}
-      >
+        className={classNames(styles.tickMark, props.sizeClass)}>
         <polyline points="5 10.75 8.5 14.25 16 6" />
       </svg>
     </div>

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import UserIconPopper from "../../../Pages/Home/PopperUserIcon";
 import { Screen } from "../../enums/Screen";
 import Text from "../../Text";
 import CalendarIcon from "../icons/CalendarIcon";
@@ -64,7 +65,7 @@ const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
   return (
     <div className={styles.navBar}>
       <div className={styles.mainContainer}>
-        <UserIcon
+        <UserIconPopper
           className={styles.userIcon}
           onClick={() => props.setScreen(Screen.Meals)}
         />

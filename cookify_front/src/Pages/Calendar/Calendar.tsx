@@ -61,12 +61,14 @@ const Calendar: React.FC<CalendarProps> = (props: CalendarProps) => {
           date: new Date(2021, 1, 3),
           meals: [
             {
+              id: "",
               name: "Pszczoly z miodem",
               recipe: "miod i pszczoly wymixuj w blenderze",
               additionalInfo: "",
               ingredients: ["miod", "pszczoly"],
             },
             {
+              id: "",
               name: "Jablecznik",
               recipe: "umiem",
               additionalInfo: "",

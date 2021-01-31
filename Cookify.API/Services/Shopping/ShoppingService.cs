@@ -81,23 +81,23 @@ namespace Cookify.API.Services.Shopping
             }
         }
 
-        public ServiceResponse<GetShoppingListForUserResult> GetShoppingListForUser(string id)
+        public ServiceResponse<ShoppingList> GetShoppingListForUser(string id)
         {
             try
             {
                 var result = _userRepository.GetShoppingListForUser(id);
 
-                if (result == null || result.ShoppingList == null)
+                if (result == null)
                 {
-                    return ServiceResponse<GetShoppingListForUserResult>.Failed();
+                    return ServiceResponse<ShoppingList>.Failed();
                 }
 
-                return ServiceResponse<GetShoppingListForUserResult>.Succeeded(result);
+                return ServiceResponse<ShoppingList>.Succeeded(result);
             }
             catch (Exception ex)
             {
                 _logger.LogCritical(ex.ToString());
-                return ServiceResponse<GetShoppingListForUserResult>.Failed();
+                return ServiceResponse<ShoppingList>.Failed();
             }
         }
     }

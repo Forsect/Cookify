@@ -35,11 +35,11 @@ namespace Cookify.API.Repositories.Users
         public User GetWhere(Expression<Func<User, bool>> predicate)
             => _users.Find(predicate)?.FirstOrDefault();
 
-        public GetShoppingListForUserResult GetShoppingListForUser(string id)
+        public ShoppingList GetShoppingListForUser(string id)
         {
             var user = _users.Find(x => x.Id == id).FirstOrDefault();
 
-            return new GetShoppingListForUserResult { UserLogin = user.Login, ShoppingList = user.ShoppingList };
+            return user?.ShoppingList;
         }
 
         public IEnumerable<string> AddProductToList(string userId, string productName)

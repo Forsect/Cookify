@@ -47,7 +47,7 @@ const ShoppingList: React.FC = observer(() => {
     if (!product) {
       setErrorText("Podaj nazwę produktu");
       return;
-    } else if (shoppingStore.mainShoppingList.shoppingList.includes(product)) {
+    } else if (shoppingStore.shoppingList.mainShoppingList.includes(product)) {
       setErrorText("Produkt jest już na liścię");
       return;
     }
@@ -101,7 +101,7 @@ const ShoppingList: React.FC = observer(() => {
           )}
         </div>
         <div className={styles.shoppingListItems}>
-          {shoppingStore.mainShoppingList.shoppingList.map((item, index) => {
+          {shoppingStore.shoppingList.mainShoppingList.map((item, index) => {
             console.dir(item);
             return (
               <ShoppingListItem

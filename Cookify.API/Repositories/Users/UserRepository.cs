@@ -67,7 +67,7 @@ namespace Cookify.API.Repositories.Users
         {
             var user = _users.Find(x => x.Id == userId).FirstOrDefault();
 
-            return user.MealsList;
+            return user?.MealsList;
         }
 
         public IEnumerable<Meal> AddMealToList(string userId, Meal meal)
@@ -89,6 +89,7 @@ namespace Cookify.API.Repositories.Users
 
             return result?.MealsList;
         }
+
         public Meal UpdateMealFromList(string userId, Meal meal)
         {
             var filter = Builders<User>.Filter.Where(x => x.Id == userId && x.MealsList.Any(i => i.Id == meal.Id));
@@ -101,6 +102,13 @@ namespace Cookify.API.Repositories.Users
             var result = _users.FindOneAndUpdateExtAfter(filter, update);
 
             return result?.MealsList.FirstOrDefault(x => x.Id == meal.Id);
+        }
+
+        public List<DailyMeals> GetDailyMealsList(string userId)
+        {
+            var user = _users.Find(x => x.Id == userId).FirstOrDefault();
+
+            return user?.DailyMealsList;
         }
 
         public IEnumerable<DailyMeals> AddOrUpdateDailyMeal(string userId, AddOrRemoveDailyMealRequest dailyMeal)
@@ -148,5 +156,25 @@ namespace Cookify.API.Repositories.Users
 
             return result?.DailyMealsList;
         }
-    }
+
+        public IEnumerable<GeneratedShopping> AddGeneratedShoppingToList(string userId, GeneratedShopping generatedShopping)
+        {
+            var filter = Builders<User>.Filter.Eq(x => x.Id, userId);
+            var update = Builders<User>.Update.Push(x => x.ShoppingList.GeneratedShoppingList, generatedShopping);
+
+            var result = _users.FindOneAndUpdateExtAfter(filter, update);
+
+            return result?.ShoppingList?.GeneratedShoppingList;
+        }
+
+    public IEnumerable<GeneratedShopping> RemoveGeneratedShoppingFromList(string userId, string generatedShoppingId)
+    {
+            var filter = Builders<User>.Filter.Eq(x => x.Id, userId);
+            var update = Builders<User>.Update.PullFilter(x => x.ShoppingList.GeneratedShoppingList, Builders<GeneratedShopping>.Filter.Eq(x => x.Id, generatedShoppingId));
+
+            var result = _users.FindOneAndUpdateExtAfter(filter, update);
+
+            return result?.ShoppingList?.GeneratedShoppingList;
+        }
+}
 } 

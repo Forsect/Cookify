@@ -3,10 +3,12 @@ import { ButtonVariant } from "../../enums/ButtonVariant";
 import { Meal } from "../../models/Meal";
 import Button from "../buttons/Button";
 import styles from "./MealsListItem.module.scss";
+import className from "classnames";
 
 interface MealsListItemProps {
   meal: Meal;
   onClick: () => void;
+  className?: string;
 }
 
 const MealsListItem: React.FC<MealsListItemProps> = (
@@ -15,7 +17,7 @@ const MealsListItem: React.FC<MealsListItemProps> = (
   return (
     <Button
       buttonTextClass={styles.buttonText}
-      className={styles.button}
+      className={className(props.className, styles.button)}
       variant={ButtonVariant.Blue}
       onClick={() => props.onClick()}
       text={props.meal.name}

@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   width: 90%;
+  height: 100%;
 }
 
 .arrowIcon {
@@ -15,11 +16,54 @@
 
 .mealsListContainer {
   align-self: center;
-  width: 60%;
+  width: 90%;
   margin-bottom: 48px;
 }
 
+.singleMealContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+.singleMeal {
+  width: 100%;
+  margin-right: 16px;
+}
+
+.deleteButton {
+  font-size: 30px;
+  font-weight: $weightSemi;
+}
+
 .addNewMealButton {
-  width: 40%;
+  width: 70%;
   align-self: center;
+  margin-bottom: 16px;
+}
+
+.searchedItemContainer {
+  width: 70%;
+  align-self: center;
+  border: 1px solid grey;
+  background-color: rgba(0, 0, 0, 0.04);
+  padding: 8px 0px 0px 8px;
+}
+
+.searchInput {
+  width: 70%;
+  border: none;
+  outline: none;
+  align-self: center;
+  margin-bottom: 4px;
+}
+
+.searchedItem {
+  &:hover {
+  }
+  margin-bottom: 8px;
+}
+
+.border {
+  // border-bottom: 5px solid rgba(0, 0, 0, 0.2);
 }

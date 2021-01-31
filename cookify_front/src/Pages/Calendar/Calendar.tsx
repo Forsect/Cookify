@@ -5,10 +5,12 @@ import { DailyMeals } from "../../shared/models/DailyMeals";
 import { add, isSameDay, sub } from "date-fns";
 import styles from "./Calendar.module.scss";
 import SelectedDay from "../../shared/components/calendar/SelectedDay";
+import { observer } from "mobx-react-lite";
+import { useStore } from "../../shared/stores/Store";
 
 interface CalendarProps {
-  selectedDays: Date[];
-  setSelectedDays: (days: Date[]) => void;
+  selectedDays: DailyMeals[];
+  setSelectedDays: (days: DailyMeals[]) => void;
 }
 
 const getDateWithoutHours = () => {
@@ -17,12 +19,15 @@ const getDateWithoutHours = () => {
   return currentDate;
 };
 
-const Calendar: React.FC<CalendarProps> = (props: CalendarProps) => {
+const Calendar: React.FC<CalendarProps> = observer((props: CalendarProps) => {
+  const { mealsStore } = useStore();
+
   const [calendar, setCalendar] = useState<Date[]>([getDateWithoutHours()]);
-  const [event, setEvent] = useState<DailyMeals[]>([]);
+  // const [event, setEvent] = useState<DailyMeals[]>([]);
   const [selectedDay, setSelectedDay] = useState<Date | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const firstElement = useRef<any>(null);
+  const selectedElementRef = useRef<any>(null);
 
   const addDays = () => {
     const lastDate = calendar[calendar.length - 1];
@@ -33,25 +38,46 @@ const Calendar: React.FC<CalendarProps> = (props: CalendarProps) => {
     setCalendar([...calendar, ...newDates]);
   };
 
+  useEffect(() => {
+    mealsStore.getDailyMeals();
+    //eslint-disable-next-line
+  }, []);
+
   const renderItem = (day: Date, index: number) => {
+    console.dir(mealsStore.dailyMealsList.find((x) => isSameDay(x.date, day)));
     return (
       <SingleCalendarItem
-        isSelected={props.selectedDays.some((x) => isSameDay(day, x))}
+        isSelected={props.selectedDays.some((x) => isSameDay(day, x.date))}
         className={styles.singleCalendarItem}
-        ref={index === 0 ? firstElement : null}
-        scheduledMeals={event.find((x) => isSameDay(x.date, day))?.meals}
+        ref={
+          index === 0
+            ? firstElement
+            : selectedDay && isSameDay(day, selectedDay)
+            ? selectedElementRef
+            : null
+        }
+        scheduledMeals={
+          mealsStore.dailyMealsList.find((x) => isSameDay(x.date, day))?.meals
+        }
         key={day.toString()}
         date={day}
         setSelectedDays={() => {
-          if (props.selectedDays.some((x) => isSameDay(day, x))) {
+          if (props.selectedDays.some((x) => isSameDay(day, x.date))) {
             props.setSelectedDays(
-              props.selectedDays.filter((x) => !isSameDay(day, x))
+              props.selectedDays.filter((x) => !isSameDay(day, x.date))
             );
           } else {
-            props.setSelectedDays([...props.selectedDays, day]);
+            let checkedDay = mealsStore.dailyMealsList.find((x) =>
+              isSameDay(x.date, day)
+            );
+            if (checkedDay) {
+              props.setSelectedDays([...props.selectedDays, checkedDay]);
+            }
           }
         }}
         onClick={() => {
+          // let mealExists = event.find((x) => isSameDay(x.date, day));
+          // if (mealExists) setSelectedDay(mealExists);
           setSelectedDay(day);
         }}
       />
@@ -61,27 +87,6 @@ const Calendar: React.FC<CalendarProps> = (props: CalendarProps) => {
   const fetchData = () => {
     setTimeout(() => {
       addDays();
-      setEvent([
-        {
-          date: new Date(2021, 1, 3),
-          meals: [
-            {
-              id: "",
-              name: "Pszczoly z miodem",
-              recipe: "miod i pszczoly wymixuj w blenderze",
-              additionalInfo: "",
-              ingredients: ["miod", "pszczoly"],
-            },
-            {
-              id: "",
-              name: "Jablecznik",
-              recipe: "umiem",
-              additionalInfo: "",
-              ingredients: ["jablka", "ciasto", "1kg cukru"],
-            },
-          ],
-        },
-      ]);
     }, 10);
   };
 
@@ -101,14 +106,35 @@ const Calendar: React.FC<CalendarProps> = (props: CalendarProps) => {
   const counter = useRef(0);
 
   useEffect(() => {
-    if (counter.current++) {
+    if (counter.current < 2) {
       if (containerRef.current !== null) {
         containerRef.current.scrollTop = 570;
       }
     }
   }, [calendar]);
 
-  return (
+  useEffect(() => {
+    mealsStore.getDailyMeals();
+    //eslint-disable-next-line
+  }, []);
+
+  return selectedDay ? (
+    <SelectedDay
+      onClose={() => {
+        setSelectedDay(null);
+        // if (
+        //   selectedElementRef.current !== null &&
+        //   containerRef.current !== null
+        // ) {
+        //   containerRef.current.scrollTop = selectedElementRef.current.scrollTop;
+        // }
+      }}
+      onDelete={(dailyMeal) => {
+        mealsStore.removeDailyMeal(dailyMeal);
+      }}
+      date={selectedDay}
+    />
+  ) : (
     <div
       className={styles.flatList}
       ref={containerRef}
@@ -117,24 +143,15 @@ const Calendar: React.FC<CalendarProps> = (props: CalendarProps) => {
           fetchDataOnTop();
         }
       }}>
-      {selectedDay ? (
-        <SelectedDay
-          onClose={() => setSelectedDay(null)}
-          day={selectedDay}
-          meals={event.find((x) => isSameDay(x.date, selectedDay))?.meals}
-          // onAdd={() => setEvent([...event, { date: se }])}
-        />
-      ) : (
-        <FlatList
-          list={calendar}
-          renderItem={renderItem}
-          renderWhenEmpty={() => <div></div>}
-          hasMoreItems={true}
-          loadMoreItems={fetchData}
-        />
-      )}
+      <FlatList
+        list={calendar}
+        renderItem={renderItem}
+        renderWhenEmpty={() => <div></div>}
+        hasMoreItems={true}
+        loadMoreItems={fetchData}
+      />
     </div>
   );
-};
+});
 
 export default Calendar;

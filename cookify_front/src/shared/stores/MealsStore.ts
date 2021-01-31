@@ -3,6 +3,8 @@ import { action, makeObservable, observable } from "mobx";
 import { refreshToken } from "./../api/AuthProvider";
 import RequestHelper from "../api/RequestHelper";
 import MealsService from "../api/services/MealsService";
+import { DailyMeals } from "./../models/DailyMeals";
+import { AddOrRemoveDailyMealRequest } from "./../models/AddOrRemoveDailyMealRequest";
 
 class MealsStore {
   getMealsListIsLoading: boolean = false;
@@ -14,12 +16,14 @@ class MealsStore {
     ingredients: [],
   };
   mealsList: Meal[] = [];
+  dailyMealsList: DailyMeals[] = [];
 
   constructor() {
     makeObservable(this, {
       getMealsListIsLoading: observable,
       mealsList: observable,
       selectedMeal: observable,
+      dailyMealsList: observable,
       getMealsListForUser: action,
       addMealToList: action,
       removeMealFromList: action,
@@ -101,6 +105,67 @@ class MealsStore {
       );
 
       await this.getMealsListForUser();
+    } catch {
+      return;
+    }
+  }
+
+  async getDailyMeals() {
+    try {
+      const jwtToken = await refreshToken();
+
+      if (!jwtToken) {
+        return;
+      }
+
+      const result = await RequestHelper.handleAnyRequest(() =>
+        MealsService.getDailyMealsList(jwtToken)
+      );
+
+      if (!result) {
+        return;
+      }
+
+      this.dailyMealsList = result.map((x) => ({
+        ...x,
+        date: new Date(x.date),
+      }));
+    } catch {
+      return;
+    }
+  }
+
+  async addDailyMeal(dailyMeal: AddOrRemoveDailyMealRequest) {
+    try {
+      const jwtToken = await refreshToken();
+
+      if (!jwtToken) {
+        return;
+      }
+
+      await RequestHelper.handleAnyRequest(() =>
+        MealsService.addDailyMeal(jwtToken, dailyMeal)
+      );
+
+      await this.getDailyMeals();
+    } catch {
+      return;
+    }
+  }
+
+  async removeDailyMeal(dailyMeal: AddOrRemoveDailyMealRequest) {
+    try {
+      const jwtToken = await refreshToken();
+
+      if (!jwtToken) {
+        return;
+      }
+
+      await RequestHelper.handleAnyRequest(() =>
+        MealsService.removeDailyMeal(jwtToken, dailyMeal)
+      );
+
+      await this.getDailyMeals();
     } catch {
       return;
     }

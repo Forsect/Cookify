@@ -118,7 +118,28 @@ namespace Cookify.API.Controllers
             return result.IsSuccess ? new OkResult() : StatusCode(StatusCodes.Status500InternalServerError);
         }
 
-        [HttpDelete]
+        [HttpGet]
+        public IActionResult GetDailyMealsList()
+        {
+            HttpContext.Request.Headers.TryGetValue(AppSettings.AuthenticationHeader, out var jwtValues);
+            string jwtToken = jwtValues.FirstOrDefault();
+
+            if (!JwtHelper.IsJwtValid(jwtToken, _jwtTokenSettings.TokenKey, _jwtTokenSettings.Issuer, out var user))
+            {
+                return Unauthorized();
+            }
+
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            var result = _mealsService.GetDailyMealsList(user.Id);
+
+            return result.IsSuccess ? new OkObjectResult(result.Data) : StatusCode(StatusCodes.Status500InternalServerError);
+        }
+
+        [HttpPost]
         public IActionResult AddDailyMeal([FromBody] AddOrRemoveDailyMealRequest request)
         {
             HttpContext.Request.Headers.TryGetValue(AppSettings.AuthenticationHeader, out var jwtValues);
@@ -134,7 +155,33 @@ namespace Cookify.API.Controllers
                 return Unauthorized();
             }
 
-            if (request == null || !request.IsValid)
+            if (request == null)
+            {
+                return BadRequest();
+            }
+
+            var result = _mealsService.AddDailyMeal(user.Id, request);
+
+            return result.IsSuccess ? new OkResult() : StatusCode(StatusCodes.Status500InternalServerError);
+        }
+
+        [HttpDelete]
+        public IActionResult RemoveDailyMeal([FromBody] AddOrRemoveDailyMealRequest request)
+        {
+            HttpContext.Request.Headers.TryGetValue(AppSettings.AuthenticationHeader, out var jwtValues);
+            string jwtToken = jwtValues.FirstOrDefault();
+
+            if (!JwtHelper.IsJwtValid(jwtToken, _jwtTokenSettings.TokenKey, _jwtTokenSettings.Issuer, out var user))
+            {
+                return Unauthorized();
+            }
+
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            if (request == null)
             {
                 return BadRequest();
             }

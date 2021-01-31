@@ -22,7 +22,10 @@ namespace Cookify.API.Repositories.Users
         IEnumerable<Meal> AddMealToList(string userId, Meal meal);
         IEnumerable<Meal> RemoveMealFromList(string userId, string mealId);
         Meal UpdateMealFromList(string userId, Meal meal);
+        List<DailyMeals> GetDailyMealsList(string userId);
         IEnumerable<DailyMeals> AddOrUpdateDailyMeal(string userId, AddOrRemoveDailyMealRequest dailyMeal);
         IEnumerable<DailyMeals> RemoveDailyMeal(string userId, AddOrRemoveDailyMealRequest dailyMeal);
+        IEnumerable<GeneratedShopping> AddGeneratedShoppingToList(string userId, GeneratedShopping generatedShopping);
+        IEnumerable<GeneratedShopping> RemoveGeneratedShoppingFromList(string userId, string generatedShoppingId);
     }
 }

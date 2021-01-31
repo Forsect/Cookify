@@ -1,6 +1,9 @@
+import axios from "axios";
 import React, { useState } from "react";
 import UserIconPopper from "../../../Pages/Home/PopperUserIcon";
 import { Screen } from "../../enums/Screen";
+import { DailyMeals } from "../../models/DailyMeals";
+import { GeneratedShopping } from "../../models/ShoppingList";
 import Text from "../../Text";
 import CalendarIcon from "../icons/CalendarIcon";
 import ShoppingCartIcon from "../icons/ShoppingCartIcon";
@@ -11,7 +14,8 @@ interface NavBarProps {
   setScreen: (screen: Screen) => void;
   screen: Screen;
   title: string;
-  selectedDays: Date[];
+  selectedDays: DailyMeals[];
+  setSelectedDays: (days: DailyMeals[]) => void;
 }
 
 const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
@@ -86,6 +90,21 @@ const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
                 : styles.shoppingCartIcon
             }
             onClick={() => {
+              if (props.selectedDays.length > 0) {
+                let request: GeneratedShopping[] = [];
+                props.selectedDays.forEach((day) => {
+                  day.meals.forEach((meal) => {
+                    request.push({
+                      id: meal.id,
+                      name: meal.name,
+                      ingredients: meal.ingredients,
+                    });
+                  });
+                });
+                console.dir(request);
+                //HERE AXIOS ROBI BRRRRRRR
+                props.setSelectedDays([]);
+              }
               props.setScreen(Screen.ShoppingList);
             }}
           />

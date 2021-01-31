@@ -10,7 +10,7 @@ import { useStore } from "../../stores/Store";
 import { DailyMeals } from "../../models/DailyMeals";
 
 interface SelectedDayProps {
-  dailyMeals: DailyMeals;
+  dailyMeals?: DailyMeals;
   onClose: () => void;
   onDelete: (meal: DailyMeals) => void;
 }
@@ -28,9 +28,9 @@ const SelectedDay: React.FC<SelectedDayProps> = observer(
       <div className={styles.selectedDayContainer}>
         <BackArrow onClick={props.onClose} className={styles.arrowIcon} />
         <div className={styles.mealsListContainer}>
-          {props.dailyMeals.meals &&
+          {props.dailyMeals?.meals &&
             props.dailyMeals.meals.map((meal) => (
-              <div className={styles.singleMealContainer}>
+              <div key={meal.name} className={styles.singleMealContainer}>
                 <MealsListItem
                   className={styles.singleMeal}
                   key={meal.name}
@@ -39,7 +39,9 @@ const SelectedDay: React.FC<SelectedDayProps> = observer(
                 />
                 <div
                   className={styles.deleteButton}
-                  onClick={() => props.onDelete(props.dailyMeals)}>
+                  onClick={() => {
+                    if (props.dailyMeals) props.onDelete(props.dailyMeals);
+                  }}>
                   &times;
                 </div>
               </div>
@@ -68,6 +70,7 @@ const SelectedDay: React.FC<SelectedDayProps> = observer(
                   )
                   .map((meal) => (
                     <div
+                      key={meal.name}
                       className={styles.searchedItem}
                       onClick={() => {
                         // setValue(meal.name); AXIOS

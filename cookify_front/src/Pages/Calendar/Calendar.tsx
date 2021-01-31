@@ -20,7 +20,7 @@ const getDateWithoutHours = () => {
 const Calendar: React.FC<CalendarProps> = (props: CalendarProps) => {
   const [calendar, setCalendar] = useState<Date[]>([getDateWithoutHours()]);
   const [event, setEvent] = useState<DailyMeals[]>([]);
-  const [selectedDay, setSelectedDay] = useState<DailyMeals | null>(null);
+  const [selectedDay, setSelectedDay] = useState<Date | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const firstElement = useRef<any>(null);
   const selectedElementRef = useRef<any>(null);
@@ -39,7 +39,13 @@ const Calendar: React.FC<CalendarProps> = (props: CalendarProps) => {
       <SingleCalendarItem
         isSelected={props.selectedDays.some((x) => isSameDay(day, x.date))}
         className={styles.singleCalendarItem}
-        ref={index === 0 ? firstElement : null}
+        ref={
+          index === 0
+            ? firstElement
+            : selectedDay && isSameDay(day, selectedDay)
+            ? selectedElementRef
+            : null
+        }
         scheduledMeals={event.find((x) => isSameDay(x.date, day))?.meals}
         key={day.toString()}
         date={day}
@@ -56,8 +62,9 @@ const Calendar: React.FC<CalendarProps> = (props: CalendarProps) => {
           }
         }}
         onClick={() => {
-          let mealExists = event.find((x) => isSameDay(x.date, day));
-          if (mealExists) setSelectedDay(mealExists);
+          // let mealExists = event.find((x) => isSameDay(x.date, day));
+          // if (mealExists) setSelectedDay(mealExists);
+          setSelectedDay(day);
         }}
       />
     );
@@ -106,7 +113,7 @@ const Calendar: React.FC<CalendarProps> = (props: CalendarProps) => {
   const counter = useRef(0);
 
   useEffect(() => {
-    if (counter.current++) {
+    if (counter.current < 2) {
       if (containerRef.current !== null) {
         containerRef.current.scrollTop = 570;
       }
@@ -124,8 +131,8 @@ const Calendar: React.FC<CalendarProps> = (props: CalendarProps) => {
         //   containerRef.current.scrollTop = selectedElementRef.current.scrollTop;
         // }
       }}
-      onDelete={() => {}}
-      dailyMeals={selectedDay}
+      onDelete={() => {}} // AXIOS
+      dailyMeals={event.find((x) => isSameDay(x.date, selectedDay))}
     />
   ) : (
     <div

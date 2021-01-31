@@ -155,7 +155,7 @@ namespace Cookify.API.Controllers
                 return Unauthorized();
             }
 
-            if (request == null || !request.IsValid)
+            if (request == null)
             {
                 return BadRequest();
             }
@@ -181,7 +181,7 @@ namespace Cookify.API.Controllers
                 return Unauthorized();
             }
 
-            if (request == null || !request.IsValid)
+            if (request == null)
             {
                 return BadRequest();
             }

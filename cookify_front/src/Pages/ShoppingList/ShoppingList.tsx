@@ -42,7 +42,7 @@ const ShoppingList: React.FC = observer(() => {
     },
   ]);
 
-  const { shoppingStore } = useStore();
+  const { shoppingStore, mealsStore } = useStore();
 
   const addProduct = (product: string) => {
     if (!product) {
@@ -59,6 +59,7 @@ const ShoppingList: React.FC = observer(() => {
 
   useEffect(() => {
     shoppingStore.getShoppingListForUser();
+    mealsStore.getMealsListForUser();
     //eslint-disable-next-line
   }, []);
 

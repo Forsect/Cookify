@@ -126,7 +126,10 @@ class MealsStore {
         return;
       }
 
-      this.dailyMealsList = result;
+      this.dailyMealsList = result.map((x) => ({
+        ...x,
+        date: new Date(x.date),
+      }));
     } catch {
       return;
     }

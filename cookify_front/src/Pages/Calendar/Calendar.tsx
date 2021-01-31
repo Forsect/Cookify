@@ -5,6 +5,8 @@ import { DailyMeals } from "../../shared/models/DailyMeals";
 import { add, isSameDay, sub } from "date-fns";
 import styles from "./Calendar.module.scss";
 import SelectedDay from "../../shared/components/calendar/SelectedDay";
+import { observer } from "mobx-react-lite";
+import { useStore } from "../../shared/stores/Store";
 
 interface CalendarProps {
   selectedDays: DailyMeals[];
@@ -17,9 +19,11 @@ const getDateWithoutHours = () => {
   return currentDate;
 };
 
-const Calendar: React.FC<CalendarProps> = (props: CalendarProps) => {
+const Calendar: React.FC<CalendarProps> = observer((props: CalendarProps) => {
+  const { mealsStore } = useStore();
+
   const [calendar, setCalendar] = useState<Date[]>([getDateWithoutHours()]);
-  const [event, setEvent] = useState<DailyMeals[]>([]);
+  // const [event, setEvent] = useState<DailyMeals[]>([]);
   const [selectedDay, setSelectedDay] = useState<Date | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const firstElement = useRef<any>(null);
@@ -34,7 +38,13 @@ const Calendar: React.FC<CalendarProps> = (props: CalendarProps) => {
     setCalendar([...calendar, ...newDates]);
   };
 
+  useEffect(() => {
+    mealsStore.getDailyMeals();
+    //eslint-disable-next-line
+  }, []);
+
   const renderItem = (day: Date, index: number) => {
+    console.dir(mealsStore.dailyMealsList.find((x) => isSameDay(x.date, day)));
     return (
       <SingleCalendarItem
         isSelected={props.selectedDays.some((x) => isSameDay(day, x.date))}
@@ -46,7 +56,9 @@ const Calendar: React.FC<CalendarProps> = (props: CalendarProps) => {
             ? selectedElementRef
             : null
         }
-        scheduledMeals={event.find((x) => isSameDay(x.date, day))?.meals}
+        scheduledMeals={
+          mealsStore.dailyMealsList.find((x) => isSameDay(x.date, day))?.meals
+        }
         key={day.toString()}
         date={day}
         setSelectedDays={() => {
@@ -55,7 +67,9 @@ const Calendar: React.FC<CalendarProps> = (props: CalendarProps) => {
               props.selectedDays.filter((x) => !isSameDay(day, x.date))
             );
           } else {
-            let checkedDay = event.find((x) => isSameDay(x.date, day));
+            let checkedDay = mealsStore.dailyMealsList.find((x) =>
+              isSameDay(x.date, day)
+            );
             if (checkedDay) {
               props.setSelectedDays([...props.selectedDays, checkedDay]);
             }
@@ -73,27 +87,6 @@ const Calendar: React.FC<CalendarProps> = (props: CalendarProps) => {
   const fetchData = () => {
     setTimeout(() => {
       addDays();
-      setEvent([
-        {
-          date: new Date(2021, 1, 3),
-          meals: [
-            {
-              id: "",
-              name: "Pszczoly z miodem",
-              recipe: "miod i pszczoly wymixuj w blenderze",
-              additionalInfo: "",
-              ingredients: ["miod", "pszczoly"],
-            },
-            {
-              id: "",
-              name: "Jablecznik",
-              recipe: "umiem",
-              additionalInfo: "",
-              ingredients: ["jablka", "ciasto", "1kg cukru"],
-            },
-          ],
-        },
-      ]);
     }, 10);
   };
 
@@ -120,6 +113,11 @@ const Calendar: React.FC<CalendarProps> = (props: CalendarProps) => {
     }
   }, [calendar]);
 
+  useEffect(() => {
+    mealsStore.getDailyMeals();
+    //eslint-disable-next-line
+  }, []);
+
   return selectedDay ? (
     <SelectedDay
       onClose={() => {
@@ -131,8 +129,10 @@ const Calendar: React.FC<CalendarProps> = (props: CalendarProps) => {
         //   containerRef.current.scrollTop = selectedElementRef.current.scrollTop;
         // }
       }}
-      onDelete={() => {}} // AXIOS
-      dailyMeals={event.find((x) => isSameDay(x.date, selectedDay))}
+      onDelete={(dailyMeal) => {
+        mealsStore.removeDailyMeal(dailyMeal);
+      }}
+      date={selectedDay}
     />
   ) : (
     <div
@@ -152,6 +152,6 @@ const Calendar: React.FC<CalendarProps> = (props: CalendarProps) => {
       />
     </div>
   );
-};
+});
 
 export default Calendar;

@@ -10,11 +10,7 @@ namespace Cookify.API.Models.Requests
 {
     public class AddOrRemoveDailyMealRequest
     {
-        [Required]
         public DateTime Date { get; set; }
-        [Required]
         public Meal Meal{ get; set; }
-
-        public bool IsValid => RequestsHelper.HasRequiredFields(this);
     }
 }

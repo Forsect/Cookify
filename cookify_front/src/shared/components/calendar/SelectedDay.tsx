@@ -8,18 +8,20 @@ import styles from "./SelectedDay.module.scss";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../stores/Store";
 import { DailyMeals } from "../../models/DailyMeals";
+import { Meal } from "./../../models/Meal";
+import { isSameDay } from "date-fns";
 
 interface SelectedDayProps {
-  dailyMeals?: DailyMeals;
+  // dailyMeals?: DailyMeals;
+  date: Date;
   onClose: () => void;
-  onDelete: (meal: DailyMeals) => void;
+  onDelete: ({ date, meal }: { date: Date; meal: Meal }) => void;
 }
 
 const SelectedDay: React.FC<SelectedDayProps> = observer(
   (props: SelectedDayProps) => {
     const [value, setValue] = useState("");
     const { mealsStore } = useStore();
-    const [suggestions, setSuggestions] = useState<string[]>([]);
     const [isSearchInputVisible, setIsSearchInputVisible] = useState<boolean>(
       false
     );
@@ -28,8 +30,9 @@ const SelectedDay: React.FC<SelectedDayProps> = observer(
       <div className={styles.selectedDayContainer}>
         <BackArrow onClick={props.onClose} className={styles.arrowIcon} />
         <div className={styles.mealsListContainer}>
-          {props.dailyMeals?.meals &&
-            props.dailyMeals.meals.map((meal) => (
+          {mealsStore.dailyMealsList
+            .find((x) => isSameDay(x.date, props.date))
+            ?.meals?.map((meal) => (
               <div key={meal.name} className={styles.singleMealContainer}>
                 <MealsListItem
                   className={styles.singleMeal}
@@ -40,7 +43,10 @@ const SelectedDay: React.FC<SelectedDayProps> = observer(
                 <div
                   className={styles.deleteButton}
                   onClick={() => {
-                    if (props.dailyMeals) props.onDelete(props.dailyMeals);
+                    props.onDelete({
+                      date: props.date,
+                      meal: meal,
+                    });
                   }}>
                   &times;
                 </div>
@@ -51,7 +57,10 @@ const SelectedDay: React.FC<SelectedDayProps> = observer(
           className={styles.addNewMealButton}
           specialMark="&#x2B; "
           text={pl.calendar.addNewMeal}
-          onClick={() => setIsSearchInputVisible(true)}
+          onClick={() => {
+            console.dir(props.date);
+            setIsSearchInputVisible(true);
+          }}
           variant={ButtonVariant.Orange}
         />
 
@@ -73,7 +82,10 @@ const SelectedDay: React.FC<SelectedDayProps> = observer(
                       key={meal.name}
                       className={styles.searchedItem}
                       onClick={() => {
-                        // setValue(meal.name); AXIOS
+                        mealsStore.addDailyMeal({
+                          date: props.date,
+                          meal: meal,
+                        });
                         setValue("");
                         setIsSearchInputVisible(false);
                       }}>

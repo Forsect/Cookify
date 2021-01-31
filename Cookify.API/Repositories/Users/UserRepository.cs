@@ -1,4 +1,5 @@
 ﻿using Cookify.API.Models.Repository;
+using Cookify.API.Models.Requests;
 using Cookify.API.Models.Results;
 using Cookify.API.Models.Settings;
 using MongoDB.Bson;
@@ -44,22 +45,22 @@ namespace Cookify.API.Repositories.Users
         public IEnumerable<string> AddProductToList(string userId, string productName)
         {
             var filter = Builders<User>.Filter.Eq(x => x.Id, userId);
-            var update = Builders<User>.Update.Push(x => x.ShoppingList, productName);
+            var update = Builders<User>.Update.Push(x => x.ShoppingList.MainShoppingList, productName);
 
             var result = _users.FindOneAndUpdateExtAfter(filter, update);
 
-            return result?.ShoppingList;
+            return result?.ShoppingList?.MainShoppingList;
         }
 
 
         public IEnumerable<string> RemoveProductFromList(string userId, string productName)
         {
             var filter = Builders<User>.Filter.Eq(x => x.Id, userId);
-            var update = Builders<User>.Update.Pull(x => x.ShoppingList, productName);
+            var update = Builders<User>.Update.Pull(x => x.ShoppingList.MainShoppingList, productName);
 
             var result = _users.FindOneAndUpdateExtAfter(filter, update);
 
-            return result?.ShoppingList;
+            return result?.ShoppingList?.MainShoppingList;
         }
 
         public List<Meal> GetMealsList(string userId)
@@ -102,5 +103,50 @@ namespace Cookify.API.Repositories.Users
             return result?.MealsList.FirstOrDefault(x => x.Id == meal.Id);
         }
 
+        public IEnumerable<DailyMeals> AddOrUpdateDailyMeal(string userId, AddOrRemoveDailyMealRequest dailyMeal)
+        {
+            var userExists = _users.Find(x => x.Id == userId).FirstOrDefault();
+
+            if (userExists == null) return null;
+
+            var dateExists = userExists.DailyMealsList.FirstOrDefault(x => x.Date == dailyMeal.Date);
+
+            FilterDefinition<User> filter;
+            UpdateDefinition<User> update;
+            User result;
+
+            if (dateExists == null)
+            {
+                filter = Builders<User>.Filter.Eq(x => x.Id, userId);
+                update = Builders<User>.Update.Push(x => x.DailyMealsList, new DailyMeals { Date = dailyMeal.Date, MealsList = new List<Meal> { dailyMeal.Meal } });
+            }
+            else
+            {
+                filter = Builders<User>.Filter.Where(x => x.Id == userId && x.DailyMealsList.Any(i => i.Date == dailyMeal.Date));
+                update = Builders<User>.Update.Push(x => x.DailyMealsList[-1].MealsList, dailyMeal.Meal);
+            }
+
+            result = _users.FindOneAndUpdateExtAfter(filter, update);
+
+            return result?.DailyMealsList;
+        }
+
+        public IEnumerable<DailyMeals> RemoveDailyMeal(string userId, AddOrRemoveDailyMealRequest dailyMeal)
+        {
+            var filter = Builders<User>.Filter.Where(x => x.Id == userId && x.DailyMealsList.Any(i => i.Date == dailyMeal.Date));
+            var update = Builders<User>.Update.PullFilter(x => x.DailyMealsList[-1].MealsList, Builders<Meal>.Filter.Eq(x => x.Id, dailyMeal.Meal.Id));
+
+            var result = _users.FindOneAndUpdateExtAfter(filter, update);
+
+            if (!result.DailyMealsList.FirstOrDefault(x => x.Date == dailyMeal.Date).MealsList.Any())
+            {
+                filter = Builders<User>.Filter.Eq(x => x.Id, userId);
+                update = Builders<User>.Update.PullFilter(x => x.DailyMealsList, Builders<DailyMeals>.Filter.Eq(x => x.Date, dailyMeal.Date));
+
+                var removeResult = _users.FindOneAndUpdateExtAfter(filter, update);
+            }
+
+            return result?.DailyMealsList;
+        }
     }
 } 

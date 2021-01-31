@@ -34,7 +34,7 @@ namespace Cookify.API.Services.Shopping
                     return ServiceResponse.Failed();
                 }
 
-                if(result.Count() == user.ShoppingList.Count + 1)
+                if(result.Count() == user.ShoppingList.MainShoppingList.Count + 1)
                 {
                     return ServiceResponse.Succeeded();
                 }
@@ -64,7 +64,7 @@ namespace Cookify.API.Services.Shopping
                     return ServiceResponse.Failed();
                 }
 
-                if (result.Count() == user.ShoppingList.Count - 1)
+                if (result.Count() == user.ShoppingList.MainShoppingList.Count - 1)
                 {
                     return ServiceResponse.Succeeded();
                 }

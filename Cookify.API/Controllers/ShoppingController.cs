@@ -46,7 +46,7 @@ namespace Cookify.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddProductToList([FromBody] AddAndRemoveProductFromListRequest request)
+        public IActionResult AddProductToList([FromBody] AddOrRemoveProductFromListRequest request)
         {
             HttpContext.Request.Headers.TryGetValue(AppSettings.AuthenticationHeader, out var jwtValues);
             string jwtToken = jwtValues.FirstOrDefault();
@@ -67,7 +67,7 @@ namespace Cookify.API.Controllers
         }
 
         [HttpDelete]
-        public IActionResult RemoveProductFromList([FromBody] AddAndRemoveProductFromListRequest request)
+        public IActionResult RemoveProductFromList([FromBody] AddOrRemoveProductFromListRequest request)
         {
             HttpContext.Request.Headers.TryGetValue(AppSettings.AuthenticationHeader, out var jwtValues);
             string jwtToken = jwtValues.FirstOrDefault();

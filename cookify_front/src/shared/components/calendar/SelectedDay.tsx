@@ -1,24 +1,18 @@
 import React, { useState } from "react";
 import pl from "../../../localisation/pl";
 import { ButtonVariant } from "../../enums/ButtonVariant";
-import { Meal } from "../../models/Meal";
 import Button from "../buttons/Button";
 import BackArrow from "../icons/BackArrowIcon";
 import MealsListItem from "../meals/MealsListItem";
 import styles from "./SelectedDay.module.scss";
-import Autosuggest, {
-  InputProps,
-  OnSuggestionSelected,
-  RenderSuggestionParams,
-  RenderSuggestionsContainerParams,
-} from "react-autosuggest";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../stores/Store";
+import { DailyMeals } from "../../models/DailyMeals";
 
 interface SelectedDayProps {
-  day: Date;
-  meals?: Meal[];
+  dailyMeals: DailyMeals;
   onClose: () => void;
+  onDelete: (meal: DailyMeals) => void;
 }
 
 const SelectedDay: React.FC<SelectedDayProps> = observer(
@@ -26,57 +20,67 @@ const SelectedDay: React.FC<SelectedDayProps> = observer(
     const [value, setValue] = useState("");
     const { mealsStore } = useStore();
     const [suggestions, setSuggestions] = useState<string[]>([]);
-
-    const getSuggestionValue = (suggestion: string) => suggestion;
-
-    const onSuggestionsFetchRequested = ({ value }: { value: string }) => {
-      let mealsList = mealsStore.mealsList.map((x) => x.name);
-      let foundSuggestions = mealsList.filter((x) =>
-        x.toLowerCase().includes(value.toLowerCase())
-      );
-      if (foundSuggestions) setSuggestions(foundSuggestions);
-    };
-
-    const onSuggestionsClearRequested = () => {
-      setSuggestions([]);
-    };
-
-    const onChange = (event: any, { newValue }: { newValue: string }) => {
-      setValue(newValue);
-    };
-
-    const inputProps = {
-      placeholder: "Meal",
-      value,
-      onChange: onChange,
-    };
-
-    const renderSuggestion = (suggestion: string) => <div>{suggestion}</div>;
+    const [isSearchInputVisible, setIsSearchInputVisible] = useState<boolean>(
+      false
+    );
 
     return (
       <div className={styles.selectedDayContainer}>
         <BackArrow onClick={props.onClose} className={styles.arrowIcon} />
         <div className={styles.mealsListContainer}>
-          {props.meals &&
-            props.meals.map((meal) => (
-              <MealsListItem key={meal.name} meal={meal} onClick={() => {}} />
+          {props.dailyMeals.meals &&
+            props.dailyMeals.meals.map((meal) => (
+              <div className={styles.singleMealContainer}>
+                <MealsListItem
+                  className={styles.singleMeal}
+                  key={meal.name}
+                  meal={meal}
+                  onClick={() => {}}
+                />
+                <div
+                  className={styles.deleteButton}
+                  onClick={() => props.onDelete(props.dailyMeals)}>
+                  &times;
+                </div>
+              </div>
             ))}
         </div>
         <Button
           className={styles.addNewMealButton}
           specialMark="&#x2B; "
           text={pl.calendar.addNewMeal}
-          onClick={() => {}}
+          onClick={() => setIsSearchInputVisible(true)}
           variant={ButtonVariant.Orange}
         />
-        <Autosuggest
-          suggestions={suggestions}
-          onSuggestionsFetchRequested={onSuggestionsFetchRequested}
-          onSuggestionsClearRequested={onSuggestionsClearRequested}
-          getSuggestionValue={getSuggestionValue}
-          renderSuggestion={renderSuggestion}
-          inputProps={inputProps}
-        />
+
+        {isSearchInputVisible && (
+          <>
+            <input
+              className={styles.searchInput}
+              value={value}
+              placeholder="Posiłek"
+              onChange={(value) => setValue(value.currentTarget.value)}></input>
+            {mealsStore.mealsList.length > 0 && (
+              <div className={styles.searchedItemContainer}>
+                {mealsStore.mealsList
+                  .filter((x) =>
+                    x.name.toLowerCase().includes(value.toLowerCase())
+                  )
+                  .map((meal) => (
+                    <div
+                      className={styles.searchedItem}
+                      onClick={() => {
+                        // setValue(meal.name); AXIOS
+                        setValue("");
+                        setIsSearchInputVisible(false);
+                      }}>
+                      {meal.name}
+                    </div>
+                  ))}
+              </div>
+            )}
+          </>
+        )}
       </div>
     );
   }

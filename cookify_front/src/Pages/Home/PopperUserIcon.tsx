@@ -41,7 +41,12 @@ const UserIconPopper: React.FC<UserIconPopperProps> = (
                 ref={ref}
                 data-placement={placement}>
                 <div ref={mouseOutsideRef} className={styles.menuContainer}>
-                  <div className={styles.menuItem} onClick={props.onClick}>
+                  <div
+                    className={styles.menuItem}
+                    onClick={() => {
+                      props.onClick();
+                      setIsVisible(false);
+                    }}>
                     Posiłki
                   </div>
                   <div

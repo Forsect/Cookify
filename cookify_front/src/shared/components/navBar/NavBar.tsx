@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import UserIconPopper from "../../../Pages/Home/PopperUserIcon";
 import { Screen } from "../../enums/Screen";
+import { DailyMeals } from "../../models/DailyMeals";
 import Text from "../../Text";
 import CalendarIcon from "../icons/CalendarIcon";
 import ShoppingCartIcon from "../icons/ShoppingCartIcon";
@@ -11,7 +12,8 @@ interface NavBarProps {
   setScreen: (screen: Screen) => void;
   screen: Screen;
   title: string;
-  selectedDays: Date[];
+  selectedDays: DailyMeals[];
+  setSelectedDays: (days: DailyMeals[]) => void;
 }
 
 const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {

@@ -2,7 +2,7 @@ const pl = {
   loading: "Trwa ładowanie",
   registration: {
     registrationText: "Rejestracja",
-    regulationsOfService: "Akcpetuję regulamin serwisu cookify.pl",
+    regulationsOfService: "Akcpetuję regulamin serwisu cookibuy.com",
     buttons: {
       register: "Zarejestruj się",
       login: "Logowanie",

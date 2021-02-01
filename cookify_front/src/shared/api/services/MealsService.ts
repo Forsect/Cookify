@@ -26,7 +26,7 @@ export class DefaultMealsService implements MealsService {
   private getMealsListForUserUrl = "/meals/GetMealsList";
   private addMealToListUrl = "/meals/AddMealToList";
   private removeMealFromListUrl = "/meals/RemoveMealFromList";
-  private updateMealFromListUrl = "/meals/UpdateMealFromLis";
+  private updateMealFromListUrl = "/meals/UpdateMealFromList";
   private getDailyMealsListUrl = "/meals/GetDailyMealsList";
   private addDailyMealUrl = "/meals/AddDailyMeal";
   private removeDailyMealUrl = "/meals/RemoveDailyMeal";

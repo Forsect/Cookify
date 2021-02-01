@@ -89,7 +89,7 @@ namespace Cookify.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddGeneratedShoppingToList([FromBody] GeneratedShopping request)
+        public IActionResult AddGeneratedShoppingToList([FromBody] List<GeneratedShopping> request)
         {
             HttpContext.Request.Headers.TryGetValue(AppSettings.AuthenticationHeader, out var jwtValues);
             string jwtToken = jwtValues.FirstOrDefault();
@@ -110,7 +110,7 @@ namespace Cookify.API.Controllers
         }
 
         [HttpDelete]
-        public IActionResult RemoveGeneratedShoppingToList([FromBody] RemoveGeneratedShoppingRequest request)
+        public IActionResult RemoveGeneratedShoppingFromList([FromBody] RemoveGeneratedShoppingRequest request)
         {
             HttpContext.Request.Headers.TryGetValue(AppSettings.AuthenticationHeader, out var jwtValues);
             string jwtToken = jwtValues.FirstOrDefault();
@@ -125,7 +125,7 @@ namespace Cookify.API.Controllers
                 return Unauthorized();
             }
 
-            var result = _shoppingService.RemoveProductFromList(user.Id, request.MealId);
+            var result = _shoppingService.RemoveGeneratedShoppingFromList(user.Id, request.MealId);
 
             return result.IsSuccess ? new OkResult() : StatusCode(StatusCodes.Status500InternalServerError);
         }

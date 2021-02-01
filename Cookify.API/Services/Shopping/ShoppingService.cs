@@ -101,7 +101,7 @@ namespace Cookify.API.Services.Shopping
             }
         }
 
-        public ServiceResponse AddGeneratedShoppingToList(string userId, GeneratedShopping generatedShopping)
+        public ServiceResponse AddGeneratedShoppingToList(string userId, List<GeneratedShopping> generatedShopping)
         {
             try
             {
@@ -114,7 +114,7 @@ namespace Cookify.API.Services.Shopping
                     return ServiceResponse.Failed();
                 }
 
-                if (result.Count() == user.ShoppingList.GeneratedShoppingList.Count + 1)
+                if (result.Count() == user.ShoppingList.GeneratedShoppingList.Count + generatedShopping.Count)
                 {
                     return ServiceResponse.Succeeded();
                 }
@@ -122,7 +122,7 @@ namespace Cookify.API.Services.Shopping
                 {
                     return ServiceResponse.Failed();
                 }
-
+                return null;
             }
             catch (Exception ex)
             {
@@ -131,27 +131,27 @@ namespace Cookify.API.Services.Shopping
             }
         }
 
-        public ServiceResponse RemoveGeneratedShoppingToList(string userId, string shoppingId)
+        public ServiceResponse RemoveGeneratedShoppingFromList(string userId, string shoppingId)
         {
             try
             {
                 var user = _userRepository.GetWhere(x => x.Id == userId);
 
-                var result = _userRepository.RemoveProductFromList(user.Id, shoppingId);
+                var result = _userRepository.RemoveGeneratedShoppingFromList(user.Id, shoppingId);
 
                 if (result == null)
                 {
                     return ServiceResponse.Failed();
                 }
 
-                if (result.Count() == user.ShoppingList.MainShoppingList.Count - 1)
-                {
+                //if (result.Count() == user.ShoppingList.GeneratedShoppingList.Count - 1)
+                //{
                     return ServiceResponse.Succeeded();
-                }
-                else
-                {
-                    return ServiceResponse.Failed();
-                }
+                //}
+                //else
+                //{
+                //    return ServiceResponse.Failed();
+                //}
 
             }
             catch (Exception ex)

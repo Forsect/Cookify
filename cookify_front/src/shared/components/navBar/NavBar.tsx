@@ -56,7 +56,7 @@ const NavBar: React.FC<NavBarProps> = observer((props: NavBarProps) => {
                     });
                   });
                 });
-                //HERE AXIOS ROBI BRRRRRRR POST(request)
+                shoppingStore.addGeneratedShoppingToList(request);
                 props.setSelectedDays([]);
               }
               props.setScreen(Screen.ShoppingList);

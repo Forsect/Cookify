@@ -1,6 +1,11 @@
 import { AxiosPromise } from "axios";
 import { BASE_API_URL } from "../../constants/Constants";
-import { getWithJwt, postWithJwt, deleteWithJwt } from "./../BaseApi";
+import {
+  getWithJwt,
+  postWithJwt,
+  deleteWithJwt,
+  postArrayWithJwt,
+} from "./../BaseApi";
 import { GeneratedShopping, ShoppingList } from "../../models/ShoppingList";
 
 interface ShoppingService {
@@ -14,9 +19,9 @@ interface ShoppingService {
     jwtToken: string,
     request: GeneratedShopping[]
   ): AxiosPromise;
-  removeGeneratedShoppingToList(
+  removeGeneratedShoppingFromList(
     jwtToken: string,
-    generatedId: string
+    mealId: string
   ): AxiosPromise;
 }
 
@@ -26,8 +31,8 @@ export class DefaultShoppingService implements ShoppingService {
   private removeProductFromListUrl: string = "/shopping/RemoveProductFromList";
   private addGeneratedShoppingToListUrl: string =
     "/shopping/AddGeneratedShoppingToList";
-  private removeGeneratedShoppingToListUrl: string =
-    "/shopping/RemoveGeneratedShoppingToList";
+  private removeGeneratedShoppingFromListUrl: string =
+    "/shopping/RemoveGeneratedShoppingFromList";
 
   getShoppingListForUser(
     jwtToken: string,
@@ -59,18 +64,22 @@ export class DefaultShoppingService implements ShoppingService {
     jwtToken: string,
     request: GeneratedShopping[]
   ): AxiosPromise {
-    return postWithJwt<AxiosPromise>(
-      BASE_API_URL + this.addProductToListUrl,
+    return postArrayWithJwt<AxiosPromise>(
+      BASE_API_URL + this.addGeneratedShoppingToListUrl,
       jwtToken,
       request
     );
   }
 
-  removeGeneratedShoppingToList(
+  removeGeneratedShoppingFromList(
     jwtToken: string,
-    generatedId: string
+    mealId: string
   ): AxiosPromise {
-    throw new Error("Method not implemented.");
+    return deleteWithJwt<AxiosPromise>(
+      BASE_API_URL + this.removeGeneratedShoppingFromListUrl,
+      jwtToken,
+      { MealId: mealId }
+    );
   }
 }
 

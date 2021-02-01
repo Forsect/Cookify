@@ -93,7 +93,7 @@ const ShoppingList: React.FC = observer(() => {
           <ShoppingListObject
             key={index}
             onDelete={() => {
-              //AXIOS
+              shoppingStore.removeGeneratedShoppingFromList(item.id);
             }}
             items={item.ingredients}
             header={item.name}

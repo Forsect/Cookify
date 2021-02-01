@@ -25,7 +25,7 @@ namespace Cookify.API.Repositories.Users
         List<DailyMeals> GetDailyMealsList(string userId);
         IEnumerable<DailyMeals> AddOrUpdateDailyMeal(string userId, AddOrRemoveDailyMealRequest dailyMeal);
         IEnumerable<DailyMeals> RemoveDailyMeal(string userId, AddOrRemoveDailyMealRequest dailyMeal);
-        IEnumerable<GeneratedShopping> AddGeneratedShoppingToList(string userId, GeneratedShopping generatedShopping);
+        IEnumerable<GeneratedShopping> AddGeneratedShoppingToList(string userId, List<GeneratedShopping> generatedShopping);
         IEnumerable<GeneratedShopping> RemoveGeneratedShoppingFromList(string userId, string generatedShoppingId);
     }
 }

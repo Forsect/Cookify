@@ -1,5 +1,5 @@
 import { makeObservable, observable, action } from "mobx";
-import { ShoppingList } from "../models/ShoppingList";
+import { GeneratedShopping, ShoppingList } from "../models/ShoppingList";
 import { refreshToken } from "./../api/AuthProvider";
 import RequestHelper from "../api/RequestHelper";
 import ShoppingService from "../api/services/ShoppingService";
@@ -20,6 +20,8 @@ class ShoppingStore {
       getShoppingListForUser: action,
       addProductToList: action,
       removeProductFromList: action,
+      addGeneratedShoppingToList: action,
+      removeGeneratedShoppingFromList: action,
     });
   }
 
@@ -64,7 +66,6 @@ class ShoppingStore {
       await this.getShoppingListForUser();
     } catch {
       return;
-    } finally {
     }
   }
 
@@ -83,7 +84,44 @@ class ShoppingStore {
       await this.getShoppingListForUser();
     } catch {
       return;
-    } finally {
+    }
+  }
+
+  async addGeneratedShoppingToList(generatedShopping: GeneratedShopping[]) {
+    try {
+      const jwtToken = await refreshToken();
+
+      if (!jwtToken) {
+        return;
+      }
+
+      console.dir(generatedShopping);
+
+      await RequestHelper.handleAnyRequest(() =>
+        ShoppingService.addGeneratedShoppingToList(jwtToken, generatedShopping)
+      );
+
+      await this.getShoppingListForUser();
+    } catch {
+      return;
+    }
+  }
+
+  async removeGeneratedShoppingFromList(mealId: string) {
+    try {
+      const jwtToken = await refreshToken();
+
+      if (!jwtToken) {
+        return;
+      }
+
+      await RequestHelper.handleAnyRequest(() =>
+        ShoppingService.removeGeneratedShoppingFromList(jwtToken, mealId)
+      );
+
+      await this.getShoppingListForUser();
+    } catch {
+      return;
     }
   }
 }

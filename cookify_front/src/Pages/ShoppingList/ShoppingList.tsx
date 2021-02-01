@@ -16,31 +16,6 @@ interface ShoppingListObjectMock {
 const ShoppingList: React.FC = observer(() => {
   const [errorText, setErrorText] = useState<string>("");
   const [newProduct, setNewProduct] = useState<string>("");
-  // const [shoppingList, setShoppingList] = useState<string[]>([]);
-
-  const [shoppingListObjects, setShoppingListObjects] = useState<
-    ShoppingListObjectMock[]
-  >([
-    { object: { name: "Frytki ze schabowym", items: [] } },
-    {
-      object: {
-        name: "Jajecznica",
-        items: ["4 jajka", "sól", "pieprz", "szczypiorek"],
-      },
-    },
-    {
-      object: {
-        name: "Frytki z kurczakiem",
-        items: [
-          "1 kg kurczaka",
-          "sól",
-          "pieprz",
-          "przyprawa do kurczaka",
-          "folia aluminiowa",
-        ],
-      },
-    },
-  ]);
 
   const { shoppingStore, mealsStore } = useStore();
 
@@ -60,6 +35,7 @@ const ShoppingList: React.FC = observer(() => {
   useEffect(() => {
     shoppingStore.getShoppingListForUser();
     mealsStore.getMealsListForUser();
+    mealsStore.getDailyMeals();
     //eslint-disable-next-line
   }, []);
 
@@ -113,16 +89,14 @@ const ShoppingList: React.FC = observer(() => {
             );
           })}
         </div>
-        {shoppingListObjects.map((item, index) => (
+        {shoppingStore.shoppingList.generatedShoppingList.map((item, index) => (
           <ShoppingListObject
             key={index}
-            onDelete={() =>
-              setShoppingListObjects(
-                shoppingListObjects.filter((x, index2) => index2 !== index)
-              )
-            }
-            items={item.object.items}
-            header={item.object.name}
+            onDelete={() => {
+              //AXIOS
+            }}
+            items={item.ingredients}
+            header={item.name}
           />
         ))}
       </div>

@@ -58,7 +58,6 @@ const SelectedDay: React.FC<SelectedDayProps> = observer(
           specialMark="&#x2B; "
           text={pl.calendar.addNewMeal}
           onClick={() => {
-            console.dir(props.date);
             setIsSearchInputVisible(true);
           }}
           variant={ButtonVariant.Orange}

@@ -10,7 +10,12 @@ import Checkbox from "../../shared/components/checkboxes/Checkbox";
 import { CAPTCHA_KEY } from "../../shared/constants/Constants";
 import Button from "../../shared/components/buttons/Button";
 import { ButtonVariant } from "../../shared/enums/ButtonVariant";
-import { emailRegex, bigCharRegex, smallCharRegex, specialCharOrDigitRegex } from "../../shared/constants/Regex";
+import {
+  emailRegex,
+  bigCharRegex,
+  smallCharRegex,
+  specialCharOrDigitRegex,
+} from "../../shared/constants/Regex";
 import InfoBar from "../../shared/components/custom/InfoBar";
 import { InfoBarVariant } from "../../shared/enums/InfoBarVariant";
 import { observer } from "mobx-react-lite";
@@ -92,8 +97,15 @@ const Register: React.FC = observer(() => {
         />
 
         <div className={styles.checkboxContainer}>
-          <Checkbox checked={isChecked} sizeClass={styles.checkbox} onCheckedChanged={() => setChecked(!isChecked)} />
-          <Text className={styles.regulationsOfServiceText} text={pl.registration.regulationsOfService} />
+          <Checkbox
+            checked={isChecked}
+            sizeClass={styles.checkbox}
+            onCheckedChanged={() => setChecked(!isChecked)}
+          />
+          <Text
+            className={styles.regulationsOfServiceText}
+            text={pl.registration.regulationsOfService}
+          />
         </div>
       </div>
       <div className={styles.reCaptcha}>
@@ -114,7 +126,6 @@ const Register: React.FC = observer(() => {
         variant={ButtonVariant.Blue}
         text={pl.registration.buttons.register}
         onClick={async () => {
-          console.dir(password);
           if (!formValidator()) return;
 
           const result = await userStore.registerUser(email, password);
@@ -127,8 +138,16 @@ const Register: React.FC = observer(() => {
         }}
       />
       <div className={styles.infoContainer}>
-        {errorText && <InfoBar variant={InfoBarVariant.Red} text={errorText} onClose={() => setErrorText("")} />}
-        {userStore.registerUserIsLoading && <Loader text={pl.loading} containerClass={styles.Loader} />}
+        {errorText && (
+          <InfoBar
+            variant={InfoBarVariant.Red}
+            text={errorText}
+            onClose={() => setErrorText("")}
+          />
+        )}
+        {userStore.registerUserIsLoading && (
+          <Loader text={pl.loading} containerClass={styles.Loader} />
+        )}
       </div>
       <Button
         className={styles.button}

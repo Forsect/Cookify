@@ -7,7 +7,7 @@ using Cookify.API;
 using Cookify.API.Models.Repository;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Clavis.API.Utilities
+namespace Cookify.API.Utilities
 {
     public static class JwtHelper
     {

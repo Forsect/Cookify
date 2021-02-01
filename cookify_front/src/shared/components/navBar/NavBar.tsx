@@ -1,13 +1,13 @@
-import axios from "axios";
-import React, { useState } from "react";
+import { observer } from "mobx-react-lite";
+import React from "react";
 import UserIconPopper from "../../../Pages/Home/PopperUserIcon";
 import { Screen } from "../../enums/Screen";
 import { DailyMeals } from "../../models/DailyMeals";
 import { GeneratedShopping } from "../../models/ShoppingList";
+import { useStore } from "../../stores/Store";
 import Text from "../../Text";
 import CalendarIcon from "../icons/CalendarIcon";
 import ShoppingCartIcon from "../icons/ShoppingCartIcon";
-import UserIcon from "../icons/UserIcon";
 import styles from "./NavBar.module.scss";
 
 interface NavBarProps {
@@ -18,53 +18,8 @@ interface NavBarProps {
   setSelectedDays: (days: DailyMeals[]) => void;
 }
 
-const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
-  // const [iconVariant, setIconVariant] = useState<any>();
-  // const [test, setTest] = useState<boolean>();
-
-  // const mapScreenToIcon = (screen: Screen) => {
-  //   switch (screen) {
-  //     case Screen.Calendar:
-  //       setIconVariant(NavBarIconVariant.Calendar);
-  //       return (
-  //         <CalendarIcon
-  //           className={styles.calendarIcon}
-  //           onClick={() => props.setScreen(Screen.ShoppingList)}
-  //         />
-  //       );
-  //       break;
-  //     case Screen.ShoppingList:
-  //       setIconVariant(NavBarIconVariant.ShoppingCart);
-  //       return (
-  //         <ShoppingCartIcon
-  //           className={styles.shoppingCartIcon}
-  //           onClick={() => props.setScreen(Screen.Calendar)}
-  //         />
-  //       );
-  //       break;
-  //     case Screen.Meals:
-  //       if (iconVariant === NavBarIconVariant.Calendar) {
-  //         setIconVariant(NavBarIconVariant.Calendar);
-  //         return (
-  //           <CalendarIcon
-  //             className={styles.calendarIcon}
-  //             onClick={() => props.setScreen(Screen.ShoppingList)}
-  //           />
-  //         );
-  //       } else if (iconVariant === NavBarIconVariant.ShoppingCart) {
-  //         setIconVariant(NavBarIconVariant.ShoppingCart);
-  //         return (
-  //           <ShoppingCartIcon
-  //             className={styles.shoppingCartIcon}
-  //             onClick={() => props.setScreen(Screen.Calendar)}
-  //           />
-  //         );
-  //       }
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  // };
+const NavBar: React.FC<NavBarProps> = observer((props: NavBarProps) => {
+  const { shoppingStore } = useStore();
 
   return (
     <div className={styles.navBar}>
@@ -93,7 +48,7 @@ const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
               if (props.selectedDays.length > 0) {
                 let request: GeneratedShopping[] = [];
                 props.selectedDays.forEach((day) => {
-                  day.meals.forEach((meal) => {
+                  day.mealsList.forEach((meal) => {
                     request.push({
                       id: meal.id,
                       name: meal.name,
@@ -101,8 +56,7 @@ const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
                     });
                   });
                 });
-                console.dir(request);
-                //HERE AXIOS ROBI BRRRRRRR
+                shoppingStore.addGeneratedShoppingToList(request);
                 props.setSelectedDays([]);
               }
               props.setScreen(Screen.ShoppingList);
@@ -127,6 +81,6 @@ const NavBar: React.FC<NavBarProps> = (props: NavBarProps) => {
       </div>
     </div>
   );
-};
+});
 
 export default NavBar;

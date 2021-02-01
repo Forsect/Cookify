@@ -26,7 +26,7 @@ export class DefaultMealsService implements MealsService {
   private getMealsListForUserUrl = "/meals/GetMealsList";
   private addMealToListUrl = "/meals/AddMealToList";
   private removeMealFromListUrl = "/meals/RemoveMealFromList";
-  private updateMealFromListUrl = "/meals/UpdateMealFromLis";
+  private updateMealFromListUrl = "/meals/UpdateMealFromList";
   private getDailyMealsListUrl = "/meals/GetDailyMealsList";
   private addDailyMealUrl = "/meals/AddDailyMeal";
   private removeDailyMealUrl = "/meals/RemoveDailyMeal";
@@ -79,9 +79,9 @@ export class DefaultMealsService implements MealsService {
     request: AddOrRemoveDailyMealRequest
   ): AxiosPromise {
     return deleteWithJwt<AxiosPromise>(
-      BASE_API_URL + this.removeMealFromListUrl,
+      BASE_API_URL + this.removeDailyMealUrl,
       jwtToken,
-      request
+      toJS(request)
     );
   }
 }

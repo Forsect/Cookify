@@ -157,10 +157,10 @@ namespace Cookify.API.Repositories.Users
             return result?.DailyMealsList;
         }
 
-        public IEnumerable<GeneratedShopping> AddGeneratedShoppingToList(string userId, GeneratedShopping generatedShopping)
+        public IEnumerable<GeneratedShopping> AddGeneratedShoppingToList(string userId, List<GeneratedShopping> generatedShopping)
         {
             var filter = Builders<User>.Filter.Eq(x => x.Id, userId);
-            var update = Builders<User>.Update.Push(x => x.ShoppingList.GeneratedShoppingList, generatedShopping);
+            var update = Builders<User>.Update.PushEach(x => x.ShoppingList.GeneratedShoppingList, generatedShopping);
 
             var result = _users.FindOneAndUpdateExtAfter(filter, update);
 

@@ -65,7 +65,6 @@ const Meals: React.FC = observer(() => {
           {mealsStore.mealsList
             .filter((x) => searchByName(x, searchedName))
             .map((meal) => {
-              console.dir(meal);
               return (
                 <MealsListItem
                   onClick={() => {

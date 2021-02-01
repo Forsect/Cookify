@@ -22,6 +22,13 @@ export function postWithJwt<T>(url: string, jwtToken: string, data: any) {
   );
 }
 
+export function postArrayWithJwt<T>(url: string, jwtToken: string, data: any) {
+  return baseApi.post<T>(url, data, {
+    withCredentials: true,
+    headers: { Authentication: jwtToken },
+  });
+}
+
 export function get<T>(url: string) {
   return baseApi.get<T>(url, { withCredentials: true });
 }

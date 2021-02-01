@@ -7,6 +7,7 @@ import styles from "./Calendar.module.scss";
 import SelectedDay from "../../shared/components/calendar/SelectedDay";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../shared/stores/Store";
+import { setFlagsFromString } from "v8";
 
 interface CalendarProps {
   selectedDays: DailyMeals[];
@@ -23,7 +24,6 @@ const Calendar: React.FC<CalendarProps> = observer((props: CalendarProps) => {
   const { mealsStore } = useStore();
 
   const [calendar, setCalendar] = useState<Date[]>([getDateWithoutHours()]);
-  // const [event, setEvent] = useState<DailyMeals[]>([]);
   const [selectedDay, setSelectedDay] = useState<Date | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const firstElement = useRef<any>(null);
@@ -32,7 +32,7 @@ const Calendar: React.FC<CalendarProps> = observer((props: CalendarProps) => {
   const addDays = () => {
     const lastDate = calendar[calendar.length - 1];
     let newDates = [];
-    for (let i = 1; i < 10; i++) {
+    for (let i = 1; i < 20; i++) {
       newDates.push(add(lastDate, { days: i }));
     }
     setCalendar([...calendar, ...newDates]);
@@ -44,7 +44,6 @@ const Calendar: React.FC<CalendarProps> = observer((props: CalendarProps) => {
   }, []);
 
   const renderItem = (day: Date, index: number) => {
-    console.dir(mealsStore.dailyMealsList.find((x) => isSameDay(x.date, day)));
     return (
       <SingleCalendarItem
         isSelected={props.selectedDays.some((x) => isSameDay(day, x.date))}
@@ -57,7 +56,8 @@ const Calendar: React.FC<CalendarProps> = observer((props: CalendarProps) => {
             : null
         }
         scheduledMeals={
-          mealsStore.dailyMealsList.find((x) => isSameDay(x.date, day))?.meals
+          mealsStore.dailyMealsList.find((x) => isSameDay(x.date, day))
+            ?.mealsList
         }
         key={day.toString()}
         date={day}
@@ -76,8 +76,6 @@ const Calendar: React.FC<CalendarProps> = observer((props: CalendarProps) => {
           }
         }}
         onClick={() => {
-          // let mealExists = event.find((x) => isSameDay(x.date, day));
-          // if (mealExists) setSelectedDay(mealExists);
           setSelectedDay(day);
         }}
       />
@@ -106,28 +104,17 @@ const Calendar: React.FC<CalendarProps> = observer((props: CalendarProps) => {
   const counter = useRef(0);
 
   useEffect(() => {
-    if (counter.current < 2) {
+    if (counter.current < 1) {
       if (containerRef.current !== null) {
         containerRef.current.scrollTop = 570;
       }
     }
   }, [calendar]);
 
-  useEffect(() => {
-    mealsStore.getDailyMeals();
-    //eslint-disable-next-line
-  }, []);
-
   return selectedDay ? (
     <SelectedDay
       onClose={() => {
         setSelectedDay(null);
-        // if (
-        //   selectedElementRef.current !== null &&
-        //   containerRef.current !== null
-        // ) {
-        //   containerRef.current.scrollTop = selectedElementRef.current.scrollTop;
-        // }
       }}
       onDelete={(dailyMeal) => {
         mealsStore.removeDailyMeal(dailyMeal);

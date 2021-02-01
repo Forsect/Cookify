@@ -1,5 +1,5 @@
 export enum Screen {
   ShoppingList = "Lista zakupów",
-  Calendar = "Cookify",
+  Calendar = "Cookibuy",
   Meals = "Posiłki",
 }

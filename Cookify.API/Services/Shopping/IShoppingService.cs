@@ -13,5 +13,7 @@ namespace Cookify.API.Services.Shopping
         ServiceResponse<ShoppingList> GetShoppingListForUser(string id);
         ServiceResponse AddProductToList(string userId, string productName);
         ServiceResponse RemoveProductFromList(string userId, string productName);
+        ServiceResponse AddGeneratedShoppingToList(string userId, GeneratedShopping generatedShopping);
+        ServiceResponse RemoveGeneratedShoppingToList(string userId, string shoppingId);
     }
 }

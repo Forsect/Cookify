@@ -1,4 +1,4 @@
-﻿using Clavis.API.Utilities;
+﻿using Cookify.API.Utilities;
 using Cookify.API.Models.Requests;
 using Cookify.API.Models.Settings;
 using Cookify.API.Services.Meals;

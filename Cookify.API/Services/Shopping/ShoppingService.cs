@@ -100,5 +100,65 @@ namespace Cookify.API.Services.Shopping
                 return ServiceResponse<ShoppingList>.Failed();
             }
         }
+
+        public ServiceResponse AddGeneratedShoppingToList(string userId, GeneratedShopping generatedShopping)
+        {
+            try
+            {
+                var user = _userRepository.GetWhere(x => x.Id == userId);
+
+                var result = _userRepository.AddGeneratedShoppingToList(user.Id, generatedShopping);
+
+                if (result == null)
+                {
+                    return ServiceResponse.Failed();
+                }
+
+                if (result.Count() == user.ShoppingList.GeneratedShoppingList.Count + 1)
+                {
+                    return ServiceResponse.Succeeded();
+                }
+                else
+                {
+                    return ServiceResponse.Failed();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogCritical(ex.ToString());
+                return ServiceResponse.Failed();
+            }
+        }
+
+        public ServiceResponse RemoveGeneratedShoppingToList(string userId, string shoppingId)
+        {
+            try
+            {
+                var user = _userRepository.GetWhere(x => x.Id == userId);
+
+                var result = _userRepository.RemoveProductFromList(user.Id, shoppingId);
+
+                if (result == null)
+                {
+                    return ServiceResponse.Failed();
+                }
+
+                if (result.Count() == user.ShoppingList.MainShoppingList.Count - 1)
+                {
+                    return ServiceResponse.Succeeded();
+                }
+                else
+                {
+                    return ServiceResponse.Failed();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogCritical(ex.ToString());
+                return ServiceResponse.Failed();
+            }
+        }
     }
 }

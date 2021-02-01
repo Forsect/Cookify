@@ -44,10 +44,7 @@ const Calendar: React.FC<CalendarProps> = observer((props: CalendarProps) => {
   }, []);
 
   const renderItem = (day: Date, index: number) => {
-    // console.log(typeof day);
-    // console.dir(day);
-    // console.dir(mealsStore.dailyMealsList);
-    console.dir(mealsStore.dailyMealsList.find((x) => isSameDay(x.date, day)));
+    console.dir(mealsStore.dailyMealsList);
     return (
       <SingleCalendarItem
         isSelected={props.selectedDays.some((x) => isSameDay(day, x.date))}
@@ -126,6 +123,12 @@ const Calendar: React.FC<CalendarProps> = observer((props: CalendarProps) => {
     <SelectedDay
       onClose={() => {
         setSelectedDay(null);
+        // if (
+        //   selectedElementRef.current !== null &&
+        //   containerRef.current !== null
+        // ) {
+        //   containerRef.current.scrollTop = selectedElementRef.current.scrollTop;
+        // }
       }}
       onDelete={(dailyMeal) => {
         mealsStore.removeDailyMeal(dailyMeal);

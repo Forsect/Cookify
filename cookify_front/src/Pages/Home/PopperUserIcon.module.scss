@@ -4,27 +4,38 @@
   position: absolute;
   inset: 0px auto auto 0px;
   transform: translate(14px, 47px);
-  border-radius: 16px;
+  border-radius: 5px;
 }
 
 .menuContainer {
   display: flex;
   flex-direction: column;
-  border-radius: 16px;
+  border-radius: 25px;
   justify-content: center;
-  background-color: rgb(231, 231, 231);
+  background-color: rgb(255, 255, 255);
   color: black;
   border: 1px solid black;
+  font-weight: bold;
   padding: 16px;
+  text-transform: uppercase;
+  width: 150px;
 }
 
 .menuItem {
   &:hover {
-    background-color: rgb(201, 195, 195);
-    border-radius: 8px;
+    background-color: rgb(207, 194, 194);
+    border-radius: 5px;
+    border-left: 10px cyan solid;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    transform: translateX(5px);
   }
-  // background-color: red;
+  //background-color: red;
   cursor: pointer;
   padding: 6px;
   margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
 }

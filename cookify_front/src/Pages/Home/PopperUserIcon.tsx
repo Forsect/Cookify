@@ -6,6 +6,10 @@ import styles from "./PopperUserIcon.module.scss";
 import { JWT_LOCAL_STORAGE_KEY } from "../../shared/constants/Constants";
 import { Redirect, useHistory } from "react-router-dom";
 import { Navigation } from "../../shared/enums/Navigation";
+import { AiOutlineBook } from "react-icons/ai";
+import { AiOutlineLogout } from "react-icons/ai";
+
+
 
 interface UserIconPopperProps {
   className: string;
@@ -47,7 +51,7 @@ const UserIconPopper: React.FC<UserIconPopperProps> = (
                       props.onClick();
                       setIsVisible(false);
                     }}>
-                    Posiłki
+                    <AiOutlineBook /> Posiłki
                   </div>
                   <div
                     className={styles.menuItem}
@@ -55,7 +59,7 @@ const UserIconPopper: React.FC<UserIconPopperProps> = (
                       localStorage.removeItem(JWT_LOCAL_STORAGE_KEY);
                       history.replace(Navigation.Login);
                     }}>
-                    Wyloguj
+                    <AiOutlineLogout /> Wyloguj
                   </div>
                 </div>
                 <div ref={arrowProps.ref} style={arrowProps.style} />
